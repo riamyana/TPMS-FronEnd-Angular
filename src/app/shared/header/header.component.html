@@ -1,0 +1,43 @@
+<mat-toolbar color="accent" class="nav">
+    <div>
+        <span>TPMS</span>
+    </div>
+    <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+        <ul fxLayout class="navigation-items">
+            <!-- <li> <a mat-button routerLink="/home" [routerLinkActive]="">Home</a> </li>
+            <li *ngFor="let menu of menuItem; index as i;"> <a mat-button *ngIf="menu.active || isLoggedIn()" [routerLink]="menu.routerLink">{{menu.label}}</a> </li>
+            <li> <a mat-button *ngIf="!isLoggedIn()" routerLink="login">Login</a> </li>
+            <li> <a mat-button *ngIf="isLoggedIn()" (click)="logout()">Logout</a> </li>
+            <li> <a mat-button href="#">About Us</a> </li> -->
+            <!-- <span class="logo">dfjdk</span> -->
+
+            <li> <a mat-button [routerLink]="isLoggedIn()?'admin/dashboard':'/home'" routerLinkActive="activeLink">Home</a> </li>
+            <li> <a mat-button *ngIf="isLoggedIn()" [matMenuTriggerFor]="member" routerLinkActive="activeLink">
+                Manage Member <span class="material-icons">expand_more</span>
+                </a> 
+                <mat-menu #member="matMenu">
+                    <a routerLink="admin/manage-member" routerLinkActive="activeLink" mat-menu-item color="primary">Add Member Type</a>
+                    <a routerLink="admin/manage-member" routerLinkActive="activeLink" mat-menu-item>Add Proof</a>
+                    <a routerLink="admin/manage-member" routerLinkActive="activeLink" mat-menu-item>Add Member wise Proof</a>
+                </mat-menu>
+            </li>
+            <li> <a mat-button *ngIf="isLoggedIn()" [matMenuTriggerFor]="package" routerLinkActive="activeLink">
+                Manage Package <span class="material-icons">expand_more</span>
+                </a> 
+                <mat-menu #package="matMenu">
+                    <a routerLink="admin/manage-member" routerLinkActive="activeLink" mat-menu-item color="primary">Add Transport Mode</a>
+                    <a routerLink="admin/manage-member" routerLinkActive="activeLink" mat-menu-item>Add Subsription Type</a>
+                    <a routerLink="admin/manage-member" routerLinkActive="activeLink" mat-menu-item>Add Member Wise Proof</a>
+                    <a routerLink="admin/manage-member" routerLinkActive="activeLink" mat-menu-item>Add Package</a>
+                    <a routerLink="admin/manage-member" routerLinkActive="activeLink" mat-menu-item>Add Transport Mode Wise Package</a>
+                </mat-menu>
+            </li>
+            <li> <a mat-button *ngIf="!isLoggedIn()" routerLink="admin/login" routerLinkActive="activeLink">Login</a> </li>
+            <li> <a mat-button *ngIf="isLoggedIn()" (click)="logout()" routerLinkActive="activeLink">Logout</a> </li>
+            <li> <a mat-button href="#">About Us</a> </li>
+
+            <span *ngIf="isLoggedIn()" class="material-icons logged">account_circle</span>
+            <span *ngIf="isLoggedIn()" class="profile">{{this.authService.currentUserValue.userName}}</span>
+        </ul>
+    </div>
+</mat-toolbar>

@@ -1,0 +1,83 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$theme-primary: (
+    50: #5e383c,
+    100: #8D534B,
+    200: #B77353,
+    300: #DA9A58,
+    400: #c9a6a9,
+    500: #c9a6a9,
+    600: #724649,
+    700: #191010,
+    800: #251818,
+    900: #3e2828,
+    A100: #955F5F,
+    A200: #e7dada,
+    A400: #B69090,
+    A700: #885959,
+    contrast: (
+        50: $black-87-opacity,
+        100: $black-87-opacity,
+        200: $black-87-opacity,
+        300: $black-87-opacity,
+        400: $black-87-opacity,
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: $black-87-opacity,
+        A200: $black-87-opacity,
+        A400: $black-87-opacity,
+        A700: white,
+    )
+);
+
+$theme-accent: (
+    50: #55c1b8,
+    100: #8af4ea,
+    200: #119088,
+    300: #DA9A58,
+    400: #F0C75F,
+    500: #F9F871,
+    600: #4072b4,
+    700: #38649d,
+    800: #305687,
+    900: #284770,
+    A100: #ffffff,
+    A200: #dde6f3,
+    A400: #6992c9,
+    A700: #38649d,
+    contrast: (
+        50: $black-87-opacity,
+        100: $black-87-opacity,
+        200: $black-87-opacity,
+        300: $black-87-opacity,
+        400: $black-87-opacity,
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: $black-87-opacity,
+        A200: $black-87-opacity,
+        A400: $black-87-opacity,
+        A700: white,
+    )
+);
+
+$Demo-primary: mat-palette($theme-primary, 50, 100, 200);
+$Demo-accent: mat-palette($theme-accent, 50, 100, 200);
+$Demo-warn: mat-palette($mat-red);
+
+$Demo-theme: mat-light-theme((
+  color: (
+    primary: $Demo-primary,
+    accent: $Demo-accent,
+    warn: $Demo-warn,
+  )
+));
+
+@include angular-material-theme($Demo-theme);

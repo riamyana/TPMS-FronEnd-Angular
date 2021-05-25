@@ -1,0 +1,63 @@
+span {
+    color: rgb(175, 177, 170);
+}
+.nav {
+    background: rgba(96, 61, 61);
+    width: 100vw;
+    height: 7vh;
+}
+  
+.header {
+    display: flex;
+}
+  
+ul {
+    float: right;
+    list-style-type: none;
+}
+  
+ul li {
+    display: inline-block;
+    padding: 5px;
+}
+  
+ul li a {
+    // border: solid white;
+    // border: solid rgb(142, 135, 65);
+    // color: white;
+    color: rgb(175, 177, 170);
+    font-size: 2vh;
+}
+  
+ul li a:hover {
+    background: rgb(175, 177, 170);
+    color: rgba(96, 61, 61, 0.9);
+}
+  
+// ul li .active a {
+//     background: rgb(142, 135, 65);
+// }
+
+.active {
+    color:white;
+}
+
+.xyz {
+    color: white;
+}
+
+.activeLink {
+    background: rgb(175, 177, 170);
+    color: rgba(96, 61, 61, 0.9) !important;
+}
+
+.logged {
+    padding: 10px;
+    font-size: 150%;
+}
+
+.profile {
+    padding: 10px;
+    padding-left: 0px;
+    font-size: 100%;
+}

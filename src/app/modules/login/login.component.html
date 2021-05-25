@@ -1,0 +1,55 @@
+<div class="container" fxLayout fxFlex>
+    <div *ngIf="loader.isLoading | async"  class="loader">
+        <mat-spinner style="top:40%; left:50%" color="primary"></mat-spinner>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex>
+        <div fxLayout="100%">
+            <!-- <li> <a mat-button routerLink="/home" [routerLinkActive]="" [ngClass]="rla.isActive?'active':''"  #rla="routerLinkActive">Home</a> </li> -->
+            <!-- <span class="logo">dfjdk</span> -->
+            <!-- <mat-card>dkfj</mat-card> -->
+            <div fxFlex="60" class="left" fxHide.lt-md  fxLayoutAlign="space-evenly center" fxLayout="column">
+                <img src="../../../assets/man-1718099_1920.jpg" alt="">
+                <!-- <div>
+                    <h1>kdjfkjdjf</h1>
+                    dkfjdkj
+                    <div>kdfjk</div>
+                </div> -->
+            </div>
+
+            <div fxFlex="45" fxLayoutAlign="center" class="login" fxFlex.xs="100%" fxFlex.sm="100%">
+                <form fxLayout="column" [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()">
+                    <!-- <div class="profile"><img src="../../../assets/undraw_profile_pic_ic5t.svg" alt=""></div> -->
+                    <mat-form-field class="example-full-width">
+                        <mat-label><span></span>User Name</mat-label>
+                        <input matInput formControlName="userName" placeholder="Ex. abc@gamil.com or userName"
+                            [errorStateMatcher]="matcher">
+                        <mat-error>
+                            Please provide a valid email address
+                        </mat-error>
+                    </mat-form-field>
+                    <!--           
+                        <mat-form-field class="example-full-width">
+                          <mat-label>Email</mat-label>
+                          <input matInput placeholder="Ex. abc@gmail.com">
+                        </mat-form-field> -->
+
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Password</mat-label>
+                        <input type="password" formControlName="password" matInput placeholder="Password"
+                            [errorStateMatcher]="matcher">
+                        <mat-error>
+                            Please provide a valid password
+                        </mat-error>
+                    </mat-form-field>
+
+                    <button mat-raised-button type="submit" color="primary">Login</button>
+
+                    <!-- <mat-spinner></mat-spinner> -->
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

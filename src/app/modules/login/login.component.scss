@@ -1,0 +1,62 @@
+.container {
+    // background: rgb(182, 182, 176, 0.7);
+    height: 80vh;
+    width: 80vw;
+    border-radius: 5px 5px 5px 5px;
+    // margin: 10vh;
+    // margin-left: 35vh;
+    // margin-right: 200px;
+}
+
+.left {
+    background: rgba(2, 118, 116);
+    border-radius: 5px 5px 5px 5px;
+    height: 70vh;
+    width: 50vw;
+}
+
+.left img {
+    // background-size: cover;
+    // background-position: center;
+    height: 100%;
+    width: 100%;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.form {
+    width: 70%;
+    margin-top: 40%;
+}
+
+.login {
+    background: white;
+}
+
+input {
+    background-color: rgb(0, 191, 166);
+    height: 6vh;
+    border-radius: 5px 5px 5px 5px;
+    padding: 2px;
+    // width: 100vw;
+}
+
+button {
+    color: white;
+}
+
+img {
+    width: 10vw;
+}
+
+.loader {
+    position: absolute;
+    height: 90%;
+    width: 90%;
+    opacity: 0.8;
+    z-index: 99;
+}
+
+.mat-raised-button {
+    color: #55c1b8;
+    font-size: 20px;
+}

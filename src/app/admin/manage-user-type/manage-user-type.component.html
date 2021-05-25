@@ -1,0 +1,43 @@
+<mat-card class="card">
+    <mat-card-header>
+        <!-- <div mat-card-avatar class="example-header-image"></div> -->
+        <mat-card-title>Manage Member Type</mat-card-title>
+    </mat-card-header>
+    <div class="mat-elevation-z8">
+        <div *ngIf="loader.isLoading | async" class="loader">
+            <mat-spinner style="top:50%; left:50%" color="primary"></mat-spinner>
+        </div>
+        <div>
+            <button mat-raised-button color="accent">Add Member <mat-icon color="primary">add</mat-icon></button>
+        </div>
+        <table mat-table [dataSource]="listData" matSort>
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.memberTypeId}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="memberType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Member Type </th>
+                <td mat-cell *matCellDef="let element"> {{element.memberTypeName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button color="accent" #tooltip="matTooltip" matTooltip="Edit">
+                        <mat-icon>launch</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" #tooltip="matTooltip" matTooltip="Delete" (click)="onDelete()">
+                        <mat-icon>delete_outline</mat-icon>
+                    </button>
+                </td>
+                <td mat-cell *matCellDef="let element"> {{element.memberTypeName}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="dispCol"></tr>
+            <tr mat-row *matRowDef="let row; columns: dispCol;"></tr>
+        </table>
+        <mat-paginator pageSize="30" [pageSizeOptions]="[5,10,20,30]"></mat-paginator>
+    </div>
+</mat-card>
