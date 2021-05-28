@@ -1,0 +1,49 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" 
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>{{this.sideNavService.sideNavTitleValue}}</mat-toolbar>
+    <mat-nav-list *ngFor="let menu of this.sideNavService.currentSideMenuValue; index as i;">
+      <!-- <a mat-list-item routerLink="/home">Add Member Type</a>
+      <a mat-list-item href="/user-type">Add Proof</a>
+      <a mat-list-item href="/user-type">Add Member Wise Proof</a>
+      <li> <a mat-button routerLink="/home" [routerLinkActive]="">Home</a> </li>
+            <li *ngFor="let menu of menuItem; index as i;"> <a mat-button *ngIf="menu.active || isLoggedIn()" [routerLink]="menu.routerLink">{{menu.label}}</a> </li>
+            <li> <a mat-button *ngIf="!isLoggedIn()" routerLink="login">Login</a> </li>
+            <li> <a mat-button *ngIf="isLoggedIn()" (click)="logout()">Logout</a> </li>
+            <li> <a mat-button href="#">About Us</a> </li>
+            <span class="logo">dfjdk</span> -->
+            <a mat-list-item routerLink="admin/manage-member" (click)="setMenuTitle(menu.label)">{{menu.label}}</a>
+    </mat-nav-list>
+    <!-- <mat-nav-list> -->
+      <!-- <a mat-list-item routerLink="/home">Add Member Type</a>
+      <a mat-list-item href="/user-type">Add Proof</a>
+      <a mat-list-item href="/user-type">Add Member Wise Proof</a> -->
+      <!-- <li> <a mat-button routerLink="/home" [routerLinkActive]="">Home</a> </li>
+            <li *ngFor="let menu of menuItem; index as i;"> <a mat-button *ngIf="menu.active || isLoggedIn()" [routerLink]="menu.routerLink">{{menu.label}}</a> </li>
+            <li> <a mat-button *ngIf="!isLoggedIn()" routerLink="login">Login</a> </li>
+            <li> <a mat-button *ngIf="isLoggedIn()" (click)="logout()">Logout</a> </li>
+            <li> <a mat-button href="#">About Us</a> </li> -->
+            <!-- <span class="logo">dfjdk</span> -->
+            <!-- <a mat-list-item routerLink="admin/manage-member">Add Member</a>
+            <a mat-list-item href="#">Add Proof</a>
+    </mat-nav-list> -->
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="accent">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>{{this.sideNavService.navTitle}}</span>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,3 +1,4 @@
+import { AddMemberComponent } from './../../admin/manage-user-type/add-member/add-member.component';
 import { DashboardComponent } from './../../admin/dashboard/dashboard.component';
 import { AdminComponent } from './../../admin/admin.component';
 import { AdminLoginComponent } from './../../admin/admin-login/admin-login.component';
@@ -21,7 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     AdminLoginComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    AddMemberComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     LoginComponent,
     AdminLoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    AddMemberComponent
   ]
 })
 export class DefaultModule { }

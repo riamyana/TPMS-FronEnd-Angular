@@ -1,3 +1,4 @@
+import { FormErrorStateMatcher } from './../../ErrorStateMatcher/FormErrorStateMatcher';
 import { NotifierService } from './../../_services/notifier/notifier.service';
 import { LoaderService } from './../../_services/loader/loader.service';
 import { Roles } from './../../constants/roles';
@@ -8,12 +9,12 @@ import { FormControl, FormGroupDirective, NgForm, FormGroup, FormBuilder, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import { first } from 'rxjs/operators';
 
-export class LoginErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+// export class LoginErrorStateMatcher implements ErrorStateMatcher {
+//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+//     const isSubmitted = form && form.submitted;
+//     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+//   }
+// }
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   returnUrl: string;
   error = '';
-  matcher = new LoginErrorStateMatcher();
+  matcher = new FormErrorStateMatcher();
+  hide = true;
 
   constructor(
     private formBuilder: FormBuilder,

@@ -1,14 +1,11 @@
-<mat-card class="card">
-    <mat-card-header>
-        <!-- <div mat-card-avatar class="example-header-image"></div> -->
-        <mat-card-title>Manage Member Type</mat-card-title>
-    </mat-card-header>
-    <div class="mat-elevation-z8">
+<div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="space-around center">
+<mat-card class="card" fxFlex="60" fxFlex.xs="100%" fxFlex.md="100%">
+    <div class="mat-elevation-z8" fxLayout="column">
         <div *ngIf="loader.isLoading | async" class="loader">
             <mat-spinner style="top:50%; left:50%" color="primary"></mat-spinner>
         </div>
         <div>
-            <button mat-raised-button color="accent">Add Member <mat-icon color="primary">add</mat-icon></button>
+            <button mat-raised-button color="accent" (click)="onAddMember()">Add Member <mat-icon color="primary">add</mat-icon></button>
         </div>
         <table mat-table [dataSource]="listData" matSort>
             <ng-container matColumnDef="id">
@@ -41,3 +38,4 @@
         <mat-paginator pageSize="30" [pageSizeOptions]="[5,10,20,30]"></mat-paginator>
     </div>
 </mat-card>
+</div>

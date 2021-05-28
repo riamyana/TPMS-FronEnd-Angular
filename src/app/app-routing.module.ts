@@ -1,3 +1,5 @@
+import { ManagePackageComponent } from './admin/manage-package/manage-package.component';
+import { FullwidthComponent } from './layouts/fullwidth/fullwidth.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
@@ -20,7 +22,14 @@ const routes: Routes = [
   // { path: 'admin/login', component: AdminLoginComponent },
   // { path: 'admin/home', component: AdminHomeComponent },
   {
-    path: '', component: DefaultComponent, children: [{
+    path: '', component: DefaultComponent, children: [{ 
+      path: 'admin/manage-member', component: ManageUserTypeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Member' } 
+    }, { 
+      path: 'admin/manage-package', component: ManagePackageComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Package' } 
+    }]
+  },
+  {
+    path: '', component: FullwidthComponent, children: [{
       path: 'login', component: LoginComponent
     }, {
       path: 'home', component: HomeComponent
@@ -28,8 +37,6 @@ const routes: Routes = [
       path: 'admin/login', component: AdminLoginComponent
     }, { 
       path: 'admin/dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN } 
-    }, { 
-      path: 'admin/manage-member', component: ManageUserTypeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN } 
     }]
   }];
 

@@ -1,4 +1,13 @@
 import { Roles } from './roles';
+
+export interface NavItem {
+    displayName: string;
+    disabled?: boolean;
+    iconName: string;
+    route?: string;
+    children?: NavItem[];
+}
+
 export interface Menu {
     label: string;
     routerLink: string;
@@ -29,6 +38,30 @@ export const userMenu: users[] = [
     }
 ];
 
+export interface sideNav {
+    nav: string;
+    menu: Menu[];
+}
+
+export const sideNavMenu: sideNav[] = [
+    {
+        nav: 'Manage Member',
+        menu: [
+            { label: 'Manage Member Type', routerLink: '' },
+            { label: 'Manage Proof', routerLink: '' },
+            { label: 'Manage Member Wise Proof', routerLink: '' }
+        ]
+    },
+    {
+        nav: 'Manage Package',
+        menu: [
+            { label: 'Manage Package', routerLink: '' },
+            { label: 'Manage Proof', routerLink: '' },
+            { label: 'Manage Member Wise Proof', routerLink: '' }
+        ]
+    }
+]
+
 export class UserMenu {
     item: Menu[] = [];
     userMenu(user: Roles): Menu[] {
@@ -38,6 +71,21 @@ export class UserMenu {
                     this.item.push(menuItem);
                 });
             }
+        });
+        return this.item;
+    }
+}
+
+export class SideNav {
+    item: Menu[] = [];
+    sideNav(nav: string): Menu[] {
+        sideNavMenu.forEach((menuItem) => {
+            if (menuItem.nav === nav) {
+                this.item = [];
+                menuItem.menu.forEach((menuItem) => {
+                    this.item.push(menuItem);
+                });
+            } 
         });
         return this.item;
     }

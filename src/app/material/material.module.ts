@@ -19,7 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 const MaterialComponents = [
   MatButtonModule,
-  // MatFormFieldModule,
+  MatFormFieldModule,
   MatInputModule,
   MatCardModule,
   MatProgressSpinnerModule,
@@ -38,7 +38,12 @@ const MaterialComponents = [
   MatTooltipModule,
   MatPaginatorModule,
   MatSortModule,
-  MatDialogModule
+  MatDialogModule,
+  MatGridListModule,
+  MatCardModule,
+  MatMenuModule,
+  MatIconModule,
+  MatButtonModule,
 ];
 
 @NgModule({
