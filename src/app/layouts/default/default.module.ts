@@ -1,5 +1,10 @@
+import { EditProofComponent } from './../../admin/manage-proof/edit-proof/edit-proof.component';
+import { AddProofComponent } from './../../admin/manage-proof/add-proof/add-proof.component';
+import { ManageProofComponent } from './../../admin/manage-proof/manage-proof.component';
+// import { EditMemberTypeComponent } from './../../admin/manage-user-type/edit-member-type/edit-member-type.component';
+import { AppDirectiveModule } from './../../appDirective/app-directive.module';
+import { AddMemberComponent } from './../../admin/manage-user-type/add-member/add-member.component';
 import { DashboardComponent } from './../../admin/dashboard/dashboard.component';
-import { AdminComponent } from './../../admin/admin.component';
 import { AdminLoginComponent } from './../../admin/admin-login/admin-login.component';
 import { MaterialModule } from './../../material/material.module';
 import { SharedModule } from './../../shared/shared.module';
@@ -21,7 +26,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     AdminLoginComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    AddMemberComponent,
+    // EditMemberTypeComponent,
+    ManageProofComponent,
+    AddProofComponent,
+    EditProofComponent
   ],
   imports: [
     CommonModule,
@@ -29,14 +39,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     FlexLayoutModule,
     SharedModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppDirectiveModule
   ], 
   exports: [
     DefaultComponent,
     HomeComponent,
     LoginComponent,
     AdminLoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    AddMemberComponent
   ]
 })
 export class DefaultModule { }

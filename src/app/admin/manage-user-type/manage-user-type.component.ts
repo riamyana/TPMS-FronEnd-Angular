@@ -1,3 +1,6 @@
+import { SideNavService } from './../../_services/side-nav/side-nav.service';
+import { NotifierService } from './../../_services/notifier/notifier.service';
+import { AddMemberComponent } from './add-member/add-member.component';
 import { ConfirmDialogComponent } from './../../dialog/confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
 import { LoaderService } from './../../_services/loader/loader.service';
@@ -32,12 +35,15 @@ export class ManageUserTypeComponent implements OnInit {
     private memberService: MemberService,
     public loader: LoaderService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private notifierService: NotifierService,
+    public sideNavService:SideNavService
   ) { }
 
   ngOnInit(): void {
     // this.listData = new MatTableDataSource(this.demo);
     this.getEmployees();
+    this.sideNavService.navTitle = "Manage Member Type";
   }
 
   getEmployees() {
@@ -53,12 +59,22 @@ export class ManageUserTypeComponent implements OnInit {
       err => {
         if(err.status == 401 || err.stats == 403) {
           this.router.navigateByUrl('admin/login');
+        } else {
+          this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
         }
       });
   }
 
   onDelete() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  onAddMember() {
+    const dialogRef = this.dialog.open(AddMemberComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

@@ -1,3 +1,4 @@
+import { FullwidthModule } from './layouts/fullwidth/fullwidth.module';
 import { AdminComponent } from './admin/admin.component';
 // import { AdminModule } from './admin/admin.module';
 import { DefaultModule } from './layouts/default/default.module';
@@ -14,9 +15,8 @@ import { MaterialModule } from './material/material.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 // import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
-import { NavComponent } from './nav/nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { ManageUserTypeComponent } from './admin/manage-user-type/manage-user-type.component';
+// import { ManageUserTypeComponent } from './admin/manage-user-type/manage-user-type.component';
 // import { HomeComponent } from './admin/adminHome/home.component';
 import { NotifierComponent } from './notifier/notifier.component';
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
@@ -27,8 +27,6 @@ import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.c
   declarations: [
     AppComponent,
     // AdminHomeComponent,
-    NavComponent,
-    ManageUserTypeComponent,
     // HomeComponent,
     AdminComponent,
     NotifierComponent,
@@ -42,7 +40,8 @@ import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.c
     HttpClientModule,
     ReactiveFormsModule,
     LayoutModule,
-    DefaultModule
+    DefaultModule,
+    FullwidthModule
     // AdminModule
   ],
   providers: [AuthenticationService, AuthGuard,
