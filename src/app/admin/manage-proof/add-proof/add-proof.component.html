@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>Add Proof</h2>
+<div mat-dialog-content>
+  <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center" class="container">
+    <!-- <div fxFlex="80" fxFlex.xs="100%" fxFlex.md="100%">
+    <div class="mat-elevation-z8" fxLayout="column">
+      <div fxLayout="row" fxLayoutAlign="space-between" style="height:40vh"> -->
+    <form class="form" fxLayout="column" fxFlex="100" fxLayoutAlign="center" [formGroup]="proofForm">
+      <!-- <div class="profile"><img src="../../../assets/undraw_profile_pic_ic5t.svg" alt=""></div> -->
+
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label>Select Member Type</mat-label>
+        <mat-select name="memberTypeData" formControlName="memberType">
+          <mat-option *ngFor="let data of memberTypeData" [value]="data.memberTypeId">
+            {{data.memberTypeName}}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          Please provide a valid Member Type
+        </mat-error>
+      </mat-form-field>
+
+      <div fxLayout="row" fxLayoutGap="30px">
+        <mat-form-field color="accent" appearance="fill">
+          <mat-label>Add More Proofs</mat-label>
+          <input matInput placeholder="Proof Name" type="number" formControlName="addProof">
+        </mat-form-field>
+
+        <button mat-raised-button type="button" color="accent" style="height:60%" (click)="onAddProof()">Add Proofs
+        </button>
+
+      </div>
+
+      <ng-container formArrayName="proofs">
+        <ng-container *ngFor="let item of proofForm.controls.proofs['controls']; let i=index" [formGroupName]="i">
+          <div fxLayout="row" fxLayoutGap="30px">
+            <mat-form-field color="accent" appearance="fill" fxFlex="90">
+              <mat-label>Enter Proof Name</mat-label>
+              <input matInput placeholder="Proof Name" formControlName="proofName">
+              <mat-error>
+                Please provide a valid password
+              </mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="warn" (click)="onProofDelete(i)" fxFlex="10"
+              style="height:60%">Delete</button>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <!-- <div formArrayName="proofs">
+        <div *ngFor="let item of proofForm.controls.proofs['controls']; let i=index">
+      <input type=”text” [formControlName]="i">
+      </div>
+      </div> -->
+
+    </form>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button type="submit" color="primary" color="accent" (click)="onAdd()">Add</button>
+  <button mat-raised-button type="submit" color="primary" color="warn" (click)="onCancel()">Cancel</button>
+</div>
