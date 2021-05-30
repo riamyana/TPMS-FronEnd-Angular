@@ -2,7 +2,7 @@
     <div *ngIf="loader.isLoading | async" class="loader">
         <mat-spinner style="top:40%; left:50%" color="primary"></mat-spinner>
     </div>
-    <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex>
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" fxFlex>
         <div fxLayout="100%">
             <!-- <li> <a mat-button routerLink="/home" [routerLinkActive]="" [ngClass]="rla.isActive?'active':''"  #rla="routerLinkActive">Home</a> </li> -->
             <!-- <span class="logo">dfjdk</span> -->
@@ -23,7 +23,7 @@
                         <mat-label>
                             <mat-icon color="accent" [class]="'input-icon'">person</mat-icon>User Name
                         </mat-label>
-                        <input matInput formControlName="userName" placeholder="Ex. abc@gamil.com or userName"
+                        <input matInput formControlName="userName" placeholder="Ex. userName"
                             [errorStateMatcher]="matcher">
                         <mat-error>
                             Please provide a valid email address

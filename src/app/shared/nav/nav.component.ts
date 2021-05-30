@@ -1,6 +1,6 @@
 import { SideNavService } from './../../_services/side-nav/side-nav.service';
 import { SideNav } from './../../constants/menu-Items';
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -36,4 +36,8 @@ export class NavComponent {
   setMenuTitle(label: string) {
     this.sideNavService.navTitle = label;
   }
+
+  // @HostListener('click') myClick() {
+  //   alert('clicked');
+  // }
 }

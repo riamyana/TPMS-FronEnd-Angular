@@ -16,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 const MaterialComponents = [
   MatButtonModule,
@@ -44,6 +45,7 @@ const MaterialComponents = [
   MatMenuModule,
   MatIconModule,
   MatButtonModule,
+  MatSelectModule
 ];
 
 @NgModule({

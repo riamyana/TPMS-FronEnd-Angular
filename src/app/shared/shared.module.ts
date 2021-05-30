@@ -1,3 +1,4 @@
+import { AppDirectiveModule } from './../appDirective/app-directive.module';
 import { NavComponent } from './nav/nav.component';
 import { LoginComponent } from './../modules/login/login.component';
 import { RouterModule } from '@angular/router';
@@ -18,7 +19,8 @@ import { MaterialModule } from '../material/material.module';
     CommonModule,
     RouterModule,
     FlexLayoutModule,
-    MaterialModule
+    MaterialModule,
+    AppDirectiveModule
   ],
   exports: [
     HeaderComponent,

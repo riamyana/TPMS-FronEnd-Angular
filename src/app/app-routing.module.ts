@@ -1,3 +1,6 @@
+import { ManageUserTypeComponent } from './admin/manage-user-type/manage-user-type.component';
+import { ManageSubscriptionTypeComponent } from './admin/manage-subscription-type/manage-subscription-type.component';
+import { ManageProofComponent } from './admin/manage-proof/manage-proof.component';
 import { ManagePackageComponent } from './admin/manage-package/manage-package.component';
 import { FullwidthComponent } from './layouts/fullwidth/fullwidth.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
@@ -7,7 +10,6 @@ import { HomeComponent } from './modules/home/home.component';
 import { LoginComponent } from './modules/login/login.component';
 import { DefaultComponent } from './layouts/default/default.component';
 // import { HomeComponent } from './admin/home/home.component';
-import { ManageUserTypeComponent } from './admin/manage-user-type/manage-user-type.component';
 import { Roles } from './constants/roles';
 import { AuthGuard } from './auth.guard';
 // import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
@@ -26,7 +28,12 @@ const routes: Routes = [
       path: 'admin/manage-member', component: ManageUserTypeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Member' } 
     }, { 
       path: 'admin/manage-package', component: ManagePackageComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Package' } 
-    }]
+    }, { 
+      path: 'admin/manage-proof', component: ManageProofComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Member' } 
+    }, { 
+      path: 'admin/manage-subscription-type', component: ManageSubscriptionTypeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Subscription Type' } 
+    }
+  ]
   },
   {
     path: '', component: FullwidthComponent, children: [{

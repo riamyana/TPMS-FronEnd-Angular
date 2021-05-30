@@ -4,7 +4,7 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>{{this.sideNavService.sideNavTitleValue}}</mat-toolbar>
-    <mat-nav-list *ngFor="let menu of this.sideNavService.currentSideMenuValue; index as i;">
+    <mat-nav-list *ngFor="let menu of this.sideNavService.currentSideMenuValue; index as i;" appActiveNav>
       <!-- <a mat-list-item routerLink="/home">Add Member Type</a>
       <a mat-list-item href="/user-type">Add Proof</a>
       <a mat-list-item href="/user-type">Add Member Wise Proof</a>
@@ -14,7 +14,7 @@
             <li> <a mat-button *ngIf="isLoggedIn()" (click)="logout()">Logout</a> </li>
             <li> <a mat-button href="#">About Us</a> </li>
             <span class="logo">dfjdk</span> -->
-            <a mat-list-item routerLink="admin/manage-member" (click)="setMenuTitle(menu.label)">{{menu.label}}</a>
+            <a mat-list-item [routerLink]="menu.routerLink" (click)="setMenuTitle(menu.label)" routerLinkActive="active">{{menu.label}}</a>
     </mat-nav-list>
     <!-- <mat-nav-list> -->
       <!-- <a mat-list-item routerLink="/home">Add Member Type</a>

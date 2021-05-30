@@ -47,16 +47,17 @@ export const sideNavMenu: sideNav[] = [
     {
         nav: 'Manage Member',
         menu: [
-            { label: 'Manage Member Type', routerLink: '' },
-            { label: 'Manage Proof', routerLink: '' },
+            { label: 'Manage Member Type', routerLink: 'admin/manage-member' },
+            { label: 'Manage Proof', routerLink: 'admin/manage-proof' },
             { label: 'Manage Member Wise Proof', routerLink: '' }
         ]
     },
     {
         nav: 'Manage Package',
         menu: [
+            { label: 'Manage Subscription Type', routerLink: '' },
             { label: 'Manage Package', routerLink: '' },
-            { label: 'Manage Proof', routerLink: '' },
+            { label: 'Manage Transport Mode', routerLink: '' },
             { label: 'Manage Member Wise Proof', routerLink: '' }
         ]
     }
