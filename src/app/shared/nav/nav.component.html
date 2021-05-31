@@ -4,7 +4,7 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>{{this.sideNavService.sideNavTitleValue}}</mat-toolbar>
-    <mat-nav-list *ngFor="let menu of this.sideNavService.currentSideMenuValue; index as i;" appActiveNav>
+    <mat-nav-list *ngFor="let menu of this.sideNavService.currentSideMenuValue; index as i;">
       <!-- <a mat-list-item routerLink="/home">Add Member Type</a>
       <a mat-list-item href="/user-type">Add Proof</a>
       <a mat-list-item href="/user-type">Add Member Wise Proof</a>

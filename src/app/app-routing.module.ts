@@ -1,3 +1,4 @@
+import { TransportModeComponent } from './admin/transport-mode/transport-mode.component';
 import { ManageUserTypeComponent } from './admin/manage-user-type/manage-user-type.component';
 import { ManageSubscriptionTypeComponent } from './admin/manage-subscription-type/manage-subscription-type.component';
 import { ManageProofComponent } from './admin/manage-proof/manage-proof.component';
@@ -32,6 +33,8 @@ const routes: Routes = [
       path: 'admin/manage-proof', component: ManageProofComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Member' } 
     }, { 
       path: 'admin/manage-subscription-type', component: ManageSubscriptionTypeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Subscription Type' } 
+    }, { 
+      path: 'admin/manage-transport-modes', component: TransportModeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Package' } 
     }
   ]
   },

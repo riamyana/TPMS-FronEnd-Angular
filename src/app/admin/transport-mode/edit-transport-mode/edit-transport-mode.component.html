@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Enter Transport Mode Type</h2>
+<div mat-dialog-content>
+  <mat-form-field [formGroup]="transportTypeForm">
+    <mat-label>Transport Mode Type</mat-label>
+    <input matInput formControlName="modeType" [errorStateMatcher]="matcher">
+    <mat-error>
+        Please provide Transport Mode Type
+    </mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button cdkFocusInitial color="accent" (click)="onUpdate()">Update</button>
+  <button mat-button (click)="onCancel()" color="warn">Cancel</button>
+</div>

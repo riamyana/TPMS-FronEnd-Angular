@@ -55,9 +55,8 @@ export const sideNavMenu: sideNav[] = [
     {
         nav: 'Manage Package',
         menu: [
-            { label: 'Manage Subscription Type', routerLink: '' },
-            { label: 'Manage Package', routerLink: '' },
-            { label: 'Manage Transport Mode', routerLink: '' },
+            { label: 'Manage Transport Mode', routerLink: 'admin/manage-transport-modes' },
+            { label: 'Manage Package', routerLink: 'admin/manage-package' },
             { label: 'Manage Member Wise Proof', routerLink: '' }
         ]
     }
