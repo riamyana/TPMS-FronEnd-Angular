@@ -1,0 +1,49 @@
+<div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="space-around center">
+    <mat-card class="card" fxFlex="60" fxFlex.xs="100%" fxFlex.md="100%">
+        <div class="mat-elevation-z8" fxLayout="column">
+            <div *ngIf="loader.isLoading | async" class="loader">
+                <mat-spinner style="top:50%; left:50%" color="primary"></mat-spinner>
+            </div>
+            <div>
+                <button mat-raised-button color="accent" (click)="onAddMember()">Add Transport Mode <mat-icon color="primary">
+                        add</mat-icon></button>
+            </div>
+            <table mat-table [dataSource]="listData" matSort>
+
+                <ng-container matColumnDef="srNo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Sr. No. </th>
+                    <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tranport Type </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button color="accent" #tooltip="matTooltip" matTooltip="Edit"
+                            (click)="onUpdate(element)">
+                            <mat-icon>launch</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" #tooltip="matTooltip" matTooltip="Delete"
+                            (click)="onDelete(element)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="dispCol"></tr>
+                <tr mat-row *matRowDef="let row; columns: dispCol;"></tr>
+            </table>
+            <mat-paginator pageSize="30" [pageSizeOptions]="[5,10,20,30]"></mat-paginator>
+        </div>
+    </mat-card>
+</div>

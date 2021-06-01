@@ -1,6 +1,3 @@
-<!-- <div *ngIf="loader.isLoading | async" class="loader">
-    <mat-spinner style="top:40%; left:50%" color="primary"></mat-spinner>
-</div> -->
 <h2 mat-dialog-title>Enter Member Type</h2>
 <div mat-dialog-content>
   <mat-form-field [formGroup]="memberTypeForm">
@@ -12,6 +9,6 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button cdkFocusInitial color="accent" (click)="onAdd()">Add</button>
+  <button mat-button cdkFocusInitial color="accent" (click)="onUpdate()">Update</button>
   <button mat-button (click)="onCancel()" color="warn">Cancel</button>
 </div>

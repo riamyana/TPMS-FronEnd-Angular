@@ -7,6 +7,7 @@ import { FullwidthComponent } from './fullwidth.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 
@@ -14,7 +15,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   declarations: [
     FullwidthComponent,
     ManageUserTypeComponent,
-    ManagePackageComponent
+    ManagePackageComponent,
+    PageNotFoundComponent
   ],
   imports: [
     CommonModule,

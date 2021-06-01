@@ -1,7 +1,11 @@
+import { AddPackageComponent } from './../../admin/manage-package/add-package/add-package.component';
+import { EditTransportModeComponent } from './../../admin/transport-mode/edit-transport-mode/edit-transport-mode.component';
+import { AddTransportModeComponent } from './../../admin/transport-mode/add-transport-mode/add-transport-mode.component';
+import { TransportModeComponent } from './../../admin/transport-mode/transport-mode.component';
 import { EditProofComponent } from './../../admin/manage-proof/edit-proof/edit-proof.component';
 import { AddProofComponent } from './../../admin/manage-proof/add-proof/add-proof.component';
 import { ManageProofComponent } from './../../admin/manage-proof/manage-proof.component';
-// import { EditMemberTypeComponent } from './../../admin/manage-user-type/edit-member-type/edit-member-type.component';
+import { EditMemberTypeComponent } from './../../admin/manage-user-type/edit-member-type/edit-member-type.component';
 import { AppDirectiveModule } from './../../appDirective/app-directive.module';
 import { AddMemberComponent } from './../../admin/manage-user-type/add-member/add-member.component';
 import { DashboardComponent } from './../../admin/dashboard/dashboard.component';
@@ -28,10 +32,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     DashboardComponent,
     AddMemberComponent,
-    // EditMemberTypeComponent,
+    EditMemberTypeComponent,
     ManageProofComponent,
     AddProofComponent,
-    EditProofComponent
+    EditProofComponent,
+    TransportModeComponent,
+    AddTransportModeComponent,
+    EditTransportModeComponent,
+    AddPackageComponent
   ],
   imports: [
     CommonModule,
@@ -47,8 +55,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     LoginComponent,
     AdminLoginComponent,
+    HomeComponent,
     DashboardComponent,
-    AddMemberComponent
+    AddMemberComponent,
+    EditMemberTypeComponent,
+    ManageProofComponent,
+    AddProofComponent,
+    EditProofComponent,
+    TransportModeComponent,
+    AddTransportModeComponent,
+    EditTransportModeComponent,
+    AddPackageComponent
   ]
 })
 export class DefaultModule { }

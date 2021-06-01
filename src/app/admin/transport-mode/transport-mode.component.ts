@@ -1,50 +1,47 @@
-import { EditMemberTypeComponent } from './edit-member-type/edit-member-type.component';
-import { SideNavService } from './../../_services/side-nav/side-nav.service';
-import { NotifierService } from './../../_services/notifier/notifier.service';
-import { AddMemberComponent } from './add-member/add-member.component';
+import { EditTransportModeComponent } from './edit-transport-mode/edit-transport-mode.component';
 import { ConfirmDialogComponent } from './../../dialog/confirm-dialog/confirm-dialog.component';
-import { Router } from '@angular/router';
+import { AddTransportModeComponent } from './add-transport-mode/add-transport-mode.component';
+import { TransportModeService } from './../../_services/transport-mode/transport-mode.service';
 import { LoaderService } from './../../_services/loader/loader.service';
-import { MemberType } from './../../_models/member/member-type';
-import { MemberService } from './../../_services/member/member.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { NotifierService } from './../../_services/notifier/notifier.service';
+import { SideNavService } from './../../_services/side-nav/side-nav.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { TransportMode } from './../../_models/transport-mode/transport-mode';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-manage-user-type',
-  templateUrl: './manage-user-type.component.html',
-  styleUrls: ['./manage-user-type.component.scss']
+  selector: 'app-transport-mode',
+  templateUrl: './transport-mode.component.html',
+  styleUrls: ['./transport-mode.component.scss']
 })
-export class ManageUserTypeComponent implements OnInit {
+export class TransportModeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  listData: MatTableDataSource<MemberType>;
-  dispCol: string[] = ['srNo', 'memberType', 'action'];
-  memberType: MemberType[];
+  listData: MatTableDataSource<TransportMode>;
+  dispCol: string[] = ['srNo', 'name', 'action'];
 
   constructor(
-    private memberService: MemberService,
     public loader: LoaderService,
     private router: Router,
     public dialog: MatDialog,
     private notifierService: NotifierService,
-    public sideNavService: SideNavService
+    public sideNavService: SideNavService,
+    private transportModeService: TransportModeService
   ) { }
 
   ngOnInit(): void {
-    // this.listData = new MatTableDataSource(this.demo);
-    this.getMemberTypes();
-    this.sideNavService.navTitle = "Manage Member Type";
+    this.getTranportModes();
+    this.sideNavService.navTitle = "Manage Transport Mode";
   }
 
-  getMemberTypes() {
-    this.memberService.getMemberType().subscribe(
+  getTranportModes() {
+    this.transportModeService.getTransportModes().subscribe(
       data => {
-        this.memberType = [];
         this.listData = new MatTableDataSource();
         this.listData.data = data;
         this.listData.paginator = this.paginator;
@@ -60,15 +57,15 @@ export class ManageUserTypeComponent implements OnInit {
       });
   }
 
-  onDelete(memberType: MemberType) {
+  onDelete(modeType: TransportMode) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.memberService.deleteMemberType(memberType.memberTypeId).subscribe(
+        this.transportModeService.deleteMode(modeType.id).subscribe(
           data => {
-            this.notifierService.showNotification('Member Type Deleted Successfully', 'OK', 'success');
-            const index = this.listData.data.indexOf(memberType);
+            this.notifierService.showNotification('Transport Mode Type Deleted Successfully', 'OK', 'success');
+            const index = this.listData.data.indexOf(modeType);
             this.listData.data.splice(index, 1);
             this.listData._updateChangeSubscription();
           }, err => {
@@ -84,31 +81,16 @@ export class ManageUserTypeComponent implements OnInit {
   }
 
   onAddMember() {
-    const dialogRef = this.dialog.open(AddMemberComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-      this.listData.data.push(result);
-      this.listData._updateChangeSubscription();
-      this.listData.paginator = this.paginator;
-      this.listData.sort = this.sort;
-    });
-  }
-
-  onUpdate(memberTypeData: MemberType) {
     const dialogConfig = new MatDialogConfig();
-
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
-    dialogConfig.data = memberTypeData
+    const dialogRef = this.dialog.open(AddTransportModeComponent, dialogConfig);
 
-
-    const dialogRef = this.dialog.open(EditMemberTypeComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      // console.log(`Dialog result: ${result}`);
       if (result) {
-        console.log("in" + result);
+        this.listData.data.push(result);
         this.listData._updateChangeSubscription();
         this.listData.paginator = this.paginator;
         this.listData.sort = this.sort;
@@ -116,4 +98,23 @@ export class ManageUserTypeComponent implements OnInit {
     });
   }
 
+  onUpdate(modeTypeData: TransportMode) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = modeTypeData
+
+
+    const dialogRef = this.dialog.open(EditTransportModeComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.listData._updateChangeSubscription();
+        this.listData.paginator = this.paginator;
+        this.listData.sort = this.sort;
+      }
+    });
+  }
 }
