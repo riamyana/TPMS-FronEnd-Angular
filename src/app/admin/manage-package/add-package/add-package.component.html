@@ -1,0 +1,146 @@
+<h2 mat-dialog-title>Add Proof</h2>
+<div mat-dialog-content>
+    <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center" class="container">
+        <form class="form" fxLayout="column" fxFlex="100" fxLayoutAlign="center" [formGroup]="packageForm">
+            <mat-form-field color="accent" appearance="fill">
+                <mat-label>Enter Package Name</mat-label>
+                <input matInput placeholder="Package Name" formControlName="packageName">
+                <mat-error>
+                    Please provide a valid Package Name
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field color="accent" appearance="fill">
+                <mat-label>Select Subscription Type</mat-label>
+                <mat-select name="subType" formControlName="subscriptionType">
+                    <mat-option *ngFor="let key of keys" [value]="subType[key]">
+                        {{ subType[key] }}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    Please provide a valid Subscription Type
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field color="accent" appearance="fill">
+                <mat-label>Counts of Subscription Type</mat-label>
+                <input matInput [placeholder]="'Select Total'" formControlName="total" type="number">
+                <mat-error>
+                    Please provide a valid Counts of Subscription Type
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field color="accent" appearance="fill">
+                <mat-label>Validity (days)</mat-label>
+                <input matInput placeholder="Validity" formControlName="validity" type="number">
+                <mat-error>
+                    Please provide a valid Validity
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field color="accent" appearance="fill">
+                <mat-label>Balance</mat-label>
+                <input matInput placeholder="Balance" formControlName="balance" type="number">
+                <mat-error>
+                    Please provide a valid Balance
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field color="accent" appearance="fill">
+                <mat-label>Price</mat-label>
+                <input matInput placeholder="Price" formControlName="price" type="number">
+                <mat-error>
+                    Please provide a valid Price
+                </mat-error>
+            </mat-form-field>
+
+
+            <div fxLayout="row" fxLayoutGap="30px">
+                <mat-form-field color="accent" appearance="fill">
+                    <mat-label>Add More Member Type</mat-label>
+                    <input matInput placeholder="Add More Member Type" type="number" formControlName="addMember">
+                </mat-form-field>
+
+                <button mat-raised-button type="button" color="accent" style="height:60%" (click)="onAddMemberType()">
+                    Add Member Type
+                </button>
+
+            </div>
+
+            <ng-container formArrayName="memberType">
+                <ng-container *ngFor="let item of packageForm.controls.memberType['controls']; let i=index"
+                    [formGroupName]="i">
+                    <div fxLayout="row" fxLayoutGap="10px">
+                        <mat-form-field color="accent" appearance="fill" fxFlex="70" 
+                            *ngIf="this.member.controls[i].get('memberTypeName').enabled">
+                            <mat-label>Select Member Type</mat-label>
+                            <mat-select name="memberTypeData" formControlName="memberTypeName">
+                                <mat-option *ngFor="let data of memberTypeData" [value]="data.memberTypeId">
+                                    {{data.memberTypeName}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                Please select Member Type
+                            </mat-error>
+                        </mat-form-field>
+                        <!-- <button mat-raised-button color="warn" (click)="onProofDelete(i)" fxFlex="10"
+                            style="height:60%">Delete</button> -->
+                        <button mat-raised-button type="button" color="accent" (click)="onAddDiscount(i)" 
+                            [fxFlex]="'20'" style="height:60%" 
+                            *ngIf="this.member.controls[i].get('memberTypeName').enabled">
+                            Add Discount
+                        </button>
+                        <button mat-raised-button color="warn" fxFlex="10" type="button" (click)="onDeleteMember(i)"
+                            style="height:60%" fxFlex="10" 
+                            *ngIf="i>0 && this.member.controls[i].get('memberTypeName').enabled">
+                            Delete
+                        </button>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutGap="30px">
+                        <mat-form-field color="accent" appearance="fill" fxFlex="90"
+                            [ngClass]="{'hidden': this.member.controls[i].get('discount').disabled}">
+                            <mat-label>Discount</mat-label>
+                            <input matInput placeholder="Discount(%)" formControlName="discount" type="number">
+                        </mat-form-field>
+                        <button mat-raised-button color="warn" fxFlex="10" type="button" (click)="onDiscountDelete(i)"
+                            style="height:60%"
+                            [ngClass]="{'hidden': this.member.controls[i].get('discount').disabled}">Delete</button>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutGap="30px">
+                        <mat-form-field color="accent" appearance="fill" fxFlex="90"
+                            [ngClass]="{'hidden': this.member.controls[i].get('discount').disabled}">
+                            <mat-label>Start Date</mat-label>
+                            <input matInput [matDatepicker]="start" formControlName="startDate"
+                                placeholder="Start Date">
+                            <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+                            <mat-datepicker #start></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field color="accent" appearance="fill" fxFlex="90"
+                            [ngClass]="{'hidden': this.member.controls[i].get('discount').disabled}">
+                            <mat-label>End Date</mat-label>
+                            <input matInput [matDatepicker]="end" formControlName="endDate" placeholder="End Date">
+                            <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+                            <mat-datepicker #end></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <mat-form-field color="accent" appearance="fill" style="margin-top: 10px;" fxFlex="90"
+                        [ngClass]="{'hidden': this.member.controls[i].get('discount').disabled}">
+                        <mat-label>Discount</mat-label>
+                        <textarea matInput cols="30" rows="3" formControlName="description"
+                            placeholder="Discount(%)"></textarea>
+                    </mat-form-field>
+                </ng-container>
+            </ng-container>
+
+        </form>
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-raised-button type="submit" color="primary" color="accent" (click)="onAdd()">Add</button>
+    <button mat-raised-button type="submit" color="primary" color="warn" (click)="onCancel()">Cancel</button>
+</div>

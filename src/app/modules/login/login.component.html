@@ -7,7 +7,7 @@
             <!-- <li> <a mat-button routerLink="/home" [routerLinkActive]="" [ngClass]="rla.isActive?'active':''"  #rla="routerLinkActive">Home</a> </li> -->
             <!-- <span class="logo">dfjdk</span> -->
             <!-- <mat-card>dkfj</mat-card> -->
-            <div fxFlex="60" class="left" fxHide.lt-md fxLayoutAlign="space-evenly center" fxLayout="column">
+            <div fxFlex="60" class="left" fxHide.lt-md fxHide.lt-xs fxLayoutAlign="space-evenly center" fxLayout="column">
                 <img src="../../../assets/man-1718099_1920.jpg" alt="">
                 <!-- <div>
                     <h1>kdjfkjdjf</h1>
@@ -16,8 +16,8 @@
                 </div> -->
             </div>
 
-            <div fxFlex="45" fxLayoutAlign="center" class="login" fxFlex.xs="100%" fxFlex.sm="100%">
-                <form fxLayout="column" [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()">
+            <div fxFlex="40" fxLayoutAlign="center" class="login" fxFlex.xs="100" fxFlex.sm="100">
+                <form fxLayout="column" [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()" fxFlex="85" fxFlex.xs="100" fxFlex.md="100">
                     <!-- <div class="profile"><img src="../../../assets/undraw_profile_pic_ic5t.svg" alt=""></div> -->
                     <mat-form-field class="example-full-width" color="accent" appearance="fill">
                         <mat-label>

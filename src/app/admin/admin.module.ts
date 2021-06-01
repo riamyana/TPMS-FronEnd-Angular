@@ -17,6 +17,7 @@ import { EditMemberTypeComponent } from './manage-user-type/edit-member-type/edi
 import { TransportModeComponent } from './transport-mode/transport-mode.component';
 import { AddTransportModeComponent } from './transport-mode/add-transport-mode/add-transport-mode.component';
 import { EditTransportModeComponent } from './transport-mode/edit-transport-mode/edit-transport-mode.component';
+import { AddPackageComponent } from './manage-package/add-package/add-package.component';
 
 
 
@@ -32,7 +33,8 @@ import { EditTransportModeComponent } from './transport-mode/edit-transport-mode
     EditMemberTypeComponent,
     TransportModeComponent,
     AddTransportModeComponent,
-    EditTransportModeComponent
+    EditTransportModeComponent,
+    AddPackageComponent
   ],
   imports: [
     CommonModule,

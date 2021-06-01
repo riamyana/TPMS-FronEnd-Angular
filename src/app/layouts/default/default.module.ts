@@ -1,3 +1,4 @@
+import { AddPackageComponent } from './../../admin/manage-package/add-package/add-package.component';
 import { EditTransportModeComponent } from './../../admin/transport-mode/edit-transport-mode/edit-transport-mode.component';
 import { AddTransportModeComponent } from './../../admin/transport-mode/add-transport-mode/add-transport-mode.component';
 import { TransportModeComponent } from './../../admin/transport-mode/transport-mode.component';
@@ -37,7 +38,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     EditProofComponent,
     TransportModeComponent,
     AddTransportModeComponent,
-    EditTransportModeComponent
+    EditTransportModeComponent,
+    AddPackageComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +64,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     EditProofComponent,
     TransportModeComponent,
     AddTransportModeComponent,
-    EditTransportModeComponent
+    EditTransportModeComponent,
+    AddPackageComponent
   ]
 })
 export class DefaultModule { }
