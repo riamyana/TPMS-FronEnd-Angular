@@ -27,6 +27,8 @@ const routes: Routes = [
   // { path: 'admin/home', component: AdminHomeComponent },
   {
     path: 'admin', component: DefaultComponent, children: [{ 
+      path: 'manage', component: ManagePackageComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage' } 
+    },{ 
       path: 'manage-member', component: ManageUserTypeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Member' } 
     }, { 
       path: 'manage-package', component: ManagePackageComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Package' } 
@@ -39,6 +41,7 @@ const routes: Routes = [
     }
   ]
   },
+  { path: '', pathMatch:'full', redirectTo:'admin/login' },
   {
     path: '', component: FullwidthComponent, children: [{
       path: 'login', component: LoginComponent
@@ -49,9 +52,7 @@ const routes: Routes = [
     }, { 
       path: 'admin/dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN } 
     }]
-  }
-  ,
-  { path: '', pathMatch:'full', redirectTo:'home' },
+  },
   { path: '**', component: PageNotFoundComponent }
 ];
 

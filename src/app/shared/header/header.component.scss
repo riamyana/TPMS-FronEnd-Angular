@@ -1,8 +1,10 @@
 span {
-    color: rgb(175, 177, 170);
+    // color: rgb(175, 177, 170);
+    color: white;
 }
 .nav {
-    background: rgba(96, 61, 61);
+    background: rgb(6, 77, 110);
+    // background-image: linear-gradient(to bottom right, rgb(101, 101, 172), green);;
     width: 100vw;
     height: 7vh;
 }
@@ -25,13 +27,14 @@ ul li a {
     // border: solid white;
     // border: solid rgb(142, 135, 65);
     // color: white;
-    color: rgb(175, 177, 170);
+    // color: rgb(175, 177, 170);
+    color: white;
     font-size: 2vh;
 }
   
 ul li a:hover {
-    background: rgb(175, 177, 170);
-    color: rgba(96, 61, 61, 0.9);
+    background: #55c1b8;
+    color: rgb(3, 57, 103);
 }
   
 // ul li .active a {
@@ -47,8 +50,8 @@ ul li a:hover {
 }
 
 .activeLink {
-    background: rgb(175, 177, 170);
-    color: rgba(96, 61, 61, 0.9) !important;
+    background: #55c1b8;
+    color: rgb(3, 57, 103) !important;
 }
 
 .logged {

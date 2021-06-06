@@ -12,11 +12,11 @@ export class ProofService {
   constructor(private http: HttpClient) { }
 
   getProof() {
-    return this.http.get<any>(`${environment.severUrl}proofs`);
+    return this.http.get<Proof[]>(`${environment.severUrl}proofs`);
   }
 
   getProofByMemberId(id: number) {
-    return this.http.get<any>(`${environment.severUrl}proofs/member-types/${id}`);
+    return this.http.get<Proof>(`${environment.severUrl}proofs/member-types/${id}`);
   }
 
   deleteMemberType(id: number): Observable<any> {
@@ -28,6 +28,10 @@ export class ProofService {
       'Content-Type': 'application/json'
     });
     console.log(proof);
-    return this.http.post<any>(`${environment.severUrl}proofs`, proof, { headers: httpHeaders });
+    return this.http.post<Proof>(`${environment.severUrl}proofs`, proof, { headers: httpHeaders });
+  }
+
+  getProof2() {
+    return this.http.get<Proof[]>(`${environment.severUrl}proofs`);
   }
 }

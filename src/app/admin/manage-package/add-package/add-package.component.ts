@@ -1,3 +1,5 @@
+import { NotifierMsg } from './../../../constants/notifierMsg';
+import { MemberPackage } from './../../../_models/package/member-package';
 import { subscriptionTypeEnum } from './../../../constants/subscription-type';
 import { SubscriptionType } from './../../../_models/subscription-type/subscription-type';
 import { Router } from '@angular/router';
@@ -5,15 +7,15 @@ import { MemberService } from './../../../_services/member/member.service';
 import { LoaderService } from './../../../_services/loader/loader.service';
 import { NotifierService } from './../../../_services/notifier/notifier.service';
 import { PackageService } from './../../../_services/package/package.service';
-import { Package } from './../../../_models/package/package';
+import { Package, MemberTypePackageData } from './../../../_models/package/package';
 import { MemberType } from './../../../_models/member/member-type';
 import { FormErrorStateMatcher } from './../../../ErrorStateMatcher/FormErrorStateMatcher';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from 'src/app/_models/dialogData/dialogData';
-import { distinctUntilChanged } from 'rxjs/operators';
-import { merge } from 'rxjs';
+import { distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { merge, Observable, concat } from 'rxjs';
 import * as moment from 'moment';
 
 @Component({
@@ -26,6 +28,7 @@ export class AddPackageComponent implements OnInit {
   matcher = new FormErrorStateMatcher();
   memberTypeData: MemberType[];
   packageData: Package;
+  memberPackageData: MemberPackage;
   subType = subscriptionTypeEnum;
   keys;
 
@@ -35,9 +38,7 @@ export class AddPackageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private packageService: PackageService,
     private notifierService: NotifierService,
-    public loader: LoaderService,
-    private memberService: MemberService,
-    private router: Router
+    public loader: LoaderService
   ) {
     this.keys = Object.keys(this.subType);
   }
@@ -47,10 +48,14 @@ export class AddPackageComponent implements OnInit {
     this.memberTypeData = this.data.member;
     this.applySubscription();
     this.applyDisable();
+    if (this.data.dialogType == "Update") {
+      this.setValues();
+    }
   }
 
   initForm() {
     this.packageForm = this.formBuilder.group({
+      packageId: [''],
       packageName: ['', Validators.required],
       subscriptionType: ['', Validators.required],
       total: ['', Validators.required],
@@ -60,6 +65,7 @@ export class AddPackageComponent implements OnInit {
       addMember: [''],
       memberType: this.formBuilder.array([
         this.formBuilder.group({
+          id: [''],
           memberTypeName: ['', Validators.required],
           discount: ['', Validators.required],
           startDate: [''],
@@ -70,8 +76,80 @@ export class AddPackageComponent implements OnInit {
     });
   }
 
+  setValues() {
+    // console.log("setValue")
+    // console.log(this.data.memberTypePackageData);
+
+    // let memberTypePackage: MemberTypePackageData;
+    // memberTypePackage = this.data.memberTypePackageData;
+    // console.log(this.data.memberTypePackageData.memberTypePackages);
+
+    if (this.form.packageName.value == '' || this.form.packageName.value == null) {
+    console.log("member");
+    // console.log(this.packageService.memberTypePackage);
+    this.packageService.memberTypePackageObservable.subscribe(data => {
+      console.log(data);
+  
+      this.form.packageId.setValue(data.id);
+      this.form.packageName.setValue(data.name);
+      this.form.subscriptionType.setValue(this.subType[data.subscriptionType]);
+      this.form.total.setValue(data.counts);
+      this.form.validity.setValue(data.validity);
+      this.form.balance.setValue(data.balance);
+      this.form.price.setValue(data.price);
+
+      let len = data.memberTypePackages.length;
+
+      for (let i = 0; i < len; i++) {
+        if (i > 0) {
+          const newMemberType = this.formBuilder.group({
+            id: [data.memberTypePackages[i].id],
+            memberTypeName: [data.memberTypePackages[i].memberTypeId, Validators.required],
+            discount: [data.memberTypePackages[i].discountPercentage, Validators.required],
+            startDate: [data.memberTypePackages[i].discountStartDate],
+            endDate: [data.memberTypePackages[i].discountEndDate],
+            description: [data.memberTypePackages[i].discountDescription]
+          });
+          this.member.push(newMemberType);
+        } else {
+          this.member.controls[i].get('id').setValue(data.memberTypePackages[i].id);
+          this.member.controls[i].get('memberTypeName').setValue(data.memberTypePackages[i].memberTypeId);
+          this.member.controls[i].get('discount').setValue(data.memberTypePackages[i].discountPercentage);
+          this.member.controls[i].get('startDate').setValue(data.memberTypePackages[i].discountStartDate);
+          this.member.controls[i].get('endDate').setValue(data.memberTypePackages[i].discountEndDate);
+          this.member.controls[i].get('description').setValue(data.memberTypePackages[i].discountDescription);
+        }
+
+        this.applyDisable();
+        // if (this.member.controls[i].get('discount').value == null || this.member.controls[i].get('discount').value == '0') {
+        //   this.member.controls[i].get('discount').disable();
+        //   this.member.controls[i].get('description').disable();
+        //   this.member.controls[i].get('startDate').disable();
+        //   this.member.controls[i].get('endDate').disable();
+        // }
+      }
+    });
+  }
+  }
+
+  updateMemberPackage(i: number) {
+    const validStartDate = moment(this.member.controls[0].get('startDate').value).format("YYYY-MM-DD");
+    const validEndDate = moment(this.member.controls[0].get('endDate').value).format("YYYY-MM-DD");
+    this.memberPackageData = {
+      memberTypeId: this.member.controls[i].get('memberTypeName').value,
+      discountStartDate: validStartDate,
+      discountEndDate: validEndDate,
+      discountPercentage: this.member.controls[i].get('discount').value,
+      discountDescription: this.member.controls[i].get('description').value
+    }
+
+    console.log("memberPackage");
+    console.log(this.memberPackageData);
+  }
+
   updatePackageData() {
     this.packageData = {
+      id: this.form.packageId.value,
       name: this.form.packageName.value,
       subscriptionType: this.form.subscriptionType.value,
       counts: this.form.total.value,
@@ -79,15 +157,23 @@ export class AddPackageComponent implements OnInit {
       balance: this.form.balance.value,
       price: this.form.price.value
     }
+
   }
 
   applyDisable() {
     this.form.validity.disable();
     for (let control of this.member.controls) {
-      control.get('discount').disable();
-      control.get('description').disable();
-      control.get('startDate').disable();
-      control.get('endDate').disable();
+      if (control.get('discount').value == null || control.get('discount').value == '0' || control.get('discount').value == '') {
+        control.get('discount').disable();
+        control.get('description').disable();
+        control.get('startDate').disable();
+        control.get('endDate').disable();
+      } else {
+        control.get('discount').enable();
+        control.get('description').enable();
+        control.get('startDate').enable();
+        control.get('endDate').enable();
+      }
     }
   }
 
@@ -132,38 +218,45 @@ export class AddPackageComponent implements OnInit {
   }
 
   get member() {
+    // this.form.memberType as FormArray;
     return this.packageForm.get('memberType') as FormArray;
   }
 
   onAdd() {
-    this.addPackage();
-    // this.packageService.addPackage(this.packageData).subscribe(
-    //   data => {
-    //     // console.log(data);
-    //     this.notifierService.showNotification('Member Type Added Successfully', 'OK', 'success');
-    //     this.dialogRef.close(data);
-    //   },
-    //   err => {
-    //     this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
-    //     console.log(err);
-    //     // this.dialogRef.close();
-    //   });
+    this.updatePackageData();
+    // this.updateMemberPackage(0);
+
+    this.packageService.addPackage(this.packageData, this.member)
+      .subscribe(
+        data => {
+          this.notifierService.showNotification('Package Added Successfully', 'OK', 'success');
+          this.dialogRef.close();
+        },
+        err => {
+          this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
+          console.log(err);
+          this.dialogRef.close();
+        }
+      );
   }
 
-  addPackage() {
+  onUpdate() {
     this.updatePackageData();
-    this.packageService.addPackage(this.packageData).subscribe(
-      data => {
-        console.log(data);
-        // this.notifierService.showNotification('Member Type Added Successfully', 'OK', 'success');
+
+    this.packageService.deletePackage(this.form.packageId.value).pipe(switchMap((res: any) => {
+      return this.packageService.addPackage(this.packageData, this.member);
+    })).subscribe(
+      (res) => {
+        this.notifierService.showNotification(NotifierMsg.SuccessUpdateMsg('Package'), 'OK', 'success');
       },
-      err => {
-        this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
-        console.log(err);
-      });
+      (error) => {
+        this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'success');
+      }
+    );
   }
 
   onCancel() {
+    this.packageForm.reset();
     this.dialogRef.close();
   }
 
@@ -179,12 +272,17 @@ export class AddPackageComponent implements OnInit {
     this.member.controls[i].get('description').disable();
     this.member.controls[i].get('startDate').disable();
     this.member.controls[i].get('endDate').disable();
+
+    this.member.controls[i].get('discount').reset();
+    this.member.controls[i].get('description').reset();
+    this.member.controls[i].get('startDate').reset();
+    this.member.controls[i].get('endDate').reset();
   }
 
   onAddMemberType() {
-    const addProofNo = +this.form.addMember.value;
+    const addMemberNo = +this.form.addMember.value;
 
-    const newProof = this.formBuilder.group({
+    const newMemberType = this.formBuilder.group({
       memberTypeName: ['', Validators.required],
       discount: ['', Validators.required],
       startDate: [''],
@@ -192,8 +290,8 @@ export class AddPackageComponent implements OnInit {
       description: ['']
     });
 
-    for (let i = 0; i < addProofNo; i++) {
-      this.member.push(newProof);
+    for (let i = 0; i < addMemberNo; i++) {
+      this.member.push(newMemberType);
     }
 
     this.applyDisable();

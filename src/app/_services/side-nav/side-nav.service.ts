@@ -10,11 +10,7 @@ import { filter, map, switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class SideNavService {
-  sideMenuItem: Menu[] = [
-    { label: 'Manage Member Type', routerLink: '' },
-    { label: 'Manage Proof', routerLink: '' },
-    { label: 'Manage Member Wise Proof', routerLink: '' }
-  ];
+  sideMenuItem: Menu[];
   private sideMenu = new SideNav();
   sideNavTitle: string;
   title: string;
@@ -63,19 +59,6 @@ export class SideNavService {
   getSideNavMenu(): Menu[] {
     return this.sideMenuItem;
   }
-
-  // getMenuItems(): Menu[] {
-  //   const title = this.activatedRoute.url.subscribe(() => {
-  //     const data = this.activatedRoute.snapshot.firstChild.data;
-  //     if (data && data.menuTitle) {
-  //       this.title = this.activatedRoute.snapshot.firstChild.data.menuTitle;
-  //     }
-  //   });
-
-  //   this.sideMenuItem = this.sideMenu.sideNav(this.title);
-  //   this.sideMenuSubject.next(this.sideMenuItem);
-  //   return this.sideMenuItem;
-  // }
 
   public get currentSideMenuValue(): Menu[] {
     return this.sideMenuSubject.value;

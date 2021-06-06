@@ -18,6 +18,9 @@ import { TransportModeComponent } from './transport-mode/transport-mode.componen
 import { AddTransportModeComponent } from './transport-mode/add-transport-mode/add-transport-mode.component';
 import { EditTransportModeComponent } from './transport-mode/edit-transport-mode/edit-transport-mode.component';
 import { AddPackageComponent } from './manage-package/add-package/add-package.component';
+import { ManageProof2Component } from './manage-proof2/manage-proof2.component';
+import { StationComponent } from './station/station.component';
+import { PassRequestComponent } from './pass-request/pass-request.component';
 
 
 
@@ -34,7 +37,10 @@ import { AddPackageComponent } from './manage-package/add-package/add-package.co
     TransportModeComponent,
     AddTransportModeComponent,
     EditTransportModeComponent,
-    AddPackageComponent
+    AddPackageComponent,
+    ManageProof2Component,
+    StationComponent,
+    PassRequestComponent
   ],
   imports: [
     CommonModule,

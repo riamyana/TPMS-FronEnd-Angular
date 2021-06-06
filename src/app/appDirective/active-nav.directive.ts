@@ -12,8 +12,8 @@ export class ActiveNavDirective {
   //   this.className = false;
   // }
 
-  @HostListener('mouseup', ['$event.target']) clicked() {
-    this.className = true;
+  @HostListener('click', ['$event.target']) clicked() {
+    this.className = !this.className;
   }
 
   // @HostListener('click') myClick() {

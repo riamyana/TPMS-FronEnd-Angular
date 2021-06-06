@@ -1,9 +1,28 @@
 .sidenav-container {
   height: 100%;
+  background-size: cover;
+  // background-image: url("../../../assets/light-blue-gradient-simple-background-presentation-banner-studio-wallpaper_138278-72.jpg");
+  background-image: linear-gradient(to bottom right, white, rgb(233, 230, 230));
+}
+
+.profileName {
+  font-size: larger;
+  padding:2px;
+  color:white;
+}
+
+.profile {
+  background-size: cover;
+  height: 15vh;
+  width: 15vh;
+  padding: 35px;
+  padding-bottom: 0px;
+  padding-top: 5px;
 }
 
 .sidenav {
-  width: 200px;
+  width: 250px;
+  background-color: rgb(3, 57, 103);
 }
 
 .sidenav .mat-toolbar {
@@ -16,7 +35,49 @@
   z-index: 1;
 }
 
-.active > a{
-  background: rgb(175, 177, 170);
-  color: rgba(96, 61, 61, 0.9);
+.link {
+  color:white;
+}
+
+// .active{
+//   background: rgb(175, 177, 170);
+//   color: rgba(96, 61, 61, 0.9);
+// }
+
+.childMenu {
+  display: none;
+  width: 90%;
+  // word-wrap: break-word;
+}
+
+.mat-list-item.active + .childMenu {
+  display: block;
+}
+
+.mat-list-item.active {
+  .expand {
+    transform: rotate(180deg);
+    transition: transform 0.4s linear;
+  }
+  
+}
+
+.expand {
+  transform: rotate(0deg);
+  transition: transform 0.4s linear;
+}
+
+.mat-list-item {
+  padding: 8px 0;
+  display: flex;
+  width: auto;
+
+  .routeIcon {
+    margin-right: 20px;
+  }
+
+  .expand.active {
+    transform: rotate(180deg);
+    transition: transform 0.5s linear;
+  }
 }

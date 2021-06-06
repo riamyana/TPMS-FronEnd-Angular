@@ -1,9 +1,12 @@
+import { NotifierMsg } from './../../constants/notifierMsg';
+import { map } from 'rxjs/operators';
+import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { DialogData } from './../../_models/dialogData/dialogData';
 import { MemberType } from './../../_models/member/member-type';
 import { MemberService } from './../../_services/member/member.service';
 import { AddPackageComponent } from './add-package/add-package.component';
 import { ConfirmDialogComponent } from './../../dialog/confirm-dialog/confirm-dialog.component';
-import { Package } from './../../_models/package/package';
+import { Package, MemberTypePackageData } from './../../_models/package/package';
 import { PackageService } from './../../_services/package/package.service';
 import { NotifierService } from './../../_services/notifier/notifier.service';
 import { Router } from '@angular/router';
@@ -25,10 +28,16 @@ export class ManagePackageComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   listData: MatTableDataSource<Package>;
-  dispCol: string[] = ['srNo', 'name', 'memberType', 'subscriptionType', 'validity', 'balance', 'price', 'action'];
+  dispCol: string[] = ['srNo', 'name', 'memberType', 'subscriptionType', 'validity', 'price', 'action'];
   packageData: Package[];
   memberTypeData: MemberType[];
-  data: DialogData = {};
+  data: DialogData = {
+    dialogType: "Add"
+  };
+
+  memberTypePackageData: MemberTypePackageData = {};
+  memberTypePackageSubject: BehaviorSubject<MemberTypePackageData>;
+  memberTypePackage: Observable<MemberTypePackageData>;
 
   constructor(
     public sideNavService: SideNavService,
@@ -40,6 +49,8 @@ export class ManagePackageComponent implements OnInit {
     private memberService: MemberService
   ) {
     this.sideNavService.navTitle = "Manage Package";
+    this.memberTypePackageSubject = new BehaviorSubject<MemberTypePackageData>(this.memberTypePackageData);
+    this.memberTypePackage = this.memberTypePackageSubject.asObservable();
   }
 
   ngOnInit(): void {
@@ -104,7 +115,7 @@ export class ManagePackageComponent implements OnInit {
       if (result) {
         this.packageService.deletePackage(pck.id).subscribe(
           data => {
-            this.notifierService.showNotification('Package Deleted Successfully', 'OK', 'success');
+            this.notifierService.showNotification(NotifierMsg.SuccessDeleteMsg('Package'), 'OK', 'success');
             const index = this.listData.data.indexOf(pck);
             this.listData.data.splice(index, 1);
             this.listData._updateChangeSubscription();
@@ -112,7 +123,7 @@ export class ManagePackageComponent implements OnInit {
             if (err.status == 401 || err.stats == 403) {
               this.router.navigateByUrl('admin/login');
             } else {
-              this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
+              this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
             }
           }
         )
@@ -121,6 +132,7 @@ export class ManagePackageComponent implements OnInit {
   }
 
   onAddMember() {
+    this.data.dialogType = "Add";
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -128,34 +140,53 @@ export class ManagePackageComponent implements OnInit {
 
     const dialogRef = this.dialog.open(AddPackageComponent, dialogConfig);
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(`Dialog result: ${result}`);
-    //   this.listData.data.push(result);
-    //   this.listData._updateChangeSubscription();
-    //   this.listData.paginator = this.paginator;
-    //   this.listData.sort = this.sort;
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log(`Dialog result: ${result}`);
+      // this.listData.data.push(result);
+      // this.listData._updateChangeSubscription();
+      // this.listData.paginator = this.paginator;
+      // this.listData.sort = this.sort;
+      this.getPackages();
+    });
   }
 
   onUpdate(pck: Package) {
-    // const dialogConfig = new MatDialogConfig();
+    this.getMemberTypePackages(pck.id);
+    this.data.dialogType = "Update";
+    // this.data.memberTypePackageData = this.memberTypePackageSubject.value;
+    // console.log("member");
+    // console.log(this.data.memberTypePackageData.memberTypePackages);
+    // console.log(this.packageService.memberTypePackage);
+    // this.data.memberTypePackageData = this.memberTypePackage.subscribe(val => { return val;});
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = this.data;
 
-    // dialogConfig.disableClose = true;
-    // dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(AddPackageComponent, dialogConfig);
 
-    // dialogConfig.data = memberTypeData
+    dialogRef.afterClosed().subscribe(result => {
+      this.getPackages();
+    });
+  }
 
-
-    // const dialogRef = this.dialog.open(EditMemberTypeComponent, dialogConfig);
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(result);
-    //   if (result) {
-    //     console.log("in" + result);
-    //     this.listData._updateChangeSubscription();
-    //     this.listData.paginator = this.paginator;
-    //     this.listData.sort = this.sort;
-    //   }
-    // });
+  getMemberTypePackages(packageId: number) {
+    this.packageService.getMemberTypePackages(packageId).subscribe(
+      data => {
+        this.packageService.memberTypePackage = data[0];
+        // this.memberTypePackageSubject.next(<MemberTypePackageData>data[0]);
+        // console.log(<MemberTypePackageData>data[0]);
+      },
+      err => {
+        if (err.status == 401 || err.stats == 403) {
+          this.router.navigateByUrl('admin/login');
+        } else if(err.status == 404){
+          this.notifierService.showNotification('No Data Available', 'OK', 'error');
+        } else {
+          this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
+          console.log(err);
+        }
+      });
   }
 
 }

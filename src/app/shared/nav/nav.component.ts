@@ -1,5 +1,6 @@
+import { AuthenticationService } from './../../_services/authentication.service';
 import { SideNavService } from './../../_services/side-nav/side-nav.service';
-import { SideNav } from './../../constants/menu-Items';
+import { SideNav, sideNavMenu2 } from './../../constants/menu-Items';
 import { Component, HostListener, Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
@@ -11,7 +12,8 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent {
-
+  
+  menu2 = sideNavMenu2;
   private menu = new SideNav();
   menuTitle: string = "Admin Panel";
   // menuItem: Menu[];
@@ -26,7 +28,8 @@ export class NavComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    public sideNavService:SideNavService
+    public sideNavService:SideNavService,
+    public authService: AuthenticationService
   ) {
     
   }
