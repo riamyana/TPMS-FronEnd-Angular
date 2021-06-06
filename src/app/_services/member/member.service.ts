@@ -12,14 +12,14 @@ export class MemberService {
   constructor(private http: HttpClient) { }
 
   getMemberType() {
-    return this.http.get<any>(`${environment.severUrl}member-types`);
+    return this.http.get<MemberType[]>(`${environment.severUrl}member-types`);
   }
 
   addMemberType(memberTypeName: string): Observable<MemberType> {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.post<any>(`${environment.severUrl}member-types`, { memberTypeName }, { headers: httpHeaders });
+    return this.http.post<MemberType>(`${environment.severUrl}member-types`, { memberTypeName }, { headers: httpHeaders });
   }
 
   deleteMemberType(id: number): Observable<any> {

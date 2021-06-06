@@ -1,42 +1,42 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" 
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>{{this.sideNavService.sideNavTitleValue}}</mat-toolbar>
-    <mat-nav-list *ngFor="let menu of this.sideNavService.currentSideMenuValue; index as i;">
-      <!-- <a mat-list-item routerLink="/home">Add Member Type</a>
-      <a mat-list-item href="/user-type">Add Proof</a>
-      <a mat-list-item href="/user-type">Add Member Wise Proof</a>
-      <li> <a mat-button routerLink="/home" [routerLinkActive]="">Home</a> </li>
-            <li *ngFor="let menu of menuItem; index as i;"> <a mat-button *ngIf="menu.active || isLoggedIn()" [routerLink]="menu.routerLink">{{menu.label}}</a> </li>
-            <li> <a mat-button *ngIf="!isLoggedIn()" routerLink="login">Login</a> </li>
-            <li> <a mat-button *ngIf="isLoggedIn()" (click)="logout()">Logout</a> </li>
-            <li> <a mat-button href="#">About Us</a> </li>
-            <span class="logo">dfjdk</span> -->
-            <a mat-list-item [routerLink]="menu.routerLink" (click)="setMenuTitle(menu.label)" routerLinkActive="active">{{menu.label}}</a>
+  <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <div fxLayout="column" fxLayoutAlign="space-between center">
+      <img src="..\assets\undraw_profile_pic_ic5t.svg" alt="" class="profile">
+      <div class="profileName">{{this.authService.currentUserValue.userName}}</div>
+      <div class="profileName">{{this.authService.currentUserValue.email}}</div>
+    </div>
+    <!-- <mat-toolbar>{{this.sideNavService.sideNavTitleValue}}</mat-toolbar> -->
+    <mat-nav-list *ngFor="let menu of menu2; index as i;">
+      <!-- <mat-list-item>
+        <mat-icon mat-list-icon class="link">{{menu.icon}}</mat-icon>
+        <a mat-list-item [routerLink]="menu.routerLink" (click)="setMenuTitle(menu.label)" routerLinkActive="active"
+          class="link">{{menu.label}}</a>
+        <div *ngIf="!!menu.routerLink">
+          <a mat-list-item [routerLink]="menu.routerLink"> {{menu.children}}</a>
+        </div>
+      </mat-list-item> -->
+
+      <a mat-list-item [ngStyle]="{'padding-left': '5px'}" class="link mat-list-item" [routerLink]="menu.routerLink" appActiveNav>
+        <mat-icon class="routeIcon">{{menu.icon}}</mat-icon>
+        {{menu.label}}
+        <span fxFlex *ngIf="menu.children && menu.children.length">
+          <span fxFlex></span>
+          <mat-icon class="expand">
+            expand_more
+          </mat-icon>
+        </span>
+      </a>
+      <div class="childMenu">
+        <a mat-list-item [ngStyle]="{'padding-left': '45px'}" *ngFor="let child of menu.children" [routerLink]="child.routerLink" class="link" appActiveNav>
+          {{child.label}}
+        </a>
+      </div>
     </mat-nav-list>
-    <!-- <mat-nav-list> -->
-      <!-- <a mat-list-item routerLink="/home">Add Member Type</a>
-      <a mat-list-item href="/user-type">Add Proof</a>
-      <a mat-list-item href="/user-type">Add Member Wise Proof</a> -->
-      <!-- <li> <a mat-button routerLink="/home" [routerLinkActive]="">Home</a> </li>
-            <li *ngFor="let menu of menuItem; index as i;"> <a mat-button *ngIf="menu.active || isLoggedIn()" [routerLink]="menu.routerLink">{{menu.label}}</a> </li>
-            <li> <a mat-button *ngIf="!isLoggedIn()" routerLink="login">Login</a> </li>
-            <li> <a mat-button *ngIf="isLoggedIn()" (click)="logout()">Logout</a> </li>
-            <li> <a mat-button href="#">About Us</a> </li> -->
-            <!-- <span class="logo">dfjdk</span> -->
-            <!-- <a mat-list-item routerLink="admin/manage-member">Add Member</a>
-            <a mat-list-item href="#">Add Proof</a>
-    </mat-nav-list> -->
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="accent">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>

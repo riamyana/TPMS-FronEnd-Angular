@@ -73,8 +73,8 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigateByUrl('admin/dashboard');
-          console.log(data);
+          this.router.navigateByUrl('admin/manage-member');
+          // console.log(data);
         },
         error => {
           if (error.status == 401 || error.status == 403) {
