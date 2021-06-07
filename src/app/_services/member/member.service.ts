@@ -11,28 +11,26 @@ export class MemberService {
 
   constructor(private http: HttpClient) { }
 
-  getMemberType() {
-    return this.http.get<MemberType[]>(`${environment.severUrl}member-types`);
+  getMemberType(): Observable<MemberType[]> {
+    return this.http.get<MemberType[]>(`${environment.serverUrl}member-types`);
   }
 
   addMemberType(memberTypeName: string): Observable<MemberType> {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.post<MemberType>(`${environment.severUrl}member-types`, { memberTypeName }, { headers: httpHeaders });
+    return this.http.post<MemberType>(`${environment.serverUrl}member-types`, { memberTypeName }, { headers: httpHeaders });
   }
 
   deleteMemberType(id: number): Observable<any> {
-    return this.http.delete(`${environment.severUrl}member-types/${id}`);
+    return this.http.delete(`${environment.serverUrl}member-types/${id}`);
   }
 
   updateMemberType(memberType: MemberType)  {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    console.log("dataservice");
-    console.log(memberType);
 
-    return this.http.put<MemberType>(`${environment.severUrl}member-types/${memberType.memberTypeId}`, memberType, { headers: httpHeaders });
+    return this.http.put<MemberType>(`${environment.serverUrl}member-types/${memberType.memberTypeId}`, memberType, { headers: httpHeaders });
   }
 }

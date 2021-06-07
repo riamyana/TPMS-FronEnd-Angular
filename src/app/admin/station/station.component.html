@@ -1,1 +1,68 @@
-<p>station works!</p>
+
+<div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="space-around center">
+    <mat-card class="card" fxFlex="60" fxFlex.xs="100%" fxFlex.md="100%">
+        <div class="mat-elevation-z8" fxLayout="column">
+            <div *ngIf="loader.isLoading | async" class="loader">
+                <mat-spinner style="top:90%; left:50%" color="primary"></mat-spinner>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <button mat-raised-button color="accent" (click)="onAdd()">Add Station <mat-icon color="primary">add</mat-icon></button>
+                </div>
+                <mat-form-field>
+                    <mat-label>
+                        <mat-icon color="accent" [class]="'input-icon'" class="search">search</mat-icon>Search
+                    </mat-label>
+                    <input type="text" (keyup)="applyFilter($event)" matInput placeholder="Search">
+                </mat-form-field>
+            </div>
+            <table mat-table [dataSource]="listData" matSort>
+    
+                <ng-container matColumnDef="srNo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Sr No. </th>
+                    <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Station Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.stationName}} </td>
+                </ng-container>
+    
+                <!-- Name Column -->
+                <ng-container matColumnDef="swipeId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Swipe Machine Id </th>
+                    <td mat-cell *matCellDef="let element"> {{element.swipeMachineId}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="latitude">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Latitude </th>
+                    <td mat-cell *matCellDef="let element"> {{element.latitude}} </td>
+                </ng-container>
+    
+                <!-- Name Column -->
+                <ng-container matColumnDef="longitude">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Longitude </th>
+                    <td mat-cell *matCellDef="let element"> {{element.longitude}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button color="accent" #tooltip="matTooltip" matTooltip="Edit" (click)="onUpdate(element)">
+                            <mat-icon>launch</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" #tooltip="matTooltip" matTooltip="Delete" (click)="deleteConfirm(element)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </button>
+                    </td>
+                    <td mat-cell *matCellDef="let element"> {{element.memberTypeName}} </td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="dispCol"></tr>
+                <tr mat-row *matRowDef="let row; columns: dispCol;"></tr>
+            </table>
+            <mat-paginator pageSize="30" [pageSizeOptions]="[5,10,20,30]"></mat-paginator>
+        </div>
+    </mat-card>
+    </div>
+    

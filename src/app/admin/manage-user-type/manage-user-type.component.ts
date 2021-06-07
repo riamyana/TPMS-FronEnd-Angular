@@ -1,3 +1,4 @@
+import { NotifierMsg } from './../../constants/notifierMsg';
 import { EditMemberTypeComponent } from './edit-member-type/edit-member-type.component';
 import { SideNavService } from './../../_services/side-nav/side-nav.service';
 import { NotifierService } from './../../_services/notifier/notifier.service';
@@ -55,7 +56,7 @@ export class ManageUserTypeComponent implements OnInit {
         if (err.status == 401 || err.stats == 403) {
           this.router.navigateByUrl('admin/login');
         } else {
-          this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
+          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
         }
       });
   }

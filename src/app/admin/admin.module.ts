@@ -21,6 +21,8 @@ import { AddPackageComponent } from './manage-package/add-package/add-package.co
 import { ManageProof2Component } from './manage-proof2/manage-proof2.component';
 import { StationComponent } from './station/station.component';
 import { PassRequestComponent } from './pass-request/pass-request.component';
+import { AddUpdateStationComponent } from './station/add-update-station/add-update-station.component';
+import { TransportCostComponent } from './transport-cost/transport-cost.component';
 
 
 
@@ -40,7 +42,9 @@ import { PassRequestComponent } from './pass-request/pass-request.component';
     AddPackageComponent,
     ManageProof2Component,
     StationComponent,
-    PassRequestComponent
+    PassRequestComponent,
+    AddUpdateStationComponent,
+    TransportCostComponent
   ],
   imports: [
     CommonModule,

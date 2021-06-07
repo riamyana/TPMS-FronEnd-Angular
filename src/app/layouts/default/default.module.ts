@@ -1,3 +1,6 @@
+import { AgmCoreModule } from '@agm/core';
+import { AddUpdateStationComponent } from './../../admin/station/add-update-station/add-update-station.component';
+import { StationComponent } from './../../admin/station/station.component';
 import { AddPackageComponent } from './../../admin/manage-package/add-package/add-package.component';
 import { EditTransportModeComponent } from './../../admin/transport-mode/edit-transport-mode/edit-transport-mode.component';
 import { AddTransportModeComponent } from './../../admin/transport-mode/add-transport-mode/add-transport-mode.component';
@@ -39,7 +42,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     TransportModeComponent,
     AddTransportModeComponent,
     EditTransportModeComponent,
-    AddPackageComponent
+    AddPackageComponent,
+    StationComponent,
+    AddUpdateStationComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +53,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     MaterialModule,
     ReactiveFormsModule,
-    AppDirectiveModule
+    AppDirectiveModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDTtaFlEBursUoZoX_oyIm3V6H_NXx8KGE'
+    })
   ], 
   exports: [
     DefaultComponent,
@@ -65,7 +73,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     TransportModeComponent,
     AddTransportModeComponent,
     EditTransportModeComponent,
-    AddPackageComponent
+    AddPackageComponent,
+    StationComponent,
+    AddUpdateStationComponent
   ]
 })
 export class DefaultModule { }

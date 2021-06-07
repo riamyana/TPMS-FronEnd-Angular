@@ -88,11 +88,11 @@ export const sideNavMenu2: sideNav2[] = [
     {
         label: 'Manage Routes',
         icon: 'transfer_within_a_station',
-        routerLink: 'manage-transport-modes',
+        routerLink: 'manage-station',
         children: [
             {
                 label: 'Manage Stations',
-                routerLink: 'manage-transport-modes',
+                routerLink: 'manage-station',
             }, {
                 label: 'Manage Transport Cost',
                 routerLink: 'manage-package'

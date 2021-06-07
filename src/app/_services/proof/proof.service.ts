@@ -12,15 +12,15 @@ export class ProofService {
   constructor(private http: HttpClient) { }
 
   getProof() {
-    return this.http.get<Proof[]>(`${environment.severUrl}proofs`);
+    return this.http.get<Proof[]>(`${environment.serverUrl}proofs`);
   }
 
   getProofByMemberId(id: number) {
-    return this.http.get<Proof>(`${environment.severUrl}proofs/member-types/${id}`);
+    return this.http.get<Proof>(`${environment.serverUrl}proofs/member-types/${id}`);
   }
 
   deleteMemberType(id: number): Observable<any> {
-    return this.http.delete(`${environment.severUrl}proofs/${id}`);
+    return this.http.delete(`${environment.serverUrl}proofs/${id}`);
   }
 
   addProof(proof: Proof): Observable<Proof> {
@@ -28,10 +28,10 @@ export class ProofService {
       'Content-Type': 'application/json'
     });
     console.log(proof);
-    return this.http.post<Proof>(`${environment.severUrl}proofs`, proof, { headers: httpHeaders });
+    return this.http.post<Proof>(`${environment.serverUrl}proofs`, proof, { headers: httpHeaders });
   }
 
   getProof2() {
-    return this.http.get<Proof[]>(`${environment.severUrl}proofs`);
+    return this.http.get<Proof[]>(`${environment.serverUrl}proofs`);
   }
 }

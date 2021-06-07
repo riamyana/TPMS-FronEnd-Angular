@@ -25,15 +25,15 @@ export class PackageService {
   }
 
   getPackages() {
-    return this.http.get<Package[]>(`${environment.severUrl}packages`);
+    return this.http.get<Package[]>(`${environment.serverUrl}packages`);
   }
 
   getMemberTypePackages(packageId: number) {
-    return this.http.get<MemberTypePackageData[]>(`${environment.severUrl}member-packages/${packageId}`);
+    return this.http.get<MemberTypePackageData[]>(`${environment.serverUrl}member-packages/${packageId}`);
   }
 
   deletePackage(id: number): Observable<any> {
-    return this.http.delete(`${environment.severUrl}packages/${id}`);
+    return this.http.delete(`${environment.serverUrl}packages/${id}`);
   }
 
   // addPackage(pck: Package): Observable<Package> {
@@ -47,14 +47,14 @@ export class PackageService {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.post<MemberPackage>(`${environment.severUrl}member-packages`, memberPackage, { headers: httpHeaders });
+    return this.http.post<MemberPackage>(`${environment.serverUrl}member-packages`, memberPackage, { headers: httpHeaders });
   }
 
   addPackage(pck: Package, member: FormArray): Observable<MemberPackage> {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.post<Package>(`${environment.severUrl}packages`, pck, { headers: httpHeaders })
+    return this.http.post<Package>(`${environment.serverUrl}packages`, pck, { headers: httpHeaders })
       .pipe(switchMap((res: Package) => {
         const len = member.length;
 
@@ -64,9 +64,9 @@ export class PackageService {
           this.updateMemberPackage(i, member, res.id);
 
           if (i == len - 1) {
-            return this.http.post<MemberPackage>(`${environment.severUrl}member-packages`, this.memberPackage, { headers: httpHeaders });
+            return this.http.post<MemberPackage>(`${environment.serverUrl}member-packages`, this.memberPackage, { headers: httpHeaders });
           } else {
-            this.http.post<MemberPackage>(`${environment.severUrl}member-packages`, this.memberPackage, { headers: httpHeaders });
+            this.http.post<MemberPackage>(`${environment.serverUrl}member-packages`, this.memberPackage, { headers: httpHeaders });
           }
         }
         return null;

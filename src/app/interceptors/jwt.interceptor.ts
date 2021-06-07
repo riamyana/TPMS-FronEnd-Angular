@@ -23,7 +23,7 @@ export class JwtInterceptor implements HttpInterceptor {
     this.loader.isLoading.next(true);
     const currentUser = this.authenticationService.currentUserValue;
     const isLoggedIn = !!(currentUser && currentUser.jwtToken);
-    const isApiUrl = request.url.startsWith(environment.severUrl);
+    const isApiUrl = request.url.startsWith(environment.serverUrl);
 
     console.log(request);
     console.log("login:" + isLoggedIn);

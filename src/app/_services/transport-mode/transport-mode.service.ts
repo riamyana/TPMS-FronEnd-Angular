@@ -12,18 +12,18 @@ export class TransportModeService {
   constructor(private http: HttpClient) { }
 
   getTransportModes() {
-    return this.http.get<any>(`${environment.severUrl}transport-modes`);
+    return this.http.get<any>(`${environment.serverUrl}transport-modes`);
   }
 
   addModeType(name: string): Observable<TransportMode> {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.post<TransportMode>(`${environment.severUrl}transport-modes`, { name }, { headers: httpHeaders });
+    return this.http.post<TransportMode>(`${environment.serverUrl}transport-modes`, { name }, { headers: httpHeaders });
   }
 
   deleteMode(id: number): Observable<any> {
-    return this.http.delete(`${environment.severUrl}transport-modes/${id}`);
+    return this.http.delete(`${environment.serverUrl}transport-modes/${id}`);
   }
 
   updateModeType(modeType: TransportMode)  {
@@ -31,6 +31,6 @@ export class TransportModeService {
       'Content-Type': 'application/json'
     });
 
-    return this.http.put<TransportMode>(`${environment.severUrl}transport-modes/${modeType.id}`, modeType, { headers: httpHeaders });
+    return this.http.put<TransportMode>(`${environment.serverUrl}transport-modes/${modeType.id}`, modeType, { headers: httpHeaders });
   }
 }

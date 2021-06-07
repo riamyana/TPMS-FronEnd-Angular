@@ -79,21 +79,12 @@ export class LoginComponent implements OnInit {
         error => {
           if (error.status == 401 || error.status == 403) {
             this.error = error;
-            // console.log(error.error.message);
             this.notifierService.showNotification('Invalid credentials', 'OK', 'error');
           } else {
             this.error = error;
-            // console.log(error.error.message);
             this.notifierService.showNotification('Something went wrong, Please try again later..!', 'OK', 'error');
           }
         });
-
-    // const resp = await this.authenticationService.login(loginModel);
-    // localStorage.setItem('userToken', JSON.stringify(resp.body));
-
-    // console.log(resp.body);
-
-    // this.router.navigate(['/admin/home']);
     this.authenticationService.isLoggedIn();
   }
 
