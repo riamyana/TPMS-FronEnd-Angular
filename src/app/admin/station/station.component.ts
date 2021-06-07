@@ -1,6 +1,6 @@
 import { ConfirmDialogComponent } from './../../dialog/confirm-dialog/confirm-dialog.component';
 import { NotifierMsg } from './../../constants/notifierMsg';
-import { StationService } from './../../_services/station.service';
+import { StationService } from '../../_services/station/station.service';
 import { Station } from './../../_models/station/station';
 import { AddUpdateStationComponent } from './add-update-station/add-update-station.component';
 import { MatTableDataSource } from '@angular/material/table';

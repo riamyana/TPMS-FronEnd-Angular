@@ -1,5 +1,5 @@
-import { Station } from './../_models/station/station';
-import { Observable } from 'rxjs';
+import { Station } from '../../_models/station/station';
+import { Observable, ReplaySubject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -9,7 +9,13 @@ import { environment } from 'src/environments/environment';
 })
 export class StationService {
 
-  constructor(private http: HttpClient) { }
+  staionSubject: ReplaySubject<Station[]>;
+  stationObservable: Observable<Station[]>;
+
+  constructor(private http: HttpClient) {
+    this.staionSubject = new ReplaySubject<Station[]>(1);
+    this.stationObservable = this.staionSubject.asObservable();
+  }
 
   addStation(stationData: Station): Observable<Station> {
     const httpHeaders = new HttpHeaders({
@@ -31,5 +37,9 @@ export class StationService {
       'Content-Type': 'application/json'
     });
     return this.http.put<Station>(`${environment.serverUrl}stations/${stationData.stationId}`, stationData, { headers: httpHeaders });
+  }
+
+  set station(data: Station[]) {
+    this.staionSubject.next(data);
   }
 }

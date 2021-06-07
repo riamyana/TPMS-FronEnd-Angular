@@ -1,3 +1,4 @@
+import { AddUpdateTransportCostComponent } from './../../admin/transport-cost/add-update-transport-cost/add-update-transport-cost.component';
 import { AgmCoreModule } from '@agm/core';
 import { AddUpdateStationComponent } from './../../admin/station/add-update-station/add-update-station.component';
 import { StationComponent } from './../../admin/station/station.component';
@@ -23,6 +24,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TransportCostComponent } from 'src/app/admin/transport-cost/transport-cost.component';
 
 
 
@@ -44,7 +46,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     EditTransportModeComponent,
     AddPackageComponent,
     StationComponent,
-    AddUpdateStationComponent
+    AddUpdateStationComponent,
+    TransportCostComponent,
+    AddUpdateTransportCostComponent
   ],
   imports: [
     CommonModule,
@@ -75,7 +79,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     EditTransportModeComponent,
     AddPackageComponent,
     StationComponent,
-    AddUpdateStationComponent
+    AddUpdateStationComponent,
+    TransportCostComponent,
+    AddUpdateTransportCostComponent
   ]
 })
 export class DefaultModule { }

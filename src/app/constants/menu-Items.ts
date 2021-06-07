@@ -95,7 +95,7 @@ export const sideNavMenu2: sideNav2[] = [
                 routerLink: 'manage-station',
             }, {
                 label: 'Manage Transport Cost',
-                routerLink: 'manage-package'
+                routerLink: 'manage-transport-cost'
             }
         ]
     },

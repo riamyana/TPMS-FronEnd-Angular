@@ -23,6 +23,7 @@ import { StationComponent } from './station/station.component';
 import { PassRequestComponent } from './pass-request/pass-request.component';
 import { AddUpdateStationComponent } from './station/add-update-station/add-update-station.component';
 import { TransportCostComponent } from './transport-cost/transport-cost.component';
+import { AddUpdateTransportCostComponent } from './transport-cost/add-update-transport-cost/add-update-transport-cost.component';
 
 
 
@@ -44,7 +45,8 @@ import { TransportCostComponent } from './transport-cost/transport-cost.componen
     StationComponent,
     PassRequestComponent,
     AddUpdateStationComponent,
-    TransportCostComponent
+    TransportCostComponent,
+    AddUpdateTransportCostComponent
   ],
   imports: [
     CommonModule,
