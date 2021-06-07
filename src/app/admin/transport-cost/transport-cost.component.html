@@ -6,7 +6,7 @@
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between center">
                 <div>
-                    <button mat-raised-button color="accent" (click)="onAdd()">Add Station <mat-icon color="primary">add</mat-icon></button>
+                    <button mat-raised-button color="accent" (click)="onAdd()">Add Transport Cost <mat-icon color="primary">add</mat-icon></button>
                 </div>
                 <mat-form-field>
                     <mat-label>
@@ -22,26 +22,20 @@
                     <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
                 </ng-container>
     
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Station Name </th>
-                    <td mat-cell *matCellDef="let element"> {{element.stationName}} </td>
+                <ng-container matColumnDef="fromStation">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> From Station Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.fromStationName}} </td>
                 </ng-container>
     
                 <!-- Name Column -->
-                <ng-container matColumnDef="swipeId">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Swipe Machine Id </th>
-                    <td mat-cell *matCellDef="let element"> {{element.swipeMachineId}} </td>
+                <ng-container matColumnDef="toStation">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> To Station Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.toStationName}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="latitude">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Latitude </th>
-                    <td mat-cell *matCellDef="let element"> {{element.latitude}} </td>
-                </ng-container>
-    
-                <!-- Name Column -->
-                <ng-container matColumnDef="longitude">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Longitude </th>
-                    <td mat-cell *matCellDef="let element"> {{element.longitude}} </td>
+                <ng-container matColumnDef="cost">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cost </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cost}} </td>
                 </ng-container>
     
                 <ng-container matColumnDef="action">
@@ -50,7 +44,7 @@
                         <button mat-icon-button color="accent" #tooltip="matTooltip" matTooltip="Edit" (click)="onUpdate(element)">
                             <mat-icon>launch</mat-icon>
                         </button>
-                        <button mat-icon-button color="warn" #tooltip="matTooltip" matTooltip="Delete" (click)="deleteConfirm(element)">
+                        <button mat-icon-button color="warn" #tooltip="matTooltip" matTooltip="Delete" (click)="deleteConfirm(element.id)">
                             <mat-icon>delete_outline</mat-icon>
                         </button>
                     </td>

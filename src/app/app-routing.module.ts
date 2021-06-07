@@ -1,3 +1,4 @@
+import { StationComponent } from './admin/station/station.component';
 import { PageNotFoundComponent } from './layouts/fullwidth/page-not-found/page-not-found.component';
 import { TransportModeComponent } from './admin/transport-mode/transport-mode.component';
 import { ManageUserTypeComponent } from './admin/manage-user-type/manage-user-type.component';
@@ -18,6 +19,7 @@ import { AuthGuard } from './auth.guard';
 // import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TransportCostComponent } from './admin/transport-cost/transport-cost.component';
 
 
 const routes: Routes = [
@@ -38,6 +40,10 @@ const routes: Routes = [
       path: 'manage-subscription-type', component: ManageSubscriptionTypeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Subscription Type' } 
     }, { 
       path: 'manage-transport-modes', component: TransportModeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Package' } 
+    }, { 
+      path: 'manage-station', component: StationComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Routes' } 
+    }, { 
+      path: 'manage-transport-cost', component: TransportCostComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Routes' } 
     }
   ]
   },

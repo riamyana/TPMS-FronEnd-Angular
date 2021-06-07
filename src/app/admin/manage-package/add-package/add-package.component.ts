@@ -1,7 +1,6 @@
 import { NotifierMsg } from './../../../constants/notifierMsg';
 import { MemberPackage } from './../../../_models/package/member-package';
 import { subscriptionTypeEnum } from './../../../constants/subscription-type';
-import { SubscriptionType } from './../../../_models/subscription-type/subscription-type';
 import { Router } from '@angular/router';
 import { MemberService } from './../../../_services/member/member.service';
 import { LoaderService } from './../../../_services/loader/loader.service';
@@ -77,59 +76,53 @@ export class AddPackageComponent implements OnInit {
   }
 
   setValues() {
-    // console.log("setValue")
-    // console.log(this.data.memberTypePackageData);
-
     // let memberTypePackage: MemberTypePackageData;
     // memberTypePackage = this.data.memberTypePackageData;
-    // console.log(this.data.memberTypePackageData.memberTypePackages);
 
     if (this.form.packageName.value == '' || this.form.packageName.value == null) {
-    console.log("member");
-    // console.log(this.packageService.memberTypePackage);
-    this.packageService.memberTypePackageObservable.subscribe(data => {
-      console.log(data);
-  
-      this.form.packageId.setValue(data.id);
-      this.form.packageName.setValue(data.name);
-      this.form.subscriptionType.setValue(this.subType[data.subscriptionType]);
-      this.form.total.setValue(data.counts);
-      this.form.validity.setValue(data.validity);
-      this.form.balance.setValue(data.balance);
-      this.form.price.setValue(data.price);
+      this.packageService.memberTypePackageObservable.subscribe(data => {
+        console.log(data);
 
-      let len = data.memberTypePackages.length;
+        this.form.packageId.setValue(data.id);
+        this.form.packageName.setValue(data.name);
+        this.form.subscriptionType.setValue(this.subType[data.subscriptionType]);
+        this.form.total.setValue(data.counts);
+        this.form.validity.setValue(data.validity);
+        this.form.balance.setValue(data.balance);
+        this.form.price.setValue(data.price);
 
-      for (let i = 0; i < len; i++) {
-        if (i > 0) {
-          const newMemberType = this.formBuilder.group({
-            id: [data.memberTypePackages[i].id],
-            memberTypeName: [data.memberTypePackages[i].memberTypeId, Validators.required],
-            discount: [data.memberTypePackages[i].discountPercentage, Validators.required],
-            startDate: [data.memberTypePackages[i].discountStartDate],
-            endDate: [data.memberTypePackages[i].discountEndDate],
-            description: [data.memberTypePackages[i].discountDescription]
-          });
-          this.member.push(newMemberType);
-        } else {
-          this.member.controls[i].get('id').setValue(data.memberTypePackages[i].id);
-          this.member.controls[i].get('memberTypeName').setValue(data.memberTypePackages[i].memberTypeId);
-          this.member.controls[i].get('discount').setValue(data.memberTypePackages[i].discountPercentage);
-          this.member.controls[i].get('startDate').setValue(data.memberTypePackages[i].discountStartDate);
-          this.member.controls[i].get('endDate').setValue(data.memberTypePackages[i].discountEndDate);
-          this.member.controls[i].get('description').setValue(data.memberTypePackages[i].discountDescription);
+        let len = data.memberTypePackages.length;
+
+        for (let i = 0; i < len; i++) {
+          if (i > 0) {
+            const newMemberType = this.formBuilder.group({
+              id: [data.memberTypePackages[i].id],
+              memberTypeName: [data.memberTypePackages[i].memberTypeId, Validators.required],
+              discount: [data.memberTypePackages[i].discountPercentage, Validators.required],
+              startDate: [data.memberTypePackages[i].discountStartDate],
+              endDate: [data.memberTypePackages[i].discountEndDate],
+              description: [data.memberTypePackages[i].discountDescription]
+            });
+            this.member.push(newMemberType);
+          } else {
+            this.member.controls[i].get('id').setValue(data.memberTypePackages[i].id);
+            this.member.controls[i].get('memberTypeName').setValue(data.memberTypePackages[i].memberTypeId);
+            this.member.controls[i].get('discount').setValue(data.memberTypePackages[i].discountPercentage);
+            this.member.controls[i].get('startDate').setValue(data.memberTypePackages[i].discountStartDate);
+            this.member.controls[i].get('endDate').setValue(data.memberTypePackages[i].discountEndDate);
+            this.member.controls[i].get('description').setValue(data.memberTypePackages[i].discountDescription);
+          }
+
+          this.applyDisable();
+          // if (this.member.controls[i].get('discount').value == null || this.member.controls[i].get('discount').value == '0') {
+          //   this.member.controls[i].get('discount').disable();
+          //   this.member.controls[i].get('description').disable();
+          //   this.member.controls[i].get('startDate').disable();
+          //   this.member.controls[i].get('endDate').disable();
+          // }
         }
-
-        this.applyDisable();
-        // if (this.member.controls[i].get('discount').value == null || this.member.controls[i].get('discount').value == '0') {
-        //   this.member.controls[i].get('discount').disable();
-        //   this.member.controls[i].get('description').disable();
-        //   this.member.controls[i].get('startDate').disable();
-        //   this.member.controls[i].get('endDate').disable();
-        // }
-      }
-    });
-  }
+      });
+    }
   }
 
   updateMemberPackage(i: number) {

@@ -1,0 +1,46 @@
+
+<h2 mat-dialog-title>{{msg}} Transport Cost</h2>
+<div mat-dialog-content style="width: 50vw;">
+    <div fxLayout="row" fxLayoutGap="100px" fxLayoutAlign="center" class="container">
+        <form class="form" fxLayout="column" fxFlex="100" fxLayoutAlign="center" [formGroup]="transportCostForm">
+
+            <mat-form-field color="accent" appearance="fill">
+                <mat-label>Enter From Station Name</mat-label>
+                <mat-select name="toStation" formControlName="fromStationId">
+                    <mat-option *ngFor="let data of stationData" [value]="data.stationId">
+                        {{ data.stationName }}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    Please provide a valid To Station Name
+                </mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field color="accent" appearance="fill">
+                <mat-label>Enter To Station Name</mat-label>
+                <mat-select name="fromStation" formControlName="toStationId">
+                    <mat-option *ngFor="let data of stationData" [value]="data.stationId">
+                        {{ data.stationName }}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    Please provide a valid From Station Name
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field color="accent" appearance="fill">
+                <mat-label>Cost</mat-label>
+                <input matInput placeholder="Validity" formControlName="cost" type="number">
+                <mat-error>
+                    Please provide a valid Cost
+                </mat-error>
+            </mat-form-field>
+        </form>
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-raised-button type="submit" color="primary" color="accent" (click)="msg == 'Add'?onAdd():onUpdate();">{{msg}}</button>
+    <button mat-raised-button type="submit" color="primary" color="warn" (click)="onCancel()">Cancel</button>
+</div>

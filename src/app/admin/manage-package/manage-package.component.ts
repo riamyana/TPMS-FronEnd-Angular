@@ -56,7 +56,6 @@ export class ManagePackageComponent implements OnInit {
   ngOnInit(): void {
     this.getPackages();
     this.getMemberType();
-    // this.getSubscriptionType();
   }
 
   getMemberType() {
@@ -72,20 +71,6 @@ export class ManagePackageComponent implements OnInit {
         }
       });
   }
-
-  // getSubscriptionType() {
-  //   this.packageService.getSubscriptionType().subscribe(
-  //     data => {
-  //       this.data.subscriptionType = data;
-  //     },
-  //     err => {
-  //       if (err.status == 401 || err.stats == 403) {
-  //         this.router.navigateByUrl('admin/login');
-  //       } else {
-  //         this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
-  //       }
-  //     });
-  // }
 
   getPackages() {
     this.packageService.getPackages().subscribe(
@@ -187,6 +172,11 @@ export class ManagePackageComponent implements OnInit {
           console.log(err);
         }
       });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.listData.filter = filterValue.trim().toLowerCase();
   }
 
 }

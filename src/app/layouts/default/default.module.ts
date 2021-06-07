@@ -1,3 +1,7 @@
+import { AddUpdateTransportCostComponent } from './../../admin/transport-cost/add-update-transport-cost/add-update-transport-cost.component';
+import { AgmCoreModule } from '@agm/core';
+import { AddUpdateStationComponent } from './../../admin/station/add-update-station/add-update-station.component';
+import { StationComponent } from './../../admin/station/station.component';
 import { AddPackageComponent } from './../../admin/manage-package/add-package/add-package.component';
 import { EditTransportModeComponent } from './../../admin/transport-mode/edit-transport-mode/edit-transport-mode.component';
 import { AddTransportModeComponent } from './../../admin/transport-mode/add-transport-mode/add-transport-mode.component';
@@ -20,6 +24,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TransportCostComponent } from 'src/app/admin/transport-cost/transport-cost.component';
 
 
 
@@ -39,7 +44,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     TransportModeComponent,
     AddTransportModeComponent,
     EditTransportModeComponent,
-    AddPackageComponent
+    AddPackageComponent,
+    StationComponent,
+    AddUpdateStationComponent,
+    TransportCostComponent,
+    AddUpdateTransportCostComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +57,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     MaterialModule,
     ReactiveFormsModule,
-    AppDirectiveModule
+    AppDirectiveModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDTtaFlEBursUoZoX_oyIm3V6H_NXx8KGE'
+    })
   ], 
   exports: [
     DefaultComponent,
@@ -65,7 +77,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     TransportModeComponent,
     AddTransportModeComponent,
     EditTransportModeComponent,
-    AddPackageComponent
+    AddPackageComponent,
+    StationComponent,
+    AddUpdateStationComponent,
+    TransportCostComponent,
+    AddUpdateTransportCostComponent
   ]
 })
 export class DefaultModule { }

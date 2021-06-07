@@ -11,7 +11,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  public isAuthenticated = new BehaviorSubject<boolean>(false);
+  // public isAuthenticated = new BehaviorSubject<boolean>(false);
   // public isMenuOpen = new BehaviorSubject<boolean>(false);
   private currentUserSubject: BehaviorSubject<UserModel>;
   public currentUser: Observable<UserModel>;
@@ -52,7 +52,7 @@ export class AuthenticationService {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.post<any>(`${environment.severUrl}authenticate`, { userName, password }, { headers: httpHeaders })
+    return this.http.post<any>(`${environment.serverUrl}authenticate`, { userName, password }, { headers: httpHeaders })
       .pipe(map(result => {
         if (result && result.jwtToken) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
