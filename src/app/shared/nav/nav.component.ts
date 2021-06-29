@@ -12,7 +12,7 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent {
-  
+
   menu2 = sideNavMenu2;
   private menu = new SideNav();
   menuTitle: string = "Admin Panel";
@@ -28,13 +28,13 @@ export class NavComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    public sideNavService:SideNavService,
+    public sideNavService: SideNavService,
     public authService: AuthenticationService
   ) {
-    
+
   }
 
-  ngOnInit(): void{}
+  ngOnInit(): void { }
 
   setMenuTitle(label: string) {
     this.sideNavService.navTitle = label;

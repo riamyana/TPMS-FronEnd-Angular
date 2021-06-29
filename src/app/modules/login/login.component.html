@@ -18,7 +18,6 @@
 
             <div fxFlex="40" fxLayoutAlign="center" class="login" fxFlex.xs="100" fxFlex.sm="100">
                 <form fxLayout="column" [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()" fxFlex="85" fxFlex.xs="100" fxFlex.md="100">
-                    <!-- <div class="profile"><img src="../../../assets/undraw_profile_pic_ic5t.svg" alt=""></div> -->
                     <mat-form-field class="example-full-width" color="accent" appearance="fill">
                         <mat-label>
                             <mat-icon color="accent" [class]="'input-icon'">person</mat-icon>User Name
@@ -29,12 +28,7 @@
                             Please provide a valid email address
                         </mat-error>
                     </mat-form-field>
-                    <!--           
-                        <mat-form-field class="example-full-width">
-                          <mat-label>Email</mat-label>
-                          <input matInput placeholder="Ex. abc@gmail.com">
-                        </mat-form-field> -->
-
+                    
                     <mat-form-field class="example-full-width" color="accent" appearance="fill">
                         <mat-label>
                             <mat-icon color="accent" [class]="'input-icon'">lock</mat-icon>Password
@@ -51,7 +45,6 @@
                     </mat-form-field>
 
                     <button mat-raised-button type="submit" color="primary">Login</button>
-                    <!-- <mat-spinner></mat-spinner> -->
                 </form>
             </div>
 

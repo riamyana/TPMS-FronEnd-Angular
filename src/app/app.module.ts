@@ -1,3 +1,4 @@
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { FullwidthModule } from './layouts/fullwidth/fullwidth.module';
 import { AdminComponent } from './admin/admin.component';
 import { DefaultModule } from './layouts/default/default.module';
@@ -16,15 +17,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NotifierComponent } from './notifier/notifier.component';
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
+import { MyProfileComponent } from './modules/profile/my-profile/my-profile.component';
+import { ResetPasswordComponent } from './modules/profile/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    // AdminHomeComponent,
-    // HomeComponent,
     AdminComponent,
     NotifierComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    MyProfileComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -35,8 +38,8 @@ import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.c
     ReactiveFormsModule,
     LayoutModule,
     DefaultModule,
-    FullwidthModule
-    // AdminModule
+    FullwidthModule,
+    FlexLayoutModule
   ],
   providers: [AuthenticationService, AuthGuard,
   {

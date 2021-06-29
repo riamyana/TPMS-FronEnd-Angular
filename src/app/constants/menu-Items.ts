@@ -51,7 +51,16 @@ export const sideNavMenu2: sideNav2[] = [
     {
         label: 'Profile',
         icon: 'person',
-        routerLink: '',
+        routerLink: 'my-profile',
+        children: [
+            {
+                label: 'My Profile',
+                routerLink: 'my-profile',
+            }, {
+                label: 'Reset Password',
+                routerLink: 'reset-password'
+            }
+        ]
     },
     {
         label: 'Manage Member',
@@ -102,7 +111,7 @@ export const sideNavMenu2: sideNav2[] = [
     {
         label: 'Manage Pass Request',
         icon: 'thumbs_up_down',
-        routerLink: ''
+        routerLink: 'pass-request'
     }
 ];
 export interface sideNav {

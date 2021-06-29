@@ -37,7 +37,8 @@ export class AddPackageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private packageService: PackageService,
     private notifierService: NotifierService,
-    public loader: LoaderService
+    public loader: LoaderService,
+    private router: Router
   ) {
     this.keys = Object.keys(this.subType);
   }
@@ -222,12 +223,16 @@ export class AddPackageComponent implements OnInit {
     this.packageService.addPackage(this.packageData, this.member)
       .subscribe(
         data => {
-          this.notifierService.showNotification('Package Added Successfully', 'OK', 'success');
+          this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Package'), 'OK', 'success');
           this.dialogRef.close();
         },
         err => {
-          this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
-          console.log(err);
+          if (err.status == 401 || err.stats == 403) {
+            this.router.navigateByUrl('admin/login');
+          } else {
+            this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+            console.log(err);
+          }
           this.dialogRef.close();
         }
       );

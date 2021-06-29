@@ -1,3 +1,6 @@
+import { PassRequestComponent } from './admin/pass-request/pass-request.component';
+import { ResetPasswordComponent } from './modules/profile/reset-password/reset-password.component';
+import { MyProfileComponent } from './modules/profile/my-profile/my-profile.component';
 import { StationComponent } from './admin/station/station.component';
 import { PageNotFoundComponent } from './layouts/fullwidth/page-not-found/page-not-found.component';
 import { TransportModeComponent } from './admin/transport-mode/transport-mode.component';
@@ -44,6 +47,12 @@ const routes: Routes = [
       path: 'manage-station', component: StationComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Routes' } 
     }, { 
       path: 'manage-transport-cost', component: TransportCostComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Routes' } 
+    }, { 
+      path: 'my-profile', component: MyProfileComponent
+    }, { 
+      path: 'reset-password', component: ResetPasswordComponent
+    }, { 
+      path: 'pass-request', component: PassRequestComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN } 
     }
   ]
   },

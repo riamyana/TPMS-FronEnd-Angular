@@ -9,6 +9,7 @@ import { FormErrorStateMatcher } from './../../../ErrorStateMatcher/FormErrorSta
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotifierMsg } from 'src/app/constants/notifierMsg';
 
 @Component({
   selector: 'app-add-proof',
@@ -99,11 +100,11 @@ export class AddProofComponent implements OnInit {
       this.proofService.addProof(this.proofData).subscribe(
         data => {
           // console.log(data);
-          this.notifierService.showNotification('Member Type Added Successfully', 'OK', 'success');
+          this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Proof'), 'OK', 'success');
           this.dialogRef.close(data);
         },
         err => {
-          this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
+          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
           console.log(err);
           // this.dialogRef.close();
         });
