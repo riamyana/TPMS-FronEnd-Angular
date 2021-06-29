@@ -23,6 +23,7 @@ import { first } from 'rxjs/operators';
 export class LoginComponent implements OnInit {
 
   @Input() user_type;
+  role = Roles;
   loginForm: FormGroup;
   returnUrl: string;
   error = '';

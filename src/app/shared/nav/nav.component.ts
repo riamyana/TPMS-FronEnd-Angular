@@ -1,3 +1,4 @@
+import { UserModel } from './../../_models/userModel';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { SideNavService } from './../../_services/side-nav/side-nav.service';
 import { SideNav, sideNavMenu2 } from './../../constants/menu-Items';
@@ -16,6 +17,7 @@ export class NavComponent {
   menu2 = sideNavMenu2;
   private menu = new SideNav();
   menuTitle: string = "Admin Panel";
+  currentUser: UserModel;
   // menuItem: Menu[];
 
   // @Input() sideNav: Menu[];
@@ -34,7 +36,9 @@ export class NavComponent {
 
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.currentUser = this.authService.currentUserValue;
+  }
 
   setMenuTitle(label: string) {
     this.sideNavService.navTitle = label;

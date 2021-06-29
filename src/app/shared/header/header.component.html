@@ -10,6 +10,7 @@
                 </a> 
             </li>
             <li> <a mat-button *ngIf="!isLoggedIn()" routerLink="/admin/login" routerLinkActive="activeLink">Login</a> </li>
+            <li> <a mat-button *ngIf="!isLoggedIn() && user_type == role.USER" routerLink="/admin/register" routerLinkActive="activeLink">Register</a> </li>
             <li> <a mat-button *ngIf="isLoggedIn()" (click)="logout()" routerLinkActive="activeLink">Logout</a> </li>
             <li> <a mat-button href="#">About Us</a> </li>
 

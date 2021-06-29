@@ -1,7 +1,7 @@
 import { SideNavService } from './../../_services/side-nav/side-nav.service';
 import { map, shareReplay } from 'rxjs/operators';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Menu, UserMenu, userMenu, SideNav, NavItem } from './../../constants/menu-Items';
+import { Menu, UserMenu, SideNav, NavItem } from './../../constants/menu-Items';
 import { Roles } from './../../constants/roles';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './../../_services/authentication.service';
@@ -24,8 +24,8 @@ export class HeaderComponent implements OnInit {
       shareReplay()
     );
 
-  // isLoggedIn: boolean;
   @Input() user_type: Roles;
+  role = Roles;
   private menu = new UserMenu();
   menuItem: Menu[];
 
@@ -41,13 +41,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn();
     this.menuItem = this.menu.userMenu(this.user_type);
-    // alert(`header: ${this.user_type}`);
   }
 
   logout() {
     this.authService.logout();
     this.router.navigate(['admin/login']);
-    // alert("dkfjdk");
   }
 
   isLoggedIn(): boolean {

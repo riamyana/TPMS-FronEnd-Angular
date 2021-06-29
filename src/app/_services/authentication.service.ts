@@ -1,4 +1,4 @@
-import { changePassword } from './../_models/profile/changePassword';
+import { ChangePassword } from './../_models/profile/changePassword';
 import { LoginModel } from './../_models/loginModel';
 import { UserModel } from './../_models/userModel';
 import { Roles } from './../constants/roles';
@@ -56,7 +56,7 @@ export class AuthenticationService {
     return JSON.parse(localStorage.getItem('currentUser'));
   }
 
-  changePassword(data: changePassword): Observable<any> {
+  changePassword(data: ChangePassword): Observable<any> {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });

@@ -2,7 +2,7 @@ import { FormErrorStateMatcher } from './../../../ErrorStateMatcher/FormErrorSta
 import { ErrorMsg } from './../../../constants/errorMsg';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { MatDialogRef } from '@angular/material/dialog';
-import { changePassword } from './../../../_models/profile/changePassword';
+import { ChangePassword } from './../../../_models/profile/changePassword';
 import { AuthenticationService } from './../../../_services/authentication.service';
 import { Router } from '@angular/router';
 import { NotifierService } from './../../../_services/notifier/notifier.service';
@@ -19,7 +19,7 @@ import { alwaysFailValidator, blue, rePassword } from 'src/app/validators/always
 })
 export class ResetPasswordComponent implements OnInit {
   resetPasswordForm: FormGroup;
-  data: changePassword;
+  data: ChangePassword;
   msg = ErrorMsg.newPasswordErrorMsg;
   matcher = new FormErrorStateMatcher();
 
@@ -90,22 +90,24 @@ export class ResetPasswordComponent implements OnInit {
       return;
     }
 
-    alert("hello");
+    // alert("hello");
 
-    // this.setData();
+    this.setData();
 
-    // this.authenticationService.changePassword(this.data).subscribe(
-    //   data => {
-    //     this.notifierService.showNotification(NotifierMsg.changePassword, 'OK', 'success');
-    //   },
-    //   err => {
-    //     if (err.status == 401 || err.stats == 403) {
-    //       this.router.navigateByUrl('admin/login');
-    //     } else {
-    //       this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
-    //       console.log(err);
-    //     }
-    //   });
+    this.authenticationService.changePassword(this.data).subscribe(
+      data => {},
+      err => {
+        if (err.error.text == "Password changed successfully") {
+          this.notifierService.showNotification(NotifierMsg.ChangePasswordMsg("success"), 'OK', 'success');
+        } else if ((err.status == 401 || err.status == 403) && err.error.message == "Password is not correct") {
+          this.notifierService.showNotification(NotifierMsg.ChangePasswordMsg("incorrect"), 'OK', 'error');
+        } else if(err.status == 401 || err.status == 403) {
+          this.router.navigateByUrl('admin/login');
+        } else {
+          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+          console.log(err.error);
+        }
+      });
   }
 
   setData() {

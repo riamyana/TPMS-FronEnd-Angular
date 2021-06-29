@@ -1,4 +1,3 @@
-import { changePassword } from './../_models/profile/changePassword';
 export class NotifierMsg {
     static SuccessUpdateMsg(data: string) {
         return `${data} updated Successfully`;
@@ -12,7 +11,10 @@ export class NotifierMsg {
         return `${data} deleted Successfully`;
     }
 
-    static readonly errorMsg = `Something went wrong...! Please try again later.`;
+    static ChangePasswordMsg(data: string) {
+        return data == "success" ? "Password Changed Successfully" : "Old Password is incorrect..!";
+    }
 
+    static readonly errorMsg = `Something went wrong...! Please try again later.`;
     static readonly changePassword = `Password Updated Successfully...!`;
 }
