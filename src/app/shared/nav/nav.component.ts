@@ -1,3 +1,4 @@
+import { UserModel } from './../../_models/userModel';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { SideNavService } from './../../_services/side-nav/side-nav.service';
 import { SideNav, sideNavMenu2 } from './../../constants/menu-Items';
@@ -12,10 +13,11 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent {
-  
+
   menu2 = sideNavMenu2;
   private menu = new SideNav();
   menuTitle: string = "Admin Panel";
+  currentUser: UserModel;
   // menuItem: Menu[];
 
   // @Input() sideNav: Menu[];
@@ -28,13 +30,15 @@ export class NavComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    public sideNavService:SideNavService,
+    public sideNavService: SideNavService,
     public authService: AuthenticationService
   ) {
-    
+
   }
 
-  ngOnInit(): void{}
+  ngOnInit(): void { 
+    this.currentUser = this.authService.currentUserValue;
+  }
 
   setMenuTitle(label: string) {
     this.sideNavService.navTitle = label;

@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { NotifierMsg } from './../../../constants/notifierMsg';
 import { LoaderService } from './../../../_services/loader/loader.service';
 import { NotifierService } from './../../../_services/notifier/notifier.service';
 import { MemberService } from './../../../_services/member/member.service';
@@ -22,7 +24,8 @@ export class AddMemberComponent implements OnInit {
     private formBuilder: FormBuilder,
     private memberService: MemberService,
     private notifierService: NotifierService,
-    public loader: LoaderService
+    public loader: LoaderService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -44,10 +47,10 @@ export class AddMemberComponent implements OnInit {
       data => {
         console.log(data);
         this.dialogRef.close(data);
-        this.notifierService.showNotification('Member Type Added Successfully', 'OK', 'success');
+        this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Member Type'), 'OK', 'success');
       },
       err => {
-        this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
+        this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
         console.log(err);
         this.dialogRef.close(false);
       });

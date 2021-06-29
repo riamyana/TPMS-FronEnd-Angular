@@ -23,6 +23,7 @@ import { first } from 'rxjs/operators';
 export class LoginComponent implements OnInit {
 
   @Input() user_type;
+  role = Roles;
   loginForm: FormGroup;
   returnUrl: string;
   error = '';
@@ -49,8 +50,6 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
     this.authenticationService.logout();
-
-    // alert(this.user_type);
   }
 
   get form() {
@@ -58,7 +57,6 @@ export class LoginComponent implements OnInit {
   }
 
   async onSubmit() {
-    // this.submitted = true;
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
@@ -67,8 +65,7 @@ export class LoginComponent implements OnInit {
 
     console.log(this.loginForm.get('userName'));
     // const loginModel: LoginModel = new LoginModel(this.form.userName.value, this.form.password.value);
-
-    // this.loading = true;
+    
     this.authenticationService.login(this.form.userName.value, this.form.password.value, Roles.ADMIN)
       .pipe(first())
       .subscribe(

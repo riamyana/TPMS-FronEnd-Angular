@@ -1,3 +1,4 @@
+import { ChangePassword } from './../_models/profile/changePassword';
 import { LoginModel } from './../_models/loginModel';
 import { UserModel } from './../_models/userModel';
 import { Roles } from './../constants/roles';
@@ -24,29 +25,6 @@ export class AuthenticationService {
   public get currentUserValue(): UserModel {
     return this.currentUserSubject.value;
   }
-  // login(login) {
-  //   return this.http.post<any>(`${environment.severUrl}authenticate`, login)
-  //     // return await this.http.post<any>(`${environment.severUrl}authenticate`, login, { observe: 'response' }).toPromise();
-  //     // .pipe(map(user => {
-  //     //     // login successful if there's a jwt token in the response
-  //     //     if (user && user.token) {
-  //     //         // store user details and jwt token in local storage to keep user logged in between page refreshes
-  //     //         localStorage.setItem('currentUser', user);
-  //     //         // this.currentUserSubject.next(user);
-
-  //     //       console.log(user);
-  //     //     }
-
-  //     //     return user;
-  //     // }));
-
-  //     .pipe(map(result => {
-  //       localStorage.setItem('jwtToken', JSON.stringify(result));
-  //       // this.currentUserSubject.next(result);
-  //       // this.isAuthenticated.next(true);
-  //       return result;
-  //     }));
-  // }
 
   login(userName: string, password: string, role: Roles) {
     const httpHeaders = new HttpHeaders({
@@ -64,20 +42,8 @@ export class AuthenticationService {
       }));
   }
 
-  // async login(login) {
-  //   // const logindate = new Date().toLocaleString();
-  //   // const httpHeaders = new HttpHeaders({
-  //   //   'Content-Type': 'application/json'
-  //   // });
-  //   return await this.http.post<any>(`${environment.severUrl}authenticate`, login, { observe: 'response' }).toPromise();
-  // }
-
   logout() {
     // remove user from local storage to log user out
-    // localStorage.removeItem('userToken');
-    // localStorage.removeItem('userData');
-    // this.currentUserSubject.next(null);
-
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
@@ -88,5 +54,14 @@ export class AuthenticationService {
 
   getRole(): UserModel {
     return JSON.parse(localStorage.getItem('currentUser'));
+  }
+
+  changePassword(data: ChangePassword): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    console.log(data);
+    return this.http.post<any>(`${environment.serverUrl}user/changePassword`, data, { headers: httpHeaders });
   }
 }

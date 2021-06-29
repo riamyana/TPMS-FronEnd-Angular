@@ -2,22 +2,15 @@
     <div>
         <span>TPMS</span>
     </div>
-    <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+    <div fxFlex fxLayout fxLayoutAlign="end">
         <ul fxLayout class="navigation-items">
             <li> <a mat-button [routerLink]="isLoggedIn()?'/admin/dashboard':'/home'" routerLinkActive="activeLink">Home</a> </li>
-            <li> <a mat-button *ngIf="isLoggedIn()" routerLinkActive="activeLink" href="/admin/manage" (click)="changeMenu('Manage')">
+            <li> <a mat-button *ngIf="isLoggedIn()" routerLinkActive="activeLink" routerLink="/admin/manage" (click)="changeMenu('Manage')">
                 Manage
                 </a> 
             </li>
-            <!-- <li> <a mat-button *ngIf="isLoggedIn()" routerLinkActive="activeLink" routerLink="/admin/manage-member" (click)="changeMenu('Manage Member')">
-                Manage Member
-                </a> 
-            </li>
-            <li> <a mat-button *ngIf="isLoggedIn()" routerLinkActive="activeLink" routerLink="/admin/manage-transport-modes" (click)="changeMenu('Manage Proof')">
-                Manage Package
-                </a> 
-            </li> -->
             <li> <a mat-button *ngIf="!isLoggedIn()" routerLink="/admin/login" routerLinkActive="activeLink">Login</a> </li>
+            <li> <a mat-button *ngIf="!isLoggedIn() && user_type == role.USER" routerLink="/admin/register" routerLinkActive="activeLink">Register</a> </li>
             <li> <a mat-button *ngIf="isLoggedIn()" (click)="logout()" routerLinkActive="activeLink">Logout</a> </li>
             <li> <a mat-button href="#">About Us</a> </li>
 

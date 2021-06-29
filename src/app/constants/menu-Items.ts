@@ -34,12 +34,15 @@ export const userMenu: users[] = [
         menu: [
             { label: 'Registration', routerLink: '' },
             { label: 'Manage Pass', routerLink: '' },
+            { label: 'Manage Package', routerLink: '' },
+            { label: 'View History', routerLink: '' },
             { label: 'Login', routerLink: 'user/login', active: true }
         ]
     }
 ];
 
 export interface sideNav2 {
+    userType?: Roles;
     label: string;
     disabled?: boolean;
     icon?: string;
@@ -49,11 +52,22 @@ export interface sideNav2 {
 
 export const sideNavMenu2: sideNav2[] = [
     {
+        userType: Roles.ADMIN,
         label: 'Profile',
         icon: 'person',
-        routerLink: '',
+        routerLink: 'my-profile',
+        children: [
+            {
+                label: 'My Profile',
+                routerLink: 'my-profile',
+            }, {
+                label: 'Reset Password',
+                routerLink: 'reset-password'
+            }
+        ]
     },
     {
+        userType: Roles.ADMIN,
         label: 'Manage Member',
         icon: 'people',
         routerLink: 'manage-member',
@@ -72,6 +86,7 @@ export const sideNavMenu2: sideNav2[] = [
         ]
     },
     {
+        userType: Roles.ADMIN,
         label: 'Manage Package',
         icon: 'inventory_2',
         routerLink: 'manage-transport-modes',
@@ -86,6 +101,7 @@ export const sideNavMenu2: sideNav2[] = [
         ]
     },
     {
+        userType: Roles.ADMIN,
         label: 'Manage Routes',
         icon: 'transfer_within_a_station',
         routerLink: 'manage-station',
@@ -100,9 +116,10 @@ export const sideNavMenu2: sideNav2[] = [
         ]
     },
     {
+        userType: Roles.ADMIN,
         label: 'Manage Pass Request',
         icon: 'thumbs_up_down',
-        routerLink: ''
+        routerLink: 'pass-request'
     }
 ];
 export interface sideNav {

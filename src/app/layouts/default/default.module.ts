@@ -1,3 +1,4 @@
+import { PassRequestComponent } from './../../admin/pass-request/pass-request.component';
 import { AddUpdateTransportCostComponent } from './../../admin/transport-cost/add-update-transport-cost/add-update-transport-cost.component';
 import { AgmCoreModule } from '@agm/core';
 import { AddUpdateStationComponent } from './../../admin/station/add-update-station/add-update-station.component';
@@ -48,7 +49,8 @@ import { TransportCostComponent } from 'src/app/admin/transport-cost/transport-c
     StationComponent,
     AddUpdateStationComponent,
     TransportCostComponent,
-    AddUpdateTransportCostComponent
+    AddUpdateTransportCostComponent,
+    PassRequestComponent
   ],
   imports: [
     CommonModule,
@@ -81,7 +83,8 @@ import { TransportCostComponent } from 'src/app/admin/transport-cost/transport-c
     StationComponent,
     AddUpdateStationComponent,
     TransportCostComponent,
-    AddUpdateTransportCostComponent
+    AddUpdateTransportCostComponent,
+    PassRequestComponent
   ]
 })
 export class DefaultModule { }

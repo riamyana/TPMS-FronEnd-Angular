@@ -4,21 +4,16 @@
     </div>
     <div fxLayout="row" fxLayoutAlign="space-evenly center" fxFlex>
         <div fxLayout="100%">
-            <!-- <li> <a mat-button routerLink="/home" [routerLinkActive]="" [ngClass]="rla.isActive?'active':''"  #rla="routerLinkActive">Home</a> </li> -->
-            <!-- <span class="logo">dfjdk</span> -->
-            <!-- <mat-card>dkfj</mat-card> -->
             <div fxFlex="60" class="left" fxHide.lt-md fxHide.lt-xs fxLayoutAlign="space-evenly center" fxLayout="column">
                 <img src="../../../assets/man-1718099_1920.jpg" alt="">
-                <!-- <div>
-                    <h1>kdjfkjdjf</h1>
-                    dkfjdkj
-                    <div>kdfjk</div>
-                </div> -->
             </div>
 
             <div fxFlex="40" fxLayoutAlign="center" class="login" fxFlex.xs="100" fxFlex.sm="100">
                 <form fxLayout="column" [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()" fxFlex="85" fxFlex.xs="100" fxFlex.md="100">
-                    <!-- <div class="profile"><img src="../../../assets/undraw_profile_pic_ic5t.svg" alt=""></div> -->
+                    <div fxLayout="column" fxLayoutAlign="space-evenly center" class="role">
+                        <mat-icon color="accent" style="position: relative; top:-8vw; left: -4vw; font-size: 10vw;">person</mat-icon>
+                        <div>{{user_type | titlecase}} Login</div>
+                    </div>
                     <mat-form-field class="example-full-width" color="accent" appearance="fill">
                         <mat-label>
                             <mat-icon color="accent" [class]="'input-icon'">person</mat-icon>User Name
@@ -29,12 +24,7 @@
                             Please provide a valid email address
                         </mat-error>
                     </mat-form-field>
-                    <!--           
-                        <mat-form-field class="example-full-width">
-                          <mat-label>Email</mat-label>
-                          <input matInput placeholder="Ex. abc@gmail.com">
-                        </mat-form-field> -->
-
+                    
                     <mat-form-field class="example-full-width" color="accent" appearance="fill">
                         <mat-label>
                             <mat-icon color="accent" [class]="'input-icon'">lock</mat-icon>Password
@@ -51,7 +41,10 @@
                     </mat-form-field>
 
                     <button mat-raised-button type="submit" color="primary">Login</button>
-                    <!-- <mat-spinner></mat-spinner> -->
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <a href="#" *ngIf="user_type == role.USER">Register</a>
+                        <a href="#">Forgot Password</a>
+                    </div>
                 </form>
             </div>
 

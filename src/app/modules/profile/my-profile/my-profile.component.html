@@ -1,0 +1,25 @@
+<div *ngIf="loader.isLoading | async" class="loader">
+    <mat-spinner style="top:20%; left:55%" color="primary"></mat-spinner>
+</div>
+<div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="space-around center" style="margin-top: 30px;">
+    <mat-card class="card" fxFlex="60" fxFlex.xs="100%" fxFlex.md="100%" fxLayout="row" fxLayoutGap="10px">
+        <mat-card fxFlex="40">
+            <img mat-card-image src="../../../../assets/undraw_profile_pic_ic5t.svg" alt="Photo of a Shiba Inu">
+        </mat-card>
+        <mat-card fxFlex="60" fxLayout="column">
+            <mat-card-content>
+                <ng-container *ngFor="let profile of profileData | async">
+                    <div>First Name: {{profile.firstName}} <br /></div>
+                    <div>Last Name: {{profile.lastName}} <br /></div>
+                    <div>User Name: uName <br></div>
+                    <div>Address: abc <br /></div>
+                    <div>Mobile No. : {{profile.mobileNo}} <br /></div>
+                    <div>Email Id: <br /></div>
+                    <mat-card-actions>
+                        <button mat-raised-button type="submit" color="accent">Update Profile</button>
+                    </mat-card-actions>
+                </ng-container>
+            </mat-card-content>
+        </mat-card>
+    </mat-card>
+</div>

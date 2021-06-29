@@ -1,3 +1,6 @@
+import { PassRequestComponent } from './admin/pass-request/pass-request.component';
+import { ResetPasswordComponent } from './modules/profile/reset-password/reset-password.component';
+import { MyProfileComponent } from './modules/profile/my-profile/my-profile.component';
 import { StationComponent } from './admin/station/station.component';
 import { PageNotFoundComponent } from './layouts/fullwidth/page-not-found/page-not-found.component';
 import { TransportModeComponent } from './admin/transport-mode/transport-mode.component';
@@ -28,26 +31,32 @@ const routes: Routes = [
   // { path: 'admin/login', component: AdminLoginComponent },
   // { path: 'admin/home', component: AdminHomeComponent },
   {
-    path: 'admin', component: DefaultComponent, children: [{ 
-      path: 'manage', component: ManagePackageComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage' } 
-    },{ 
-      path: 'manage-member', component: ManageUserTypeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Member' } 
-    }, { 
-      path: 'manage-package', component: ManagePackageComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Package' } 
-    }, { 
-      path: 'manage-proof', component: ManageProofComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Member' } 
-    }, { 
-      path: 'manage-subscription-type', component: ManageSubscriptionTypeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Subscription Type' } 
-    }, { 
-      path: 'manage-transport-modes', component: TransportModeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Package' } 
-    }, { 
-      path: 'manage-station', component: StationComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Routes' } 
-    }, { 
-      path: 'manage-transport-cost', component: TransportCostComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Routes' } 
+    path: 'admin', component: DefaultComponent, children: [{
+      path: 'manage', component: ManagePackageComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage' }
+    }, {
+      path: 'manage-member', component: ManageUserTypeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Member' }
+    }, {
+      path: 'manage-package', component: ManagePackageComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Package' }
+    }, {
+      path: 'manage-proof', component: ManageProofComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Member' }
+    }, {
+      path: 'manage-subscription-type', component: ManageSubscriptionTypeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Subscription Type' }
+    }, {
+      path: 'manage-transport-modes', component: TransportModeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Package' }
+    }, {
+      path: 'manage-station', component: StationComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Routes' }
+    }, {
+      path: 'manage-transport-cost', component: TransportCostComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Routes' }
+    }, {
+      path: 'my-profile', component: MyProfileComponent
+    }, {
+      path: 'reset-password', component: ResetPasswordComponent
+    }, {
+      path: 'pass-request', component: PassRequestComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN }
     }
-  ]
+    ]
   },
-  { path: '', pathMatch:'full', redirectTo:'admin/login' },
+  { path: '', pathMatch: 'full', redirectTo: 'admin/login' },
   {
     path: '', component: FullwidthComponent, children: [{
       path: 'login', component: LoginComponent
@@ -55,8 +64,8 @@ const routes: Routes = [
       path: 'home', component: HomeComponent
     }, {
       path: 'admin/login', component: AdminLoginComponent
-    }, { 
-      path: 'admin/dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN } 
+    }, {
+      path: 'admin/dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN }
     }]
   },
   { path: '**', component: PageNotFoundComponent }
