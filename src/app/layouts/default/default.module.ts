@@ -33,7 +33,6 @@ import { TransportCostComponent } from 'src/app/admin/transport-cost/transport-c
   declarations: [
     DefaultComponent,
     HomeComponent,
-    LoginComponent,
     AdminLoginComponent,
     HomeComponent,
     DashboardComponent,
@@ -67,7 +66,6 @@ import { TransportCostComponent } from 'src/app/admin/transport-cost/transport-c
   exports: [
     DefaultComponent,
     HomeComponent,
-    LoginComponent,
     AdminLoginComponent,
     HomeComponent,
     DashboardComponent,

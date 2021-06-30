@@ -66,11 +66,15 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.get('userName'));
     // const loginModel: LoginModel = new LoginModel(this.form.userName.value, this.form.password.value);
     
-    this.authenticationService.login(this.form.userName.value, this.form.password.value, Roles.ADMIN)
+    this.authenticationService.login(this.form.userName.value, this.form.password.value)
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigateByUrl('admin/manage-member');
+          debugger;
+          if (this.user_type == Roles.ADMIN)
+            this.router.navigateByUrl('admin/manage-member');
+          else if (this.user_type == Roles.USER)
+            this.router.navigateByUrl('user/home');
           // console.log(data);
         },
         error => {

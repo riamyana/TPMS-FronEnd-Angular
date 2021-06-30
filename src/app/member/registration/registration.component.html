@@ -1,0 +1,70 @@
+<div *ngIf="loader.isLoading | async" class="loader">
+    <mat-spinner style="top:30%; left:55%" color="primary"></mat-spinner>
+</div>
+<div class="container" fxLayout fxFlex>
+    <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+        <div fxLayout="row" fxLayoutAlign="space-evenly center" fxFlex="35" class="form">
+            <form fxLayout="column" fxFlex="90" fxFlex.xs="100" fxFlex.md="100" [formGroup]="registerForm" (ngSubmit)="register()">
+                <mat-form-field class="example-full-width" color="accent" appearance="fill">
+                    <mat-label>
+                        <mat-icon color="accent">person</mat-icon>User Name
+                    </mat-label>
+                    <input matInput placeholder="Ex. userName" formControlName="userName">
+                    <mat-error>
+                        Please provide a valid user name
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" color="accent" appearance="fill">
+                    <mat-label>
+                        <mat-icon color="accent">email</mat-icon>Email
+                    </mat-label>
+                    <input matInput placeholder="Ex. abc@gmail.com" formControlName="email">
+                    <mat-error>
+                        Please provide a valid email address
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" color="accent" appearance="fill">
+                    <mat-label>
+                        <mat-icon color="accent">lock</mat-icon>Password
+                    </mat-label>
+                    <input [type]="hide ? 'password' : 'text'" matInput placeholder="Password" formControlName="password">
+                    <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon color="primary">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error>
+                        Please provide a valid password
+                    </mat-error>
+                    <mat-error *ngIf="this.form.password.errors?.pattern">
+                        <b>Hint</b>: Password should be 8 character long. This should contain atleast one Uppercase 
+                        letter, one Lowercase letter, one number, one special character.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" color="accent" appearance="fill">
+                    <mat-label>
+                        <mat-icon color="accent">lock</mat-icon>Re-Enter Password
+                    </mat-label>
+                    <input [type]="hide2 ? 'password' : 'text'" matInput placeholder="Password" formControlName="retype">
+                    <button type="button" mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide re-password'"
+                        [attr.aria-pressed]="hide2">
+                        <mat-icon color="primary">{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error>
+                        Please provide a valid confirm password
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button type="submit" color="primary" style="font-size: x-large; color:#55c1b8;">Register</button>
+
+                <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-top: 10px;">
+                    <a mat-raised-button routerLink="/user/login" color="accent">
+                        <mat-icon color="primary">keyboard_backspace</mat-icon>Back to Login
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

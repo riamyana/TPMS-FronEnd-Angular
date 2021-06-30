@@ -11,6 +11,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Component, OnInit } from '@angular/core';
 import { NotifierMsg } from 'src/app/constants/notifierMsg';
 import { alwaysFailValidator, blue, rePassword } from 'src/app/validators/alwaysFailValidator';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-reset-password',
@@ -22,6 +23,7 @@ export class ResetPasswordComponent implements OnInit {
   data: ChangePassword;
   msg = ErrorMsg.newPasswordErrorMsg;
   matcher = new FormErrorStateMatcher();
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,13 +51,15 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   applySubscription() {
-    this.form.retype.valueChanges.subscribe(() => {
-      this.checkRePassword();
-    });
 
-    this.form.newpass.valueChanges.subscribe(() => {
-      this.checkRePassword();
-    });
+    this.subscriptions.push(
+      this.form.retype.valueChanges.pipe(distinctUntilChanged()).subscribe(() => {
+        this.checkRePassword();
+      }),
+      this.form.newpass.valueChanges.pipe(distinctUntilChanged()).subscribe(() => {
+        this.checkRePassword();
+      })
+    );
 
     // this.form.newpass.valueChanges.pipe(distinctUntilChanged()).subscribe((value) => {
     //   this.passwordPattern(value);
@@ -119,6 +123,12 @@ export class ResetPasswordComponent implements OnInit {
 
   onReset() {
     this.resetPasswordForm.reset();
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscriptions && this.subscriptions.length > 0) {
+      this.subscriptions.forEach(s => s.unsubscribe());
+    }
   }
 
 }

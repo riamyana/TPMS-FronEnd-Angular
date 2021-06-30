@@ -4,17 +4,21 @@ export class NotifierMsg {
     }
 
     static SuccessAddMsg(data: string) {
-        return `${data} added Successfully`;
+        return `${data} added Successfully..!`;
     }
 
     static SuccessDeleteMsg(data: string) {
-        return `${data} deleted Successfully`;
+        return `${data} deleted Successfully..!`;
     }
 
     static ChangePasswordMsg(data: string) {
         return data == "success" ? "Password Changed Successfully" : "Old Password is incorrect..!";
     }
 
+    static registerMsg(data: string) {
+        return data == "success" ? "Registered Successfully..!" : "User Name alreday taken..! Please try other User Name.";
+    }
+
     static readonly errorMsg = `Something went wrong...! Please try again later.`;
-    static readonly changePassword = `Password Updated Successfully...!`;
+    static readonly changePassword = `Password Updated Successfully..!`;
 }

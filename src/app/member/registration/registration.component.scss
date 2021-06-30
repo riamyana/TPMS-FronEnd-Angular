@@ -1,0 +1,17 @@
+.container {
+    height: 80vh;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.form {
+    background: rgb(236, 247, 253);
+    padding: 20px;
+}
+
+.loader {
+    position: absolute;
+    height: 100%;
+    width: 85%;
+    opacity: 0.8;
+    z-index: 99;
+}

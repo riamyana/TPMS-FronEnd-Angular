@@ -4,21 +4,40 @@
     </div>
     <div fxFlex fxLayout fxLayoutAlign="end">
         <ul fxLayout class="navigation-items">
-            <li> <a mat-button [routerLink]="isLoggedIn()?'/admin/dashboard':'/home'" routerLinkActive="activeLink">Home</a> </li>
-            <li> <a mat-button *ngIf="isLoggedIn()" routerLinkActive="activeLink" routerLink="/admin/manage" (click)="changeMenu('Manage')">
-                Manage
-                </a> 
+            <ng-container *ngFor="let menu of headerMenu">
+                <ng-container *ngFor="let link of menu.menu">
+                    <span *ngIf="menu.userType == user_role && !isLoggedIn && !link.active;">
+                        <li> <a mat-button [routerLink]="link.routerLink"
+                            routerLinkActive="activeLink">{{link.label}}</a> 
+                        </li>
+                    </span>
+                    <span *ngIf="menu.userType == user_role && isLoggedIn && link.active;">
+                        <li> <a mat-button [routerLink]="link.routerLink"
+                            routerLinkActive="activeLink">{{link.label}}</a> 
+                        </li>
+                    </span>
+                </ng-container>
+            </ng-container>
+
+            <!-- <li> <a mat-button [routerLink]="isLoggedIn?'/admin/dashboard':'/home'"
+                    routerLinkActive="activeLink">Home</a> </li>
+            <li> <a mat-button *ngIf="isLoggedIn" routerLinkActive="activeLink" routerLink="/admin/manage"
+                    (click)="changeMenu('Manage')">
+                    Manage
+                </a>
             </li>
-            <li> <a mat-button *ngIf="!isLoggedIn()" routerLink="/admin/login" routerLinkActive="activeLink">Login</a> </li>
-            <li> <a mat-button *ngIf="!isLoggedIn() && user_type == role.USER" routerLink="/admin/register" routerLinkActive="activeLink">Register</a> </li>
-            <li> <a mat-button *ngIf="isLoggedIn()" (click)="logout()" routerLinkActive="activeLink">Logout</a> </li>
+            <li> <a mat-button *ngIf="!isLoggedIn" routerLink="/admin/login" routerLinkActive="activeLink">Login</a>
+            </li>
+            <li> <a mat-button *ngIf="!isLoggedIn && user_type == role.USER" routerLink="/admin/register"
+                    routerLinkActive="activeLink">Register</a> </li> -->
+            <li> <a mat-button *ngIf="isLoggedIn" (click)="logout()" routerLinkActive="activeLink">Logout</a> </li>
             <li> <a mat-button href="#">About Us</a> </li>
 
-            <span *ngIf="isLoggedIn()" class="material-icons logged">account_circle</span>
-            <span *ngIf="isLoggedIn()" class="profile">{{this.authService.currentUserValue.userName}}</span>
+            <span *ngIf="isLoggedIn" class="material-icons logged">account_circle</span>
+            <span *ngIf="isLoggedIn" class="profile">{{this.authService.currentUserValue.userName}}</span>
         </ul>
     </div>
-      
+
 </mat-toolbar>
 <!-- <app-nav *ngIf="!!sideMenuItem" [sideNav]="sideMenuItem"></app-nav> -->
 <!-- <router-outlet *ngIf="!sideMenuItem"></router-outlet> -->

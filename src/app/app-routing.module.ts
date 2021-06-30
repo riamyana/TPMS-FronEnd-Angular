@@ -1,3 +1,6 @@
+import { MemberProfileComponent } from './member/member-profile/member-profile.component';
+import { RegistrationComponent } from './member/registration/registration.component';
+import { MemberLoginComponent } from './member/member-login/member-login.component';
 import { PassRequestComponent } from './admin/pass-request/pass-request.component';
 import { ResetPasswordComponent } from './modules/profile/reset-password/reset-password.component';
 import { MyProfileComponent } from './modules/profile/my-profile/my-profile.component';
@@ -66,6 +69,12 @@ const routes: Routes = [
       path: 'admin/login', component: AdminLoginComponent
     }, {
       path: 'admin/dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN }
+    }, {
+      path: 'user/login', component: MemberLoginComponent
+    }, {
+      path: 'user/register', component: RegistrationComponent
+    }, {
+      path: 'user/profile', component: MemberProfileComponent, canActivate: [AuthGuard], data: { role: Roles.USER }
     }]
   },
   { path: '**', component: PageNotFoundComponent }

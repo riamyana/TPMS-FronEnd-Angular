@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppDirectiveModule } from './../appDirective/app-directive.module';
 import { NavComponent } from './nav/nav.component';
 import { LoginComponent } from './../modules/login/login.component';
@@ -13,18 +14,21 @@ import { MaterialModule } from '../material/material.module';
 @NgModule({
   declarations: [
     HeaderComponent,
-    NavComponent
+    NavComponent,
+    LoginComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     FlexLayoutModule,
     MaterialModule,
-    AppDirectiveModule
+    AppDirectiveModule,
+    ReactiveFormsModule
   ],
   exports: [
     HeaderComponent,
-    NavComponent
+    NavComponent,
+    LoginComponent,
   ]
 })
 export class SharedModule { }
