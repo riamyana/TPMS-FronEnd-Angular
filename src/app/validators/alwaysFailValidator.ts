@@ -8,7 +8,6 @@ export function alwaysFailValidator(msg: string): ValidatorFn {
 }
 
 export function rePassword(newPassword: string, msg: string): ValidatorFn {
-    debugger;
     return (control: AbstractControl): { [key: string]: any } | null => {
         return control.value == newPassword ? null : { 'retypePass': msg }
     };

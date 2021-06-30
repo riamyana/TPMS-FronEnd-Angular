@@ -21,7 +21,7 @@
                         <input matInput formControlName="userName" placeholder="Ex. userName"
                             [errorStateMatcher]="matcher">
                         <mat-error>
-                            Please provide a valid email address
+                            Please provide a valid user name
                         </mat-error>
                     </mat-form-field>
                     
@@ -42,7 +42,7 @@
 
                     <button mat-raised-button type="submit" color="primary">Login</button>
                     <div fxLayout="row" fxLayoutAlign="space-between">
-                        <a href="#" *ngIf="user_type == role.USER">Register</a>
+                        <a routerLink="/user/register" *ngIf="user_type == role.USER">Register</a>
                         <a href="#">Forgot Password</a>
                     </div>
                 </form>

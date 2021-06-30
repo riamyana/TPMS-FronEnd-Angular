@@ -1,7 +1,7 @@
 import { SideNavService } from './../../_services/side-nav/side-nav.service';
 import { map, shareReplay } from 'rxjs/operators';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Menu, UserMenu, SideNav, NavItem } from './../../constants/menu-Items';
+import { Menu, UserMenu, SideNav, NavItem, userMenu } from './../../constants/menu-Items';
 import { Roles } from './../../constants/roles';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './../../_services/authentication.service';
@@ -25,30 +25,39 @@ export class HeaderComponent implements OnInit {
     );
 
   @Input() user_type: Roles;
+  user_role: Roles;
   role = Roles;
-  private menu = new UserMenu();
+  // private menu = new UserMenu();
   menuItem: Menu[];
+  headerMenu = userMenu;
 
   private sideMenu = new SideNav();
   sideMenuItem: Menu[];
   constructor(
     public authService: AuthenticationService,
-    private router: Router,
+    public router: Router,
     private breakpointObserver: BreakpointObserver,
     private sideNavService:SideNavService
   ) { }
 
   ngOnInit(): void {
-    this.isLoggedIn();
-    this.menuItem = this.menu.userMenu(this.user_type);
+    if (!this.isLoggedIn) {
+      if (this.router.url.includes('/admin')) {
+        this.user_role = Roles.ADMIN;
+      } else if (this.router.url.includes('/user')) {
+        this.user_role = Roles.USER;
+      }
+    } else {
+      this.user_role = this.authService.currentUserValue.role;
+    }
   }
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['admin/login']);
+    this.router.navigate([`${this.user_role.toLowerCase()}/login`]);
   }
 
-  isLoggedIn(): boolean {
+  get isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
 

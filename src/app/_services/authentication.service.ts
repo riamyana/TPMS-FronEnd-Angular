@@ -26,7 +26,7 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  login(userName: string, password: string, role: Roles) {
+  login(userName: string, password: string) {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
@@ -52,8 +52,9 @@ export class AuthenticationService {
     return !!(localStorage.getItem('currentUser'));
   }
 
-  getRole(): UserModel {
-    return JSON.parse(localStorage.getItem('currentUser'));
+  getRole(): Roles {
+    return this.currentUserValue.role;
+    // return JSON.parse(localStorage.getItem('currentUser'));
   }
 
   changePassword(data: ChangePassword): Observable<any> {
@@ -63,5 +64,13 @@ export class AuthenticationService {
 
     console.log(data);
     return this.http.post<any>(`${environment.serverUrl}user/changePassword`, data, { headers: httpHeaders });
+  }
+
+  register(data: { userName, email, password}): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post<any>(`${environment.serverUrl}register`, data, { headers: httpHeaders });
   }
 }

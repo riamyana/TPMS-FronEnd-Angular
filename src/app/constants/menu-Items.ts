@@ -24,19 +24,22 @@ export const userMenu: users[] = [
     {
         userType: Roles.ADMIN,
         menu: [
-            { label: 'Manage User', routerLink: '', active: true, icon: '' },
-            { label: 'Manage', routerLink: '' },
-            { label: 'Login', routerLink: 'admin/login', active: true }
+            { label: 'Home', routerLink: '/admin/dashboard', active: true },
+            // { label: 'Manage User', routerLink: '/admin', active: true },
+            { label: 'Manage', routerLink: '/admin/manage', active: true },
+            { label: 'Login', routerLink: '/admin/login', active: false }
         ]
     },
     {
         userType: Roles.USER,
         menu: [
-            { label: 'Registration', routerLink: '' },
-            { label: 'Manage Pass', routerLink: '' },
-            { label: 'Manage Package', routerLink: '' },
-            { label: 'View History', routerLink: '' },
-            { label: 'Login', routerLink: 'user/login', active: true }
+            { label: 'Home', routerLink: '/user/home', active: true },
+            { label: 'My Profile', routerLink: '/user/profile', active: true },
+            { label: 'Manage Pass', routerLink: '', active: true },
+            { label: 'Manage Package', routerLink: '', active: true },
+            { label: 'View History', routerLink: '', active: true },
+            { label: 'Login', routerLink: '/user/login', active: false },
+            { label: 'Register', routerLink: '/user/register', active: false }
         ]
     }
 ];

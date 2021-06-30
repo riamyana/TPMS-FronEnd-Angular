@@ -1,3 +1,4 @@
+import { MemberModule } from './member/member.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FullwidthModule } from './layouts/fullwidth/fullwidth.module';
 import { AdminComponent } from './admin/admin.component';
@@ -19,6 +20,9 @@ import { NotifierComponent } from './notifier/notifier.component';
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
 import { MyProfileComponent } from './modules/profile/my-profile/my-profile.component';
 import { ResetPasswordComponent } from './modules/profile/reset-password/reset-password.component';
+import { MemberComponent } from './member/member.component';
+import { MemberLoginComponent } from './member/member-login/member-login.component';
+import { RegistrationComponent } from './member/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,8 @@ import { ResetPasswordComponent } from './modules/profile/reset-password/reset-p
     LayoutModule,
     DefaultModule,
     FullwidthModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MemberModule
   ],
   providers: [AuthenticationService, AuthGuard,
   {
