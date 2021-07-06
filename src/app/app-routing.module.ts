@@ -1,3 +1,4 @@
+import { PassRequestTabsComponent } from './member/pass-request-tabs/pass-request-tabs.component';
 import { MemberProfileComponent } from './member/member-profile/member-profile.component';
 import { RegistrationComponent } from './member/registration/registration.component';
 import { MemberLoginComponent } from './member/member-login/member-login.component';
@@ -75,6 +76,8 @@ const routes: Routes = [
       path: 'user/register', component: RegistrationComponent
     }, {
       path: 'user/profile', component: MemberProfileComponent, canActivate: [AuthGuard], data: { role: Roles.USER }
+    }, {
+      path: 'user/pass-request', component: PassRequestTabsComponent, canActivate: [AuthGuard], data: { role: Roles.USER }
     }]
   },
   { path: '**', component: PageNotFoundComponent }

@@ -35,7 +35,7 @@ export const userMenu: users[] = [
         menu: [
             { label: 'Home', routerLink: '/user/home', active: true },
             { label: 'My Profile', routerLink: '/user/profile', active: true },
-            { label: 'Manage Pass', routerLink: '', active: true },
+            { label: 'Request Pass', routerLink: '/user/pass-request', active: true },
             { label: 'Manage Package', routerLink: '', active: true },
             { label: 'View History', routerLink: '', active: true },
             { label: 'Login', routerLink: '/user/login', active: false },

@@ -1,0 +1,16 @@
+<app-wizard [formGroup]="sampleForm">
+    <app-Wizard-Item formGroupName="addressGroup">
+        <mat-icon *wizardTabIcon>person</mat-icon>
+        <app-member-profile *wizard-content ></app-member-profile>
+    </app-Wizard-Item>
+
+    <app-Wizard-Item>
+        <mat-icon *wizardTabIcon>home</mat-icon>
+        <app-registration *wizard-content></app-registration>
+    </app-Wizard-Item>
+</app-wizard>
+
+<!-- <app-member-profile *cdkPortal>
+</app-member-profile> -->
+
+<!-- <ng-template [cdkPortalOutlet]="portalComponent"></ng-template> -->

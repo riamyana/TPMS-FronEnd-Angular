@@ -14,15 +14,12 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NotifierComponent } from './notifier/notifier.component';
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
 import { MyProfileComponent } from './modules/profile/my-profile/my-profile.component';
 import { ResetPasswordComponent } from './modules/profile/reset-password/reset-password.component';
-import { MemberComponent } from './member/member.component';
-import { MemberLoginComponent } from './member/member-login/member-login.component';
-import { RegistrationComponent } from './member/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +37,7 @@ import { RegistrationComponent } from './member/registration/registration.compon
     MaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     LayoutModule,
     DefaultModule,
     FullwidthModule,
