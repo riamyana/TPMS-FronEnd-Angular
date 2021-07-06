@@ -1,0 +1,35 @@
+<mat-tab-group id="stepper" [selectedIndex]="selectedIndex" color="accent"
+    (selectedIndexChange)="buttonContBack($event)">
+    <mat-tab *ngFor="let tab of tabs">
+        <ng-template mat-tab-label>
+            <ng-container *ngTemplateOutlet="defaultLabel;context:tab"></ng-container>
+        </ng-template>
+        <ng-template [cdkPortalOutlet]="tab.contentView"></ng-template>
+    </mat-tab>
+</mat-tab-group>
+
+<ng-template #defaultLabel let-icon="icon" let-control="control">
+    <div [class.complete]="control.valid" [class.invalid]="control.invalid">
+        <span class="tab-layout">
+            <ng-container *ngIf="icon">
+                <div id="icon-output">
+                    <ng-template [cdkPortalOutlet]="icon"></ng-template>
+                </div>
+            </ng-container>
+            <span>{{control.label}}</span>
+        </span>
+    </div>
+
+    <span class="checkmark valid-tick" *ngIf="!showTickOnValue && control.valid">
+        <div class="checkmark_circle"></div>
+        <div class="checkmark_stem"></div>
+        <div class="checkmark_kick"></div>
+    </span>
+
+    <span class="checkmark valid-tick"
+        *ngIf="showTickOnValue && control.valid">
+        <div class="checkmark_circle"></div>
+        <div class="checkmark_stem"></div>
+        <div class="checkmark_kick"></div>
+    </span>
+</ng-template>

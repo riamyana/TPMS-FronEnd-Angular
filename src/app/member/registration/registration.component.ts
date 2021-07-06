@@ -3,8 +3,8 @@ import { NotifierMsg } from 'src/app/constants/notifierMsg';
 import { LoaderService } from './../../_services/loader/loader.service';
 import { NotifierService } from './../../_services/notifier/notifier.service';
 import { AuthenticationService } from './../../_services/authentication.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ControlContainer, AbstractControl } from '@angular/forms';
+import { Component, Host, Injector, Input, OnDestroy, OnInit, Optional, SkipSelf } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { rePassword } from 'src/app/validators/alwaysFailValidator';
 
@@ -13,18 +13,19 @@ import { rePassword } from 'src/app/validators/alwaysFailValidator';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, OnDestroy {
   hide = true;
   hide2 = true;
   registerForm: FormGroup;
   private subscriptions: Subscription[] = [];
+  control: AbstractControl;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     private notifierService: NotifierService,
-    public loader: LoaderService,
-  ) { }
+    public loader: LoaderService
+    ) { }
 
   ngOnInit(): void {
     this.initForm();
