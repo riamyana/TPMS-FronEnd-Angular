@@ -24,7 +24,7 @@ export class AddProofComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddProofComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: Proof,
     private formBuilder: FormBuilder,
     private proofService: ProofService,
     private notifierService: NotifierService,
@@ -35,26 +35,20 @@ export class AddProofComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.getMemberType();
-    // this.onAddProof();
+
+    if (this.data) {
+      this.addValue();
+    }
   }
 
   initForm() {
     this.proofForm = this.formBuilder.group({
-      memberType: ['', Validators.required],
-      addProof: [''],
-      proofs: this.formBuilder.array([
-        this.formBuilder.group({
-          proofName: ['', Validators.required]
-        })
-      ])
-      // proofs:this.formBuilder.array([
-      //   new FormControl('Angular'),
-      //   new FormControl('ABc')
-
-      // ])
-
+      proofName: ['', Validators.required]
     });
+  }
+
+  addValue() {
+    this.form.proofName.setValue(this.data.proofName);
   }
 
   get form() {
@@ -65,76 +59,41 @@ export class AddProofComponent implements OnInit {
     return this.proofForm.get('proofs') as FormArray;
   }
 
-
-  // getProofControls() {
-  //   return (this.proofForm.get('proofName') as FormArray).controls;
-  // }
-
-  onAddProof() {
-    const proofLength = this.proofs.length;
-    const addProofNo = +this.form.addProof.value;
-    // const newProof = new FormControl('');
-
-    const newProof = this.formBuilder.group({
-      proofName: ['', Validators.required]
-    });
-
-
-    for (let i = 0; i < addProofNo; i++) {
-      this.proofs.push(newProof);
-    }
+  onAdd() {
+    this.proofService.addProof(this.form.proofName.value).subscribe(
+      data => {
+        console.log(data);
+        this.dialogRef.close(data);
+        this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Proof Name'), 'OK', 'success');
+      },
+      err => {
+        this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+        console.log(err);
+        this.dialogRef.close(false);
+      });
   }
 
-  onAdd() {
-    // this.proofData = {
-    //   memberTypeId: this.form.memberType.value,
-    //   proofName
-    // };
-
-    for (let control of this.proofs.controls) {
-      this.proofData = {
-        memberTypeId: this.form.memberType.value,
-        proofName: control.get('proofName').value,
-      };
-
-      this.proofService.addProof(this.proofData).subscribe(
-        data => {
-          // console.log(data);
-          this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Proof'), 'OK', 'success');
-          this.dialogRef.close(data);
-        },
-        err => {
-          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
-          console.log(err);
-          // this.dialogRef.close();
-        });
+  onUpdate() {
+    const data: Proof = {
+      proofId: this.data.proofId,
+      proofName: this.form.proofName.value
     }
+
+    this.proofService.updateProof(data).subscribe(
+      data => {
+        console.log(data);
+        this.dialogRef.close(data);
+        this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Proof Name'), 'OK', 'success');
+      },
+      err => {
+        this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+        console.log(err);
+        this.dialogRef.close(false);
+      });
   }
 
   onCancel() {
     this.dialogRef.close();
-  }
-
-  getMemberType() {
-    this.memberService.getMemberType().subscribe(
-      data => {
-        this.memberTypeData = data;
-      },
-      err => {
-        if(err.status == 401 || err.stats == 403) {
-          this.router.navigateByUrl('admin/login');
-        } else {
-          this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
-        }
-      });
-  }
-
-  onProofDelete(i: number) {
-    const len=this.proofs.length;
-
-    if (len > 1) {
-      this.proofs.removeAt(i);
-    }
   }
 
 }

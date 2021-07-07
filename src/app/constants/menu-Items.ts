@@ -83,8 +83,8 @@ export const sideNavMenu2: sideNav2[] = [
                 routerLink: 'manage-proof'
             },
             {
-                label: 'Manage Member Type Proof',
-                routerLink: 'manage-proof'
+                label: 'Manage Member Proof Requirement',
+                routerLink: 'manage-proof-requirement'
             }
         ]
     },

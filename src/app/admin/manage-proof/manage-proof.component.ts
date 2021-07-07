@@ -1,5 +1,4 @@
-import { EditProofComponent } from './edit-proof/edit-proof.component';
-import { filter, map } from 'rxjs/operators';
+import { NotifierMsg } from './../../constants/notifierMsg';
 import { AddProofComponent } from './add-proof/add-proof.component';
 import { ConfirmDialogComponent } from './../../dialog/confirm-dialog/confirm-dialog.component';
 import { ProofService } from './../../_services/proof/proof.service';
@@ -24,40 +23,28 @@ export class ManageProofComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   listData: MatTableDataSource<Proof>;
-  dispCol: string[] = ['srNo', 'memberTypeName', 'proofName', 'action'];
-  uniqueMemberType: string[];
+  dispCol: string[] = ['srNo', 'proof', 'action'];
+  memberType: Proof[];
 
   constructor(
+    private proofService: ProofService,
     public loader: LoaderService,
     private router: Router,
     public dialog: MatDialog,
     private notifierService: NotifierService,
-    public sideNavService: SideNavService,
-    private proofService: ProofService
+    public sideNavService: SideNavService
   ) { }
 
   ngOnInit(): void {
+    // this.listData = new MatTableDataSource(this.demo);
     this.getProof();
-    this.sideNavService.navTitle = "Manage Member Type";
+    this.sideNavService.navTitle = "Manage Proof";
   }
 
   getProof() {
     this.proofService.getProof().subscribe(
       data => {
-
-        this.uniqueMemberType = data
-          .map(item => item.memberTypeName)
-          .filter((value, index, self) => {
-            if (self.indexOf(value) === index) {
-              
-            }
-          });
-          
-        // console.log(unique.filter(value => {
-        //   data.filter(member => member == value)
-        // }));
-          
-        
+        this.memberType = [];
         this.listData = new MatTableDataSource();
         this.listData.data = data;
         this.listData.paginator = this.paginator;
@@ -68,96 +55,75 @@ export class ManageProofComponent implements OnInit {
         if (err.status == 401 || err.stats == 403) {
           this.router.navigateByUrl('admin/login');
         } else {
-          this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
+          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
         }
       });
   }
 
-  deleteConfirm(data: Proof) {
+  onDelete(proofData: Proof) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.onDelete(data);
-        console.log(data.memberTypeId);
-        // console.log(`Dialog result: ${result}`);
+        this.proofService.deleteProof(proofData.proofId).subscribe(
+          data => {
+            this.notifierService.showNotification('Proof Deleted Successfully', 'OK', 'success');
+            const index = this.listData.data.indexOf(proofData);
+            this.listData.data.splice(index, 1);
+            this.listData._updateChangeSubscription();
+          }, err => {
+            if (err.status == 401 || err.stats == 403) {
+              this.router.navigateByUrl('admin/login');
+            } else {
+              this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
+            }
+          }
+        )
       }
     });
   }
 
-  onDelete(data: Proof) {
-    // this.proofService.deleteMemberType(data.memberTypeId).subscribe(
-    //   result => {
-    //     this.notifierService.showNotification('Data Deleted Successfully..!', 'OK', 'success');
-    //     var index = this.listData.data.indexOf(data, 0);
-    //     this.listData.data.splice(index, 1);
-    //     this.listData.paginator = this.paginator;
-    //     this.listData.sort = this.sort;
-
-    //     console.log("index"+index);
-    //   },
-    //   err => {
-    //     this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
-    //     console.log(err);
-    //   });
-  }
-
-  onAdd() {
-    const dialogRef = this.dialog.open(AddProofComponent);
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log("dkfjd"+result);
-    //   if (result) {
-    //     // this.getMemberType();
-    //     this.listData.data.push(result);
-    //     this.listData.paginator = this.paginator;
-    //     this.listData.sort = this.sort;
-    //     console.log("dkfjdmitesh");
-    //     console.log(this.listData);
-    //     console.log(result);
-    //   }
-    // });
-  }
-
-  onUpdate(memberTypeData: Proof) {
+  onAddProof() {
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
 
-    // dialogConfig.disableClose = true;
-    // dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(AddProofComponent, dialogConfig);
 
-    dialogConfig.data = memberTypeData
-
-
-    const dialogRef = this.dialog.open(EditProofComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.listData.data = this.listData.data.filter((value)=>{
-          if(value.memberTypeId == result.memberTypeId){
-            value.memberTypeName = result.memberTypeName;
-          }
-          return true;
-        });
-
+        this.listData.data.push(result);
+        this.listData._updateChangeSubscription();
         this.listData.paginator = this.paginator;
         this.listData.sort = this.sort;
       }
     });
+  }
+
+  onUpdate(proofData: Proof) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = proofData;
 
 
+    const dialogRef = this.dialog.open(AddProofComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.listData.data
+          .filter(value => value.proofId == result.proofId)
+          .map( value => value.proofName = result.proofName);
+        this.listData._updateChangeSubscription();
+        this.listData.paginator = this.paginator;
+        this.listData.sort = this.sort;
+      }
+    });
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.listData.filter = filterValue.trim().toLowerCase();
-  }
-
-  getMemberTypeProof(name: string) {
-    
-  }
-
-  getUniqueMember() {
-
-    console.log(this.uniqueMemberType);
-    return this.uniqueMemberType;
   }
 }
