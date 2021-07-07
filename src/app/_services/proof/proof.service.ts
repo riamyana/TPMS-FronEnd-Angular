@@ -1,3 +1,4 @@
+import { ProofRequirement } from './../../_models/proofRequirement';
 import { Proof } from './../../_models/Proof/proof';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -19,19 +20,45 @@ export class ProofService {
     return this.http.get<Proof>(`${environment.serverUrl}proofs/member-types/${id}`);
   }
 
-  deleteMemberType(id: number): Observable<any> {
+  deleteProof(id: number): Observable<any> {
     return this.http.delete(`${environment.serverUrl}proofs/${id}`);
   }
 
-  addProof(proof: Proof): Observable<Proof> {
+  addProof(proofName: string): Observable<Proof> {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    console.log(proof);
-    return this.http.post<Proof>(`${environment.serverUrl}proofs`, proof, { headers: httpHeaders });
+    return this.http.post<Proof>(`${environment.serverUrl}proofs`, { proofName }, { headers: httpHeaders });
   }
 
-  getProof2() {
-    return this.http.get<Proof[]>(`${environment.serverUrl}proofs`);
+  updateProof(proofData: Proof): Observable<Proof> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.put<Proof>(`${environment.serverUrl}proofs/${proofData.proofId}`, proofData, { headers: httpHeaders });
+  }
+
+  getProofRequirement() {
+    return this.http.get<ProofRequirement[]>(`${environment.serverUrl}proofs/requirement`);
+  }
+
+  addProofRequirement(proofRequirement: ProofRequirement): Observable<ProofRequirement> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<Proof>(`${environment.serverUrl}proofs/requirement`, proofRequirement, { headers: httpHeaders });
+  }
+
+  updateProofRequirement(proofData: ProofRequirement): Observable<ProofRequirement> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.put<ProofRequirement>(`${environment.serverUrl}proofs/requirement/${proofData.id}`, proofData, { headers: httpHeaders });
+  }
+
+  deleteProofRequirement(id: number): Observable<any> {
+    return this.http.delete(`${environment.serverUrl}proofs/requirement/${id}`);
   }
 }

@@ -17,17 +17,32 @@ export class PassRequestTabsComponent implements OnInit {
 
   ngOnInit(): void {
     this.sampleForm = this.fb.group({
-      user_name: ['', Validators.required],
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      email: ['', Validators.required],
+      profile: this.fb.group({
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        Gender: ['', Validators.required],
+        DOB: ['', Validators.required],
+        mobileNo: ['', Validators.required],
+      }),
       addressGroup: this.fb.group({
-        street: ['', Validators.required],
-        city: ['', Validators.required],
-        state: ['', Validators.required],
-        zip: ['', Validators.required]
+        permanentAddress1: ['', Validators.required],
+        permanentAddress2: [''],
+        permanentCity: ['', Validators.required],
+        permanentZip: ['', [Validators.required, Validators.maxLength(10)]],
+        sameInd: [''],
+        postalAddress1: ['', Validators.required],
+        postalAddress2: [''],
+        postalCity: ['', Validators.required],
+        postalZip: ['', [Validators.required, Validators.maxLength(10)]]
+      }),
+      proofGroup: this.fb.group({
+        requestAs: ['', Validators.required]
       })
     });
+  }
+
+  hello() {
+    alert("hello");
   }
 
 }

@@ -20,6 +20,7 @@ import { NotifierComponent } from './notifier/notifier.component';
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
 import { MyProfileComponent } from './modules/profile/my-profile/my-profile.component';
 import { ResetPasswordComponent } from './modules/profile/reset-password/reset-password.component';
+import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ResetPasswordComponent } from './modules/profile/reset-password/reset-p
     NotifierComponent,
     ConfirmDialogComponent,
     MyProfileComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,19 @@
+<div class="container" fxLayout fxLayoutAlign="start start">
+    <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+        <div fxLayout="row" fxLayoutAlign="space-evenly center" fxFlex="90" class="form">
+            <form fxLayout="column" fxFlex="95" [formGroup]="proofFormGroup">
+                <mat-form-field appearance="fill">
+                    <mat-label>Pass Requesting As</mat-label>
+                    <mat-select formControlName="requestAs">
+                        <mat-option *ngFor="let data of memberTypeData" [value]="data.memberTypeId">
+                            {{data.memberTypeName}}
+                          </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        Please provide valid option
+                    </mat-error>
+                </mat-form-field>
+            </form>
+        </div>
+    </div>
+</div>

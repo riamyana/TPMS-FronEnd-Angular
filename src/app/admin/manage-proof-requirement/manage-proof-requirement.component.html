@@ -6,8 +6,7 @@
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between center">
                 <div>
-                    <button mat-raised-button color="accent" (click)="onAddProof()">Add Proof <mat-icon
-                            color="primary">add</mat-icon></button>
+                    <button mat-raised-button color="accent" (click)="onAdd()">Add Proof Requirement<mat-icon color="primary">add</mat-icon></button>
                 </div>
                 <mat-form-field>
                     <mat-label>
@@ -17,41 +16,53 @@
                 </mat-form-field>
             </div>
             <table mat-table [dataSource]="listData" matSort>
-
+    
                 <ng-container matColumnDef="srNo">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Sr No. </th>
                     <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
                 </ng-container>
-
-                <ng-container matColumnDef="id">
+    
+                <ng-container matColumnDef="proofId">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
                     <td mat-cell *matCellDef="let element"> {{element.proofId}} </td>
                 </ng-container>
-                
-                <ng-container matColumnDef="proof">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Proof Name </th>
-                    <td mat-cell *matCellDef="let element"> {{element.proofName}} </td>
+
+                <ng-container matColumnDef="memberTypeName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Member Type </th>
+                    <td mat-cell *matCellDef="let element"> {{element.memberTypeName}} </td>
                 </ng-container>
 
+                <ng-container matColumnDef="proofName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Proof Name </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        {{element.proofName}} 
+                        
+                    </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="memberTypeId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Member Type Id </th>
+                    <td mat-cell *matCellDef="let element"> {{element.memberTypeId}} </td>
+                </ng-container>
+    
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
                     <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button color="accent" #tooltip="matTooltip" matTooltip="Edit"
-                            (click)="onUpdate(element)">
+                        <button mat-icon-button color="accent" #tooltip="matTooltip" matTooltip="Edit" (click)="onUpdate(element)">
                             <mat-icon>launch</mat-icon>
                         </button>
-                        <button mat-icon-button color="warn" #tooltip="matTooltip" matTooltip="Delete"
-                            (click)="onDelete(element)">
+                        <button mat-icon-button color="warn" #tooltip="matTooltip" matTooltip="Delete" (click)="deleteConfirm(element)">
                             <mat-icon>delete_outline</mat-icon>
                         </button>
                     </td>
                     <td mat-cell *matCellDef="let element"> {{element.memberTypeName}} </td>
                 </ng-container>
-
+    
                 <tr mat-header-row *matHeaderRowDef="dispCol"></tr>
                 <tr mat-row *matRowDef="let row; columns: dispCol;"></tr>
             </table>
             <mat-paginator pageSize="30" [pageSizeOptions]="[5,10,20,30]"></mat-paginator>
         </div>
     </mat-card>
-</div>
+    </div>
+    

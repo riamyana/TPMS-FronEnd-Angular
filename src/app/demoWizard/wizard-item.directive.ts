@@ -22,8 +22,8 @@ export class WizardContentDirective extends CdkPortal {
 export class WizardItemDirective implements OnInit, AfterContentInit {
   @ContentChild(WizardTabIconDirective) icon: WizardTabIconDirective;
   @ContentChild(WizardContentDirective) contentView: WizardContentDirective;
-  // @ContentChild(MemberProfileComponent) contentView: MemberProfileComponent;
-  // @ContentChild(CdkPortal) contentView: CdkPortal;
+  @Input() label: string = '';
+  
   showIcon = false;
 
   control: ControlContainer

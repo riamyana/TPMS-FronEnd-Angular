@@ -1,3 +1,4 @@
+import { ManageProofRequirementComponent } from './admin/manage-proof-requirement/manage-proof-requirement.component';
 import { PassRequestTabsComponent } from './member/pass-request-tabs/pass-request-tabs.component';
 import { MemberProfileComponent } from './member/member-profile/member-profile.component';
 import { RegistrationComponent } from './member/registration/registration.component';
@@ -43,6 +44,8 @@ const routes: Routes = [
       path: 'manage-package', component: ManagePackageComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Package' }
     }, {
       path: 'manage-proof', component: ManageProofComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Member' }
+    }, {
+      path: 'manage-proof-requirement', component: ManageProofRequirementComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Member' }
     }, {
       path: 'manage-subscription-type', component: ManageSubscriptionTypeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Subscription Type' }
     }, {

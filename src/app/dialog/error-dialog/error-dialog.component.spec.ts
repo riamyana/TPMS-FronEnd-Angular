@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManageProof2Component } from './manage-proof2.component';
+import { ErrorDialogComponent } from './error-dialog.component';
 
-describe('ManageProof2Component', () => {
-  let component: ManageProof2Component;
-  let fixture: ComponentFixture<ManageProof2Component>;
+describe('ErrorDialogComponent', () => {
+  let component: ErrorDialogComponent;
+  let fixture: ComponentFixture<ErrorDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ManageProof2Component ]
+      declarations: [ ErrorDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManageProof2Component);
+    fixture = TestBed.createComponent(ErrorDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

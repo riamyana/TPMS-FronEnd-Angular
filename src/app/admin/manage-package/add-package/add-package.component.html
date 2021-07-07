@@ -80,8 +80,6 @@
                                 Please select Member Type
                             </mat-error>
                         </mat-form-field>
-                        <!-- <button mat-raised-button color="warn" (click)="onProofDelete(i)" fxFlex="10"
-                            style="height:60%">Delete</button> -->
                         <button mat-raised-button type="button" color="accent" (click)="onAddDiscount(i)" 
                             [fxFlex]="'20'" style="height:60%" 
                             *ngIf="this.member.controls[i].get('memberTypeName').enabled">

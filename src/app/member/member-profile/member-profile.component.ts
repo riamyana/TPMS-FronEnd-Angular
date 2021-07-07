@@ -9,20 +9,32 @@ import { Component, Input, OnInit } from '@angular/core';
   viewProviders: [ { provide: ControlContainer, useExisting: FormGroupDirective } ]
 })
 export class MemberProfileComponent implements OnInit {
-  label: string = 'Member Profile';
-  public profileFormGroup;
+  public profileFormGroup: FormGroup;
+  url;
 
   constructor(
     public controlContainer: ControlContainer
   ) { }
 
   ngOnInit(): void {
-    console.log(this.controlContainer.control.get('addressGroup'));
-    this.profileFormGroup = this.controlContainer.control.get('addressGroup') as FormGroup;
+    console.log(this.controlContainer.control.get('profile'));
+    this.profileFormGroup = this.controlContainer.control.get('profile') as FormGroup;
   }
 
-  // get form() {
-  //   return this.ogFormGroup.controls;
-  // }
+  get form() {
+    return this.profileFormGroup.controls;
+  }
+
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.url = event.target.result;
+      }
+    }
+  }
 
 }
