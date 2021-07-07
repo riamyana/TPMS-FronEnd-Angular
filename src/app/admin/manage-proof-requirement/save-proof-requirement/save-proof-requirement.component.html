@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>Add Proof</h2>
+<div mat-dialog-content>
+  <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center" class="container">
+    <form class="form" fxLayout="column" fxFlex="100" fxLayoutAlign="center" [formGroup]="proofForm">
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label>Select Member Type</mat-label>
+        <mat-select name="memberTypeData" formControlName="memberType">
+          <mat-option *ngFor="let data of data.member" [value]="data.memberTypeId">
+            {{data.memberTypeName}}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          Please provide a valid Member Type
+        </mat-error>
+      </mat-form-field>
+
+      <div fxLayout="row" fxLayoutGap="30px" *ngIf="data.dialogType == 'Add'">
+        <mat-form-field color="accent" appearance="fill">
+          <mat-label>Add More Proofs</mat-label>
+          <input matInput placeholder="Proof Name" type="number" formControlName="addProof">
+        </mat-form-field>
+
+        <button mat-raised-button type="button" color="accent" style="height:60%" (click)="onAddProof()">Add Proofs
+        </button>
+      </div>
+
+      <ng-container formArrayName="proofs">
+        <ng-container *ngFor="let item of proofForm.controls.proofs['controls']; let i=index" [formGroupName]="i">
+          <div fxLayout="row" fxLayoutGap="30px">
+            <mat-form-field color="accent" appearance="fill" [fxFlex]="data.dialogType == 'Add' ? '90':'100'">
+              <mat-label>Select Proof Name</mat-label>
+              <mat-select name="memberTypeData" formControlName="proofName">
+                <mat-option *ngFor="let data of data.proof" [value]="data.proofId">
+                  {{data.proofName}}
+                </mat-option>
+              </mat-select>
+              <mat-error>
+                Please provide a valid password
+              </mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="warn" (click)="onProofDelete(i)" fxFlex="10"
+              style="height:60%" *ngIf="proofs.length > 1">Delete</button>
+          </div>
+        </ng-container>
+      </ng-container>
+
+    </form>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" color="accent" (click)="data.dialogType == 'Add' ? onAdd():onUpdate()" [disabled]="!proofForm.valid">{{data.dialogType == 'Add' ? 'Add':'Update'}}</button>
+  <button mat-raised-button color="primary" color="warn" (click)="onCancel()">Cancel</button>
+</div>

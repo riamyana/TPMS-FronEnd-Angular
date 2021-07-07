@@ -1,3 +1,5 @@
+import { SaveProofRequirementComponent } from './../../admin/manage-proof-requirement/save-proof-requirement/save-proof-requirement.component';
+import { ManageProofRequirementComponent } from './../../admin/manage-proof-requirement/manage-proof-requirement.component';
 import { PassRequestComponent } from './../../admin/pass-request/pass-request.component';
 import { AddUpdateTransportCostComponent } from './../../admin/transport-cost/add-update-transport-cost/add-update-transport-cost.component';
 import { AgmCoreModule } from '@agm/core';
@@ -7,7 +9,6 @@ import { AddPackageComponent } from './../../admin/manage-package/add-package/ad
 import { EditTransportModeComponent } from './../../admin/transport-mode/edit-transport-mode/edit-transport-mode.component';
 import { AddTransportModeComponent } from './../../admin/transport-mode/add-transport-mode/add-transport-mode.component';
 import { TransportModeComponent } from './../../admin/transport-mode/transport-mode.component';
-import { EditProofComponent } from './../../admin/manage-proof/edit-proof/edit-proof.component';
 import { AddProofComponent } from './../../admin/manage-proof/add-proof/add-proof.component';
 import { ManageProofComponent } from './../../admin/manage-proof/manage-proof.component';
 import { EditMemberTypeComponent } from './../../admin/manage-user-type/edit-member-type/edit-member-type.component';
@@ -40,7 +41,6 @@ import { TransportCostComponent } from 'src/app/admin/transport-cost/transport-c
     EditMemberTypeComponent,
     ManageProofComponent,
     AddProofComponent,
-    EditProofComponent,
     TransportModeComponent,
     AddTransportModeComponent,
     EditTransportModeComponent,
@@ -49,7 +49,9 @@ import { TransportCostComponent } from 'src/app/admin/transport-cost/transport-c
     AddUpdateStationComponent,
     TransportCostComponent,
     AddUpdateTransportCostComponent,
-    PassRequestComponent
+    PassRequestComponent,
+    ManageProofRequirementComponent,
+    SaveProofRequirementComponent
   ],
   imports: [
     CommonModule,
@@ -73,7 +75,6 @@ import { TransportCostComponent } from 'src/app/admin/transport-cost/transport-c
     EditMemberTypeComponent,
     ManageProofComponent,
     AddProofComponent,
-    EditProofComponent,
     TransportModeComponent,
     AddTransportModeComponent,
     EditTransportModeComponent,
@@ -82,7 +83,8 @@ import { TransportCostComponent } from 'src/app/admin/transport-cost/transport-c
     AddUpdateStationComponent,
     TransportCostComponent,
     AddUpdateTransportCostComponent,
-    PassRequestComponent
+    PassRequestComponent,
+    ManageProofRequirementComponent
   ]
 })
 export class DefaultModule { }

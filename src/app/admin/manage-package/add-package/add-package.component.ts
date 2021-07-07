@@ -77,8 +77,6 @@ export class AddPackageComponent implements OnInit {
   }
 
   setValues() {
-    // let memberTypePackage: MemberTypePackageData;
-    // memberTypePackage = this.data.memberTypePackageData;
 
     if (this.form.packageName.value == '' || this.form.packageName.value == null) {
       this.packageService.memberTypePackageObservable.subscribe(data => {
@@ -212,13 +210,11 @@ export class AddPackageComponent implements OnInit {
   }
 
   get member() {
-    // this.form.memberType as FormArray;
     return this.packageForm.get('memberType') as FormArray;
   }
 
   onAdd() {
     this.updatePackageData();
-    // this.updateMemberPackage(0);
 
     this.packageService.addPackage(this.packageData, this.member)
       .subscribe(
