@@ -14,6 +14,8 @@ import { CommonModule } from '@angular/common';
 import { MemberProfileComponent } from './member-profile/member-profile.component';
 import { PassRequestTabsComponent } from './pass-request-tabs/pass-request-tabs.component';
 import { PortalModule } from '@angular/cdk/portal';
+import { MemberAddressComponent } from './member-address/member-address.component';
+import { MemberProofComponent } from './member-proof/member-proof.component';
 
 
 
@@ -27,7 +29,9 @@ import { PortalModule } from '@angular/cdk/portal';
     WizardComponent,
     WizardItemDirective,
     WizardContentDirective,
-    WizardTabIconDirective
+    WizardTabIconDirective,
+    MemberAddressComponent,
+    MemberProofComponent
   ],
   imports: [
     CommonModule,

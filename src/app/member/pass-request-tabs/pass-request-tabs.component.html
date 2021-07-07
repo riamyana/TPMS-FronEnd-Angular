@@ -1,14 +1,26 @@
-<app-wizard [formGroup]="sampleForm">
-    <app-Wizard-Item formGroupName="addressGroup">
-        <mat-icon *wizardTabIcon>person</mat-icon>
-        <app-member-profile *wizard-content ></app-member-profile>
-    </app-Wizard-Item>
+<div class="container">
+    <app-wizard [formGroup]="sampleForm" (continue)="hello()">
+        <app-Wizard-Item formGroupName="profile" [label]="'Personal Details'">
+            <mat-icon *wizardTabIcon>person</mat-icon>
+            <app-member-profile *wizard-content></app-member-profile>
+        </app-Wizard-Item>
 
-    <app-Wizard-Item>
-        <mat-icon *wizardTabIcon>home</mat-icon>
-        <app-registration *wizard-content></app-registration>
-    </app-Wizard-Item>
-</app-wizard>
+        <app-Wizard-Item [label]="'Address'" formGroupName="addressGroup">
+            <mat-icon *wizardTabIcon>home</mat-icon>
+            <app-member-address *wizard-content></app-member-address>
+        </app-Wizard-Item>
+
+        <app-Wizard-Item [label]="'Proofs'" formGroupName="proofGroup">
+            <mat-icon *wizardTabIcon>task</mat-icon>
+            <app-member-proof *wizard-content></app-member-proof>
+        </app-Wizard-Item>
+    </app-wizard>
+
+    <!-- <div fxLayout fxLayoutAlign="space-between center" class="button">
+        <button mat-raised-button color="accent">Previous</button>
+        <button mat-raised-button color="accent">Next</button>
+    </div> -->
+</div>
 
 <!-- <app-member-profile *cdkPortal>
 </app-member-profile> -->

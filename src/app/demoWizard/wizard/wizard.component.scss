@@ -1,7 +1,63 @@
 .complete {
-    color: blue;
+  color: rgb(6, 77, 110) !important;;
 }
 
 .invalid {
-    color: red;
+  color: red !important;;
 }
+
+.checkmark {
+  display:inline-block;
+  width: 16px;
+  height:16px;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 0;
+  right: 1px;
+  
+  &_circle {
+    position: absolute;
+    width:16px;
+    height:16px;
+    background-color: green;
+    border-radius:11px;
+    left:0;
+    top:0;
+  }
+  
+  &_stem {
+    position: absolute;
+    width:3px;
+    height:9px;
+    background-color:#fff;
+    left:7.5px;
+    top:3px;
+  }
+  
+  &_kick {
+    position: absolute;
+    width:3px;
+    height:3px;
+    background-color:#fff;
+    left:4.5px;
+    top:9px;
+  }
+}
+
+  .mat-raised-button.wizard-buttons {
+    box-shadow: none;
+    background-color: rgb(6, 77, 110);
+    color: white;
+    border-radius: 0;
+    border: 2px solid rgb(47, 128, 121);
+    border-radius: 20px;
+    margin-top: -22px;
+  }
+
+  .wizard-buttons.bckBtn {
+    float: left;
+  }
+  
+  .wizard-buttons.ctnBtn {
+    float: right;
+  }

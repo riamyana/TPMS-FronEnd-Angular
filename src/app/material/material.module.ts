@@ -22,6 +22,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const MaterialComponents = [
   MatButtonModule,
@@ -55,7 +57,9 @@ const MaterialComponents = [
   MatNativeDateModule,
   MatTabsModule,
   MatButtonToggleModule,
-  MatStepperModule
+  MatStepperModule,
+  MatRadioModule,
+  MatCheckboxModule
 ];
 
 @NgModule({

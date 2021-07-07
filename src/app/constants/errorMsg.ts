@@ -5,4 +5,6 @@ export class ErrorMsg {
     one Lowercase letter
     one number
     one special character.`;
+
+    static readonly submitPassRequestErrorMsg = `Please fill all required fileds.`;
 }

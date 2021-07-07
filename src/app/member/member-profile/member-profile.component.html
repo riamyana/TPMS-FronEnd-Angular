@@ -1,124 +1,60 @@
 <div class="container" fxLayout fxLayoutAlign="start start">
-    <form action="" fxLayout="column" fxFlex="100" [formGroup]="profileFormGroup">
-        <mat-form-field>
-            <mat-label>Requesting Pass for</mat-label>
-            <input matInput formControlName="street">
-            <mat-error>
-                Please provide Street
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>First Name</mat-label>
-            <input matInput formControlName="city">
-            <mat-error>
-                Please provide City
-            </mat-error>
-        </mat-form-field>
+    <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+        <div fxLayout="row" fxLayoutAlign="space-evenly center" fxFlex="90" class="form">
+            <form fxLayout="column" fxFlex="95" [formGroup]="profileFormGroup">
+                <mat-form-field appearance="fill">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="firstName" placeholder="First Name">
+                    <mat-error>
+                        Please provide Street
+                    </mat-error>
+                </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Last Name</mat-label>
-            <input matInput formControlName="state">
-            <mat-error>
-                Please provide State
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Mobile No.</mat-label>
-            <input matInput formControlName="zip">
-            <mat-error>
-                Please provide zip
-            </mat-error>
-        </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" placeholder="Last Name">
+                    <mat-error>
+                        Please provide City
+                    </mat-error>
+                </mat-form-field>
 
-        <!-- <mat-form-field>
-            <mat-label>DOB</mat-label>
-            <input matInput>
-            <mat-error>
-                Please provide Transport Mode Type
-            </mat-error>
-        </mat-form-field> -->
+                <div fxLayout="row" fxLayoutGap="20px" class="gender">
+                    <mat-label>Gender</mat-label>
+                    <mat-radio-group aria-label="Select an option" formControlName="Gender" fxLayout="row"
+                        fxLayoutGap="10px">
+                        <mat-radio-button value="Female">Female</mat-radio-button>
+                        <mat-radio-button value="Male">Male</mat-radio-button>
+                    </mat-radio-group>
+                </div>
 
-        <!-- <div class="label">Permanent Address Information</div>
+                <mat-form-field color="accent" appearance="fill">
+                    <mat-label>DOB</mat-label>
+                    <input matInput [matDatepicker]="start" formControlName="DOB" placeholder="MM/DD/YYYY">
+                    <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+                    <mat-datepicker #start></mat-datepicker>
+                    <mat-error>
+                        Please provide valid DOB
+                    </mat-error>
+                </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Address Line1</mat-label>
-            <input matInput>
-            <mat-error>
-                Please provide Transport Mode Type
-            </mat-error>
-        </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Mobile No.</mat-label>
+                    <input matInput type="number" formControlName="mobileNo" placeholder="Mobile No.">
+                    <mat-error>
+                        Please provide zip
+                    </mat-error>
+                </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Address Line2</mat-label>
-            <input matInput>
-            <mat-error>
-                Please provide Transport Mode Type
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>Zip Code</mat-label>
-            <input matInput>
-            <mat-error>
-                Please provide Transport Mode Type
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>City</mat-label>
-            <input matInput>
-            <mat-error>
-                Please provide Transport Mode Type
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>State</mat-label>
-            <input matInput>
-            <mat-error>
-                Please provide Transport Mode Type
-            </mat-error>
-        </mat-form-field>
-
-        <div class="label">Postal Address Information</div>
-        <mat-form-field>
-            <mat-label>Address Line1</mat-label>
-            <input matInput>
-            <mat-error>
-                Please provide Transport Mode Type
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>Address Line2</mat-label>
-            <input matInput>
-            <mat-error>
-                Please provide Transport Mode Type
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>Zip Code</mat-label>
-            <input matInput>
-            <mat-error>
-                Please provide Transport Mode Type
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>City</mat-label>
-            <input matInput>
-            <mat-error>
-                Please provide Transport Mode Type
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>State</mat-label>
-            <input matInput>
-            <mat-error>
-                Please provide Transport Mode Type
-            </mat-error>
-        </mat-form-field> -->
-    </form>
+                <div fxLayout="row" fxLayoutGap="20px">
+                    <img [src]="url ? url : 'https://www.w3schools.com/howto/img_avatar.png'"> <br />
+                    <input hidden type='file' #csvInput (change)="onSelectFile($event)">
+                    <div fxLayout="column">
+                        <button mat-flat-button color="primary" (click)="csvInput.click()" type="button"
+                            style="color: white; top: 30%;">Choose Profile
+                            Image</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
