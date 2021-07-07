@@ -101,8 +101,11 @@ export class SaveProofRequirementComponent implements OnInit {
           this.dialogRef.close(data);
         },
         err => {
-          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
-          console.log(err);
+          if (err.status == 401 || err.stats == 403) {
+            this.router.navigateByUrl('admin/login');
+          } else {
+            this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+          }
         });
     }
   }
@@ -125,8 +128,11 @@ export class SaveProofRequirementComponent implements OnInit {
         this.dialogRef.close(data);
       },
       err => {
-        this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
-        console.log(err);
+        if (err.status == 401 || err.stats == 403) {
+          this.router.navigateByUrl('admin/login');
+        } else {
+          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+        }
       });
   }
 
