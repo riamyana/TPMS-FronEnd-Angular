@@ -243,8 +243,12 @@ export class AddPackageComponent implements OnInit {
       (res) => {
         this.notifierService.showNotification(NotifierMsg.SuccessUpdateMsg('Package'), 'OK', 'success');
       },
-      (error) => {
-        this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'success');
+      (err) => {
+        if (err.status == 401 || err.stats == 403) {
+          this.router.navigateByUrl('admin/login');
+        } else {
+          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+        }
       }
     );
   }

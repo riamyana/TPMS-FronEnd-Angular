@@ -67,8 +67,11 @@ export class AddProofComponent implements OnInit {
         this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Proof Name'), 'OK', 'success');
       },
       err => {
-        this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
-        console.log(err);
+        if (err.status == 401 || err.stats == 403) {
+          this.router.navigateByUrl('admin/login');
+        } else {
+          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+        }
         this.dialogRef.close(false);
       });
   }
@@ -86,8 +89,11 @@ export class AddProofComponent implements OnInit {
         this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Proof Name'), 'OK', 'success');
       },
       err => {
-        this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
-        console.log(err);
+        if (err.status == 401 || err.stats == 403) {
+          this.router.navigateByUrl('admin/login');
+        } else {
+          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+        }
         this.dialogRef.close(false);
       });
   }
