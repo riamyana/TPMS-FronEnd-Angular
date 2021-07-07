@@ -1,7 +1,9 @@
+import { ErrorMsg } from './../../constants/errorMsg';
+import { ErrorDialogComponent } from './../../dialog/error-dialog/error-dialog.component';
 import { WizardItemDirective } from './../wizard-item.directive';
-import { Component, OnInit, Input, Output, ContentChildren, QueryList, AfterContentInit, OnDestroy } from '@angular/core';
-import * as EventEmitter from 'events';
+import { Component, OnInit, Input, Output, ContentChildren, QueryList, AfterContentInit, OnDestroy, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-wizard',
@@ -11,7 +13,7 @@ import { Subscription } from 'rxjs';
 export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
   @Input() continueLabel: string;
   @Input() showTickOnValue: boolean = false;
-  @Output() continue = new EventEmitter();
+  @Output() continue = new EventEmitter<boolean>();
   @ContentChildren(WizardItemDirective) tabs: QueryList<WizardItemDirective>;
   private subscriptions: Subscription[] = [];
 
@@ -26,15 +28,16 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
   invalidNext = false;
   invalidPrev = false;
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog
+  ) { }
 
   ngAfterContentInit() {
-    this.subscriptions.push(this.tabs.changes.subscribe(amt => {
+    this.subscriptions.push(this.tabs.changes.subscribe(() => {
       this.setAndCheck();
     }));
     this.setAndCheck();
 
-    // console.log("tabs");
     console.log(this.tabs);
   }
 
@@ -49,9 +52,26 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
     this.checkStatus();
   }
 
+  previousStep() {
+    if (this.selectedIndex != 0) {
+      this.selectedIndex = this.selectedIndexChange - 1;
+    }
+    this.checkShowPrevious();
+  }
+
+  nextStep() {
+    if (this.selectedIndex + 1 != this.tabCount) {
+      this.selectedIndex = this.selectedIndexChange + 1;
+    }
+    this.checkShowNext();
+  }
+
   checkShowNext() {
     this.showNext = this.selectedIndex + 1 != this.tabCount;
-    this.showContinue =  this.continueLabel != null && this.continueLabel != '' && this.selectedIndex + 1 === this.tabCount && this.selectedIndex != 0;
+    // this._tabsArray.forEach((tab) => {
+    //   this.showContinue = tab.control.valid;
+    // });
+    this.showContinue = this.selectedIndex + 1 === this.tabCount && this.selectedIndex != 0;
     this.checkStatus();
   }
 
@@ -70,6 +90,19 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
     this.selectedIndex = event;
     this.checkShowPrevious();
     this.checkShowNext();
+  }
+
+  submitClick() {
+    let valid: boolean = false;
+    this._tabsArray.forEach((tab) => {
+      valid = tab.control.valid;
+    });
+
+    if (valid) {
+      this.continue.emit(true);
+    } else {
+      const dialogRef = this.dialog.open(ErrorDialogComponent, { data: `${ErrorMsg.submitPassRequestErrorMsg}` });
+    }
   }
 
   ngOnDestroy(): void {

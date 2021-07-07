@@ -1,20 +1,12 @@
 .container {
     padding: 20px;
+    margin: 20px;
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: white;
 }
 
-.tab {
-    padding: 20px;
-    background-color: rgb(234, 235, 233);
-    border-radius: 5px 5px 5px 5px;
-}
-
-.label {
-    background-color: rosybrown;
-    border-radius: 2px 2px 2px 2px;
-    padding: 5px;
-}
-
-.icon {
-    margin-left: 8px;
-    color: blue;
+.button {
+    margin-left: 5%;
+    margin-right: 5%;
 }
