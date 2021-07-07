@@ -88,6 +88,7 @@ export class SaveProofRequirementComponent implements OnInit {
       this.memberTypeNmae = this.data.member.filter(value => value.memberTypeId == this.form.memberType.value).map(value => value.memberTypeName);
       this.proofName = this.data.proof.filter(value => value.proofId == control.get('proofName').value).map(value => value.proofName);
 
+      
       this.proofData = {
         memberTypeId: this.form.memberType.value,
         proofId: control.get('proofName').value,
