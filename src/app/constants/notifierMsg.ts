@@ -23,6 +23,10 @@ export class NotifierMsg {
         return `No Proofs fround for type ${proofName}`;
     }
 
+    static passRequest(status: string) {
+        return status == "approve" ? "Pass Request Approved successfully..!" : "Pass Request Disapproved successfully..!";
+    }
+
     static readonly errorMsg = `Something went wrong...! Please try again later.`;
     static readonly changePassword = `Password Updated Successfully..!`;
 }

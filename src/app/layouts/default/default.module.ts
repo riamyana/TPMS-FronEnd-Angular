@@ -1,3 +1,4 @@
+import { ViewDetailsComponent } from './../../admin/pass-request/view-details/view-details.component';
 import { SaveProofRequirementComponent } from './../../admin/manage-proof-requirement/save-proof-requirement/save-proof-requirement.component';
 import { ManageProofRequirementComponent } from './../../admin/manage-proof-requirement/manage-proof-requirement.component';
 import { PassRequestComponent } from './../../admin/pass-request/pass-request.component';
@@ -51,7 +52,8 @@ import { TransportCostComponent } from 'src/app/admin/transport-cost/transport-c
     AddUpdateTransportCostComponent,
     PassRequestComponent,
     ManageProofRequirementComponent,
-    SaveProofRequirementComponent
+    SaveProofRequirementComponent,
+    ViewDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -84,7 +86,8 @@ import { TransportCostComponent } from 'src/app/admin/transport-cost/transport-c
     TransportCostComponent,
     AddUpdateTransportCostComponent,
     PassRequestComponent,
-    ManageProofRequirementComponent
+    ManageProofRequirementComponent,
+    ViewDetailsComponent
   ]
 })
 export class DefaultModule { }

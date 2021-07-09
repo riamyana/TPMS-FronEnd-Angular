@@ -78,4 +78,18 @@ export class PassRequestService {
       proofImage: proof.controls[i].get('proofName').value
     }
   }
+
+  getMemberPassRequest(): Observable<MemberProfile[]> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<MemberProfile[]>(`${environment.serverUrl}members/pass-request`, { headers: httpHeaders });
+  }
+
+  changePassRequestStatus(memberId: number, status: boolean): Observable<number> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.put<number>(`${environment.serverUrl}members/pass-request/status/${memberId}/${status}`, { headers: httpHeaders });
+  }
 }

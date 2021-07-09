@@ -83,9 +83,8 @@ export class PassRequestTabsComponent implements OnInit {
   }
 
   submit() {
-    // alert(this.profileForm.get('firstName').value);
-    // alert(this.proofs.controls[0].get('proofName').value);
     this.profileData = {
+      memberId: this.proofForm.get('requestAs').value,
       userId: this.userData.id,
       memberTypeId: this.proofForm.get('requestAs').value,
       firstName: this.profileForm.get('firstName').value,
@@ -95,9 +94,6 @@ export class PassRequestTabsComponent implements OnInit {
       dob: this.profileForm.get('DOB').value,
       profileImage: this.profileForm.get('profileImage').value
     };
-
-    alert(this.profileForm.get('DOB').value);
-    alert(this.profileForm.get('profileImage').value);
 
     this.addressData = {
       memberId: 1,
@@ -110,19 +106,6 @@ export class PassRequestTabsComponent implements OnInit {
       postalCity: this.addressForm.get('postalCity').value,
       postalZipCode: this.addressForm.get('postalZip').value
     };
-
-    // this.passRequestService.addMemberProfile(this.profileData).subscribe(
-    //   data => {
-    //     this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Member Profile'), 'OK', 'success');
-    //   },
-    //   err => {
-    //     if (err.status == 401 || err.stats == 403) {
-    //       this.router.navigateByUrl('user/login');
-    //     }
-    //     else {
-    //       this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
-    //     }
-    //   });
 
     this.passRequestService.passRequest(this.profileData, this.addressData, this.proofs).subscribe(
       data => {
@@ -137,19 +120,6 @@ export class PassRequestTabsComponent implements OnInit {
           console.log(err);
         }
       });
-
-      // this.passRequestService.addAddress(this.addressData).subscribe(
-      //   data => {
-      //     this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Member Profile'), 'OK', 'success');
-      //   },
-      //   err => {
-      //     if (err.status == 401 || err.stats == 403) {
-      //       this.router.navigateByUrl('user/login');
-      //     }
-      //     else {
-      //       this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
-      //     }
-      //   });
   }
 
 }
