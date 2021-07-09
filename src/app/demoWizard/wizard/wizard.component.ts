@@ -13,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
   @Input() continueLabel: string;
   @Input() showTickOnValue: boolean = false;
-  @Output() continue = new EventEmitter<boolean>();
+  @Output() submit = new EventEmitter<boolean>();
   @ContentChildren(WizardItemDirective) tabs: QueryList<WizardItemDirective>;
   private subscriptions: Subscription[] = [];
 
@@ -93,15 +93,24 @@ export class WizardComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   submitClick() {
-    let valid: boolean = false;
+    debugger;
+    let valid: boolean = true;
     this._tabsArray.forEach((tab) => {
       valid = tab.control.valid;
     });
 
+    for (let tab of this._tabsArray) {
+      if (!tab.control.valid) {
+        valid = false;
+        break;
+      }
+    }
+
     if (valid) {
-      this.continue.emit(true);
+      this.submit.emit(true);
     } else {
       const dialogRef = this.dialog.open(ErrorDialogComponent, { data: `${ErrorMsg.submitPassRequestErrorMsg}` });
+      // this.submit.emit(true);
     }
   }
 

@@ -1,5 +1,5 @@
 <div class="container">
-    <app-wizard [formGroup]="sampleForm" (continue)="hello()">
+    <app-wizard [formGroup]="passRequestForm" (submit)="submit()">
         <app-Wizard-Item formGroupName="profile" [label]="'Personal Details'">
             <mat-icon *wizardTabIcon>person</mat-icon>
             <app-member-profile *wizard-content></app-member-profile>

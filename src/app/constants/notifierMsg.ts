@@ -19,6 +19,10 @@ export class NotifierMsg {
         return data == "success" ? "Registered Successfully..!" : "User Name alreday taken..! Please try other User Name.";
     }
 
+    static memberProofNotFound(proofName: string) {
+        return `No Proofs fround for type ${proofName}`;
+    }
+
     static readonly errorMsg = `Something went wrong...! Please try again later.`;
     static readonly changePassword = `Password Updated Successfully..!`;
 }

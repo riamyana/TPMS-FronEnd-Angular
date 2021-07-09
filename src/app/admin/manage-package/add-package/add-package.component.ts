@@ -278,9 +278,11 @@ export class AddPackageComponent implements OnInit {
   }
 
   onAddMemberType() {
+    debugger;
     const addMemberNo = +this.form.addMember.value;
 
     const newMemberType = this.formBuilder.group({
+      id: [''],
       memberTypeName: ['', Validators.required],
       discount: ['', Validators.required],
       startDate: [''],

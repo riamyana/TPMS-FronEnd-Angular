@@ -20,7 +20,7 @@
 
                 <div fxLayout="row" fxLayoutGap="20px" class="gender">
                     <mat-label>Gender</mat-label>
-                    <mat-radio-group aria-label="Select an option" formControlName="Gender" fxLayout="row"
+                    <mat-radio-group aria-label="Select an option" formControlName="gender" fxLayout="row"
                         fxLayoutGap="10px">
                         <mat-radio-button value="Female">Female</mat-radio-button>
                         <mat-radio-button value="Male">Male</mat-radio-button>
@@ -47,7 +47,7 @@
 
                 <div fxLayout="row" fxLayoutGap="20px">
                     <img [src]="url ? url : 'https://www.w3schools.com/howto/img_avatar.png'"> <br />
-                    <input hidden type='file' #csvInput (change)="onSelectFile($event)">
+                    <input hidden type='file' #csvInput (change)="onSelectFile($event)" formControlName="profileImage">
                     <div fxLayout="column">
                         <button mat-flat-button color="primary" (click)="csvInput.click()" type="button"
                             style="color: white; top: 30%;">Choose Profile

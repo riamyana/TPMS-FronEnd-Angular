@@ -1,5 +1,5 @@
 export interface ProfileData {
-    memberId: number;
+    memberId?: number;
     memberTypeId: number;
     memberTypeName: string;
     firstName: string;
