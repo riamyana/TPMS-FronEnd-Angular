@@ -1,7 +1,10 @@
+<div *ngIf="loader.isLoading | async" class="loader">
+    <mat-spinner style="top:30%; left:50%" color="primary"></mat-spinner>
+</div>
 <div class="container" fxLayout fxLayoutAlign="start start">
     <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
         <div fxLayout="row" fxLayoutAlign="space-evenly center" fxFlex="90" class="form">
-            <form fxLayout="column" fxFlex="95" [formGroup]="proofFormGroup">
+            <form fxLayout="column" fxFlex="95" [formGroup]="proofForm">
                 <mat-form-field appearance="fill">
                     <mat-label>Pass Requesting As</mat-label>
                     <mat-select formControlName="requestAs">
@@ -13,6 +16,34 @@
                         Please provide valid option
                     </mat-error>
                 </mat-form-field>
+
+                <ng-container *ngIf="proofData" formArrayName="proofs">
+                    <ng-container *ngFor="let proof of proofData; let i=index" [formGroupName]="i">
+
+                        <div fxLayout="row" fxLayoutGap="20px">
+                            <mat-form-field color="accent" appearance="fill" fxFlex="30">
+                                <mat-label>{{proof.proofName}} Number</mat-label>
+                                <input matInput formControlName="proofNo">
+                                <mat-error>
+                                    Please provide a valid password
+                                </mat-error>
+                            </mat-form-field>
+
+                            <input type="file" #input (change)="onSelectFile($event, i)" accept="image/*" fxFlex="40" formControlName="proofName">
+
+                            <!-- <button mat-raised-button type="button" style="height: 20%;" fxFlex="40" color="accent" (click)="input.click()">
+                                Upload {{proof.proofName}}
+                            </button>
+
+                            <span>
+                                <label>{{fileName}}</label>
+                            </span> -->
+                        </div>
+
+                        <input type="hidden" formControlName="proofId">
+                    </ng-container>
+                </ng-container>
+
             </form>
         </div>
     </div>

@@ -4,8 +4,8 @@ import { Package, MemberTypePackageData } from './../../_models/package/package'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { concatMap, mergeMap, switchMap } from 'rxjs/operators';
-import { AbstractControl, FormGroup, FormControl, FormArray } from '@angular/forms';
+import { switchMap } from 'rxjs/operators';
+import { FormArray } from '@angular/forms';
 import * as moment from 'moment';
 
 @Injectable({
@@ -60,13 +60,22 @@ export class PackageService {
 
         console.log(res);
 
+        debugger;
         for (let i = 0; i < len; i++) {
           this.updateMemberPackage(i, member, res.id);
 
           if (i == len - 1) {
             return this.http.post<MemberPackage>(`${environment.serverUrl}member-packages`, this.memberPackage, { headers: httpHeaders });
           } else {
-            this.http.post<MemberPackage>(`${environment.serverUrl}member-packages`, this.memberPackage, { headers: httpHeaders });
+            // return this.http.post<MemberPackage>(`${environment.serverUrl}member-packages`, this.memberPackage, { headers: httpHeaders });
+            this.http.post<MemberPackage>(`${environment.serverUrl}member-packages`, this.memberPackage, { headers: httpHeaders }).subscribe(
+              data => {
+                console.log(data);
+              },
+              err => {
+                console.log(err);
+              }
+            );
           }
         }
         return null;

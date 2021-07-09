@@ -16,8 +16,8 @@ export class ProofService {
     return this.http.get<Proof[]>(`${environment.serverUrl}proofs`);
   }
 
-  getProofByMemberId(id: number) {
-    return this.http.get<Proof>(`${environment.serverUrl}proofs/member-types/${id}`);
+  getProofByMemberId(id: number): Observable<Proof[]> {
+    return this.http.get<Proof[]>(`${environment.serverUrl}proofs/member-types/${id}`);
   }
 
   deleteProof(id: number): Observable<any> {
