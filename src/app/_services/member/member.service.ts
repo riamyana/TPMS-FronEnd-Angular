@@ -33,4 +33,8 @@ export class MemberService {
 
     return this.http.put<MemberType>(`${environment.serverUrl}member-types/${memberType.memberTypeId}`, memberType, { headers: httpHeaders });
   }
+
+  getMemberTypeById(id: number): Observable<MemberType> {
+    return this.http.get<MemberType>(`${environment.serverUrl}member-types/${id}`);
+  }
 }

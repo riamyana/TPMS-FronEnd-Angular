@@ -14,6 +14,6 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button type="submit" color="primary" color="accent" (click)="data ? onUpdate():onAdd()" [disabled]="!proofForm.valid">{{data ? 'Update':'Add'}}</button>
-  <button mat-raised-button type="submit" color="primary" color="warn" (click)="onCancel()">Cancel</button>
+  <button mat-raised-button type="submit" color="accent" (click)="data ? onUpdate():onAdd()" [disabled]="!proofForm.valid">{{data ? 'Update':'Add'}}</button>
+  <button mat-raised-button type="submit" color="warn" (click)="onCancel()">Cancel</button>
 </div>

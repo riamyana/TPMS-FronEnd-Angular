@@ -1,0 +1,37 @@
+<h2 mat-dialog-title class="header">Member Details</h2>
+<div mat-dialog-content>
+    <div fxLayout="column" fxLayoutAlign="center" class="container">
+        <div fxLayout="column" fxLayoutGap="30px" class="data">
+            <table>
+                <tr>
+                    <td class="title size">Member Type</td>
+                    <td class="size">{{memberTypeName}}</td>
+                </tr>
+                <tr>
+                    <td class="title size">First Name</td>
+                    <td class="size">{{data.firstName}}</td>
+                </tr>
+                <tr>
+                    <td class="title size">Last Name</td>
+                    <td class="size">{{data.lastName}}</td>
+                </tr>
+                <tr>
+                    <td class="title size">Gender</td>
+                    <td class="size">{{data.gender}}</td>
+                </tr>
+                <tr>
+                    <td class="title size">Mobile No.</td>
+                    <td class="size">{{data.mobileNo}}</td>
+                </tr>
+                <tr>
+                    <td class="title size">DOB</td>
+                    <td class="size">{{data.dob}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-raised-button type="submit" color="accent" (click)="onOk()">OK</button>
+</div>
