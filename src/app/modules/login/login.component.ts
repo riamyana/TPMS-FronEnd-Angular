@@ -9,12 +9,6 @@ import { FormControl, FormGroupDirective, NgForm, FormGroup, FormBuilder, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import { first } from 'rxjs/operators';
 
-// export class LoginErrorStateMatcher implements ErrorStateMatcher {
-//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-//     const isSubmitted = form && form.submitted;
-//     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-//   }
-// }
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -70,12 +64,10 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          debugger;
           if (this.user_type == Roles.ADMIN)
             this.router.navigateByUrl('admin/manage-member');
           else if (this.user_type == Roles.USER)
             this.router.navigateByUrl('user/home');
-          // console.log(data);
         },
         error => {
           if (error.status == 401 || error.status == 403) {

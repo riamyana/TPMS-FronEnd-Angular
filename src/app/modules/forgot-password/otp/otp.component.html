@@ -1,0 +1,21 @@
+<div *ngIf="loader.isLoading | async" class="loader">
+    <mat-spinner style="top:40%; left:55%" color="primary"></mat-spinner>
+</div>
+<div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="space-around center">
+    <mat-card class="card" fxFlex="30" fxFlex.xs="100%" fxFlex.md="100%" fxLayout="column">
+        <span class="msg">{{msg}}</span>
+        <form class="form" [formGroup]="otpForm" fxLayout="column" (ngSubmit)="onValidate()">
+            <mat-form-field class="example-full-width" color="accent" appearance="fill">
+                <mat-label>
+                    Enter OTP
+                </mat-label>
+                <input matInput formControlName="otp" type="number">
+                <mat-error>
+                    Please provide a valid user name
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button type="submit" color="accent">Reset Password</button>
+        </form>
+    </mat-card>
+</div>

@@ -1,3 +1,4 @@
+import { ForgotPasswordComponent } from './modules/forgot-password/forgot-password.component';
 import { MemberModule } from './member/member.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FullwidthModule } from './layouts/fullwidth/fullwidth.module';
@@ -21,6 +22,8 @@ import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.c
 import { MyProfileComponent } from './modules/profile/my-profile/my-profile.component';
 import { ResetPasswordComponent } from './modules/profile/reset-password/reset-password.component';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
+import { OtpComponent } from './modules/forgot-password/otp/otp.component';
+import { ChangePasswordComponent } from './modules/forgot-password/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.compone
     ConfirmDialogComponent,
     MyProfileComponent,
     ResetPasswordComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    ForgotPasswordComponent,
+    OtpComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
