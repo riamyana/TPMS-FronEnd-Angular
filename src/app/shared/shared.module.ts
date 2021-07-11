@@ -15,7 +15,7 @@ import { MaterialModule } from '../material/material.module';
   declarations: [
     HeaderComponent,
     NavComponent,
-    LoginComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +28,7 @@ import { MaterialModule } from '../material/material.module';
   exports: [
     HeaderComponent,
     NavComponent,
-    LoginComponent,
+    LoginComponent
   ]
 })
 export class SharedModule { }

@@ -1,3 +1,6 @@
+import { ChangePasswordComponent } from './modules/forgot-password/change-password/change-password.component';
+import { OtpComponent } from './modules/forgot-password/otp/otp.component';
+import { ForgotPasswordComponent } from './modules/forgot-password/forgot-password.component';
 import { ManageProofRequirementComponent } from './admin/manage-proof-requirement/manage-proof-requirement.component';
 import { PassRequestTabsComponent } from './member/pass-request-tabs/pass-request-tabs.component';
 import { MemberProfileComponent } from './member/member-profile/member-profile.component';
@@ -67,6 +70,12 @@ const routes: Routes = [
   {
     path: '', component: FullwidthComponent, children: [{
       path: 'login', component: LoginComponent
+    }, {
+      path: 'forgot-password', component: ForgotPasswordComponent
+    }, {
+      path: 'forgot-password/:userName', component: OtpComponent
+    }, {
+      path: 'forgot-password/:userName/:otp', component: ChangePasswordComponent
     }, {
       path: 'home', component: HomeComponent
     }, {
