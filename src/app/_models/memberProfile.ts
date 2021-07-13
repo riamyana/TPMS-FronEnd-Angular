@@ -1,6 +1,7 @@
 export interface MemberProfile {
     memberId?: number,
     userId: number,
+    userName?: string,
     memberTypeId: number,
     memberTypeName?: string,
     firstName: string,
@@ -8,6 +9,8 @@ export interface MemberProfile {
     gender: string,
     mobileNo: string,
     dob: string,
-    profileImage?: string;
-    status?: boolean;
+    profileImage?: string,
+    requestDate: string,
+    status?: number,
+    description?: string
 }

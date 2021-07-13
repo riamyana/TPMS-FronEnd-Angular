@@ -29,7 +29,7 @@
                                 </mat-error>
                             </mat-form-field>
 
-                            <input type="file" #input (change)="onSelectFile($event, i)" accept="image/*" fxFlex="40" formControlName="proofName">
+                            <input type="file" #input (change)="onSelectFile($event, i)" accept="image/*" fxFlex="40" formControlName="proofName" multiple>
 
                             <!-- <button mat-raised-button type="button" style="height: 20%;" fxFlex="40" color="accent" (click)="input.click()">
                                 Upload {{proof.proofName}}

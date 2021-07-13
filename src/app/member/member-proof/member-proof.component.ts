@@ -1,3 +1,4 @@
+import { PassRequestService } from './../../_services/pass-request/pass-request.service';
 import { LoaderService } from './../../_services/loader/loader.service';
 import { NotifierMsg } from './../../constants/notifierMsg';
 import { Proof } from './../../_models/Proof/proof';
@@ -32,7 +33,8 @@ export class MemberProofComponent implements OnInit, OnDestroy {
     private notifierService: NotifierService,
     private proofService: ProofService,
     private fb: FormBuilder,
-    public loader: LoaderService
+    public loader: LoaderService,
+    private passRequestService: PassRequestService
   ) { }
 
   ngOnInit(): void {
@@ -108,9 +110,14 @@ export class MemberProofComponent implements OnInit, OnDestroy {
 
   onSelectFile(event, i) {
     if (event.target.files && event.target.files[0]) {
+
+      const proofLength = this.proofs.length;
+
+      this.passRequestService.addFiles(event.target.files[0], i, proofLength);
+
       var reader = new FileReader();
 
-      console.log(event.target.files[0].name);
+      console.log(event.target.files[0]);
       
       this.proofs.controls.forEach(control => {
         console.log(control.get('proofName').value);
@@ -122,9 +129,12 @@ export class MemberProofComponent implements OnInit, OnDestroy {
 
       reader.onload = (event) => { // called once readAsDataURL is completed
         this.url = event.target.result;
-        // console.log(this.url);
       }
+
+      console.log(this.passRequestService.getFiles());
     }
   }
+
+  
 
 }

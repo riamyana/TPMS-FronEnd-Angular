@@ -1,3 +1,6 @@
+table {
+    width: 70vw;
+}
 .mat-card-header {
     background-color: #5e383c;
     height: 50px;
@@ -18,4 +21,8 @@
     width: 85%;
     opacity: 0.8;
     z-index: 99;
+}
+
+.description {
+    width: 20%;
 }

@@ -24,6 +24,7 @@ import { TransportCostComponent } from './transport-cost/transport-cost.componen
 import { AddUpdateTransportCostComponent } from './transport-cost/add-update-transport-cost/add-update-transport-cost.component';
 import { SaveProofRequirementComponent } from './manage-proof-requirement/save-proof-requirement/save-proof-requirement.component';
 import { ViewDetailsComponent } from './pass-request/view-details/view-details.component';
+import { ViewDocumentComponent } from './pass-request/view-document/view-document.component';
 // import { ManageProofRequirementComponent } from './manage-proof-requirement/manage-proof-requirement.component';
 
 
@@ -47,7 +48,8 @@ import { ViewDetailsComponent } from './pass-request/view-details/view-details.c
     TransportCostComponent,
     AddUpdateTransportCostComponent,
     SaveProofRequirementComponent,
-    ViewDetailsComponent
+    ViewDetailsComponent,
+    ViewDocumentComponent
     // ManageProofRequirementComponent
   ],
   imports: [

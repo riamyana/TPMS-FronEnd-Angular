@@ -1,3 +1,4 @@
+import { cities } from './../../constants/city';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { ControlContainer, FormGroup, FormGroupDirective } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -12,6 +13,7 @@ import { Subscription } from 'rxjs';
 export class MemberAddressComponent implements OnInit, OnDestroy {
   public addressFormGroup: FormGroup;
   private subscriptions: Subscription[] = [];
+  public cities = cities;
 
   constructor(
     public controlContainer: ControlContainer
@@ -19,7 +21,6 @@ export class MemberAddressComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.addressFormGroup = this.controlContainer.control.get('addressGroup') as FormGroup;
-
     this.applySubscription();
   }
 

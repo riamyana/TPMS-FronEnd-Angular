@@ -1,3 +1,6 @@
+import { StatusCategory } from './../../_models/statusCategoryEnum';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ViewDocumentComponent } from './view-document/view-document.component';
 import { MemberService } from './../../_services/member/member.service';
 import { ViewDetailsComponent } from './view-details/view-details.component';
 import { ConfirmDialogComponent } from './../../dialog/confirm-dialog/confirm-dialog.component';
@@ -23,10 +26,14 @@ export class PassRequestComponent implements OnInit {
   listData: MatTableDataSource<MemberProfile>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  dispCol: string[] = ['srNo', 'firstName', 'lastName', 'status', 'statusAction', 'action'];
+  dispCol: string[] = ['srNo', 'firstName', 'lastName', 'status', 'description', 'statusAction', 'action'];
   memberTypeName: string;
+  public descriptionForm: FormGroup;
+  disapproved: boolean = false;
+  memberId: number;
 
   constructor(
+    private fb: FormBuilder,
     public sideNavService: SideNavService,
     private passRequestService: PassRequestService,
     private router: Router,
@@ -42,20 +49,27 @@ export class PassRequestComponent implements OnInit {
     this.sideNavService.navTitle = "Manage Pass Request";
 
     this.getPassRequest();
+
+    this.initForm();
   }
 
+  initForm() {
+    this.descriptionForm = this.fb.group({
+      description: ['', Validators.required]
+    });
+  }
+  
   getPassRequest() {
     this.passRequestService.getMemberPassRequest().subscribe(
       data => {
         this.listData = new MatTableDataSource();
         this.listData.data = data;
-
-        console.log(data);
-        this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'success');
       },
       err => {
         if (err.status == 401 || err.stats == 403) {
           this.router.navigateByUrl('admin/login');
+        } else if (err.status == 401 || err.stats == 403) {
+          this.notifierService.showNotification(NotifierMsg.noPassReq, 'OK', 'error');
         } else {
           this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
         }
@@ -78,9 +92,10 @@ export class PassRequestComponent implements OnInit {
   }
 
   onApproveConfirmed(memberId: number) {
-    this.passRequestService.changePassRequestStatus(memberId, true).subscribe(
+    this.passRequestService.changePassRequestStatus(memberId, StatusCategory.APPROVED, '').subscribe(
       data => {
         console.log(data);
+        this.getPassRequest();
         this.notifierService.showNotification(NotifierMsg.passRequest('approve'), 'OK', 'success');
       },
       err => {
@@ -102,15 +117,20 @@ export class PassRequestComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.onDisapproveConfirmed(data.memberId);
+        this.disapproved = true;
+        this.memberId = data.memberId;
+        // this.onDisapproveConfirmed(data.memberId);
       }
     });
   }
 
-  onDisapproveConfirmed(memberId: number) {
-    this.passRequestService.changePassRequestStatus(memberId, false).subscribe(
+  onDisapproveConfirmed() {
+    this.disapproved = false;
+
+    this.passRequestService.changePassRequestStatus(this.memberId, StatusCategory.DISAPPROVED, this.descriptionForm.get('description').value).subscribe(
       data => {
         console.log(data);
+        this.getPassRequest();
         this.notifierService.showNotification(NotifierMsg.passRequest('disapprove'), 'OK', 'success');
       },
       err => {
@@ -123,7 +143,6 @@ export class PassRequestComponent implements OnInit {
   }
 
   onViewDetails(data: MemberProfile) {
-    // this.getMemberTypeName(data.memberTypeId);
 
     data.memberTypeName = this.memberTypeName;
 
@@ -150,6 +169,19 @@ export class PassRequestComponent implements OnInit {
           this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
         }
       });
+  }
+
+  onViewDocument(data: MemberProfile) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = "100vh";
+    dialogConfig.data = data;
+
+    const dialogRef = this.dialog.open(ViewDocumentComponent, dialogConfig);
+  }
+
+  onCancel() {
+    this.disapproved = false;
   }
 
 }

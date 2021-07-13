@@ -39,9 +39,9 @@
 
                 <mat-form-field appearance="fill">
                     <mat-label>Mobile No.</mat-label>
-                    <input matInput type="number" formControlName="mobileNo" placeholder="Mobile No.">
+                    <input matInput formControlName="mobileNo" pattern="\d*" placeholder="Mobile No.">
                     <mat-error>
-                        Please provide zip
+                        Please provide valid Mobile No.
                     </mat-error>
                 </mat-form-field>
 
