@@ -31,4 +31,5 @@ export class NotifierMsg {
     static readonly changePassword = `Password Updated Successfully..!`;
     static readonly otpErrorMsg = `Problem in sending OTP..! Please try again later`;
     static readonly invalidOTP = `Incorrect OTP..!`;
+    static readonly noPassReq = `There is not pass request..!`;
 }

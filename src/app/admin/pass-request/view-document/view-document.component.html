@@ -1,0 +1,9 @@
+<div mat-dialog-container class="mat-typography">
+    <ng-container mat-dialog-content class="data" *ngFor="let proof of proofData">
+        <img [src]="proof.proofImage" alt="Problem in displaying proof">
+    </ng-container>
+
+    <div mat-dialog-actions>
+        <button mat-raised-button type="submit" color="accent" [mat-dialog-close]="true">OK</button>
+    </div>
+</div>

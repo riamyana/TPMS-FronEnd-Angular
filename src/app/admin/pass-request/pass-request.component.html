@@ -1,7 +1,7 @@
 <div *ngIf="loader.isLoading | async" class="loader">
     <mat-spinner style="top:30%; left:55%" color="primary"></mat-spinner>
 </div>
-<div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="space-around center">
+<div fxLayout="column" fxLayoutGap="50px" fxLayoutAlign="space-around center">
     <mat-card class="card" fxFlex="60" fxFlex.xs="100%" fxFlex.md="100%">
         <div class="mat-elevation-z8" fxLayout="column">
             <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -15,8 +15,8 @@
             <table mat-table [dataSource]="listData" matSort>
 
                 <ng-container matColumnDef="srNo">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                    <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Request ID </th>
+                    <td mat-cell *matCellDef="let element; let i = index"> {{element.memberId}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="firstName">
@@ -31,7 +31,12 @@
 
                 <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                    <td mat-cell *matCellDef="let element"> {{element.status == true ? 'Approved':'Not Approved'}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.status == 0 ? 'New Request':'Not Approved'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                    <td mat-cell *matCellDef="let element" class="description"> {{element.status == 2 ? element.description:''}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="statusAction">
@@ -51,8 +56,9 @@
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
                     <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button color="accent" #tooltip="matTooltip" matTooltip="View Documents">
-                            <mat-icon>launch</mat-icon>
+                        <button mat-icon-button color="accent" #tooltip="matTooltip" matTooltip="View Documents"
+                            (click)="onViewDocument(element)">
+                            <mat-icon>file_copy</mat-icon>
                         </button>
                         <button mat-icon-button color="accent" #tooltip="matTooltip" matTooltip="View Details"
                             (click)="onViewDetails(element)">
@@ -67,4 +73,21 @@
             <mat-paginator pageSize="30" [pageSizeOptions]="[5,10,20,30]"></mat-paginator>
         </div>
     </mat-card>
+
+
+    <form fxLayout="column" fxFlex="100" [formGroup]="descriptionForm" (ngSubmit)="onDisapproveConfirmed()"
+        fxLayoutAlign="space-around center" *ngIf="disapproved">
+        <mat-form-field appearance="fill" style="width: 35vw;">
+            <mat-label>Reason for disapprove</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+            <mat-error>
+                Please provide Street
+            </mat-error>
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayoutGap="30px">
+            <button mat-flat-button color="accent" style="width: 10vw;">OK</button>
+            <button mat-flat-button color="accent" type="button" style="width: 10vw;" (click)="onCancel()">CANCEL</button>
+        </div>
+    </form>
 </div>

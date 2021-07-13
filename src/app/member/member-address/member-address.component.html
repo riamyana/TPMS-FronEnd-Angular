@@ -29,7 +29,11 @@
 
                     <mat-form-field appearance="fill" fxFlex="48">
                         <mat-label>City</mat-label>
-                        <input matInput formControlName="permanentCity">
+                        <mat-select formControlName="permanentCity">
+                            <mat-option *ngFor="let city of cities" [value]="city.name">
+                                {{city.value}}
+                            </mat-option>
+                        </mat-select>
                         <mat-error>
                             Please provide City
                         </mat-error>
@@ -67,7 +71,11 @@
 
                     <mat-form-field appearance="fill" fxFlex="48">
                         <mat-label>City</mat-label>
-                        <input matInput formControlName="postalCity">
+                        <mat-select formControlName="postalCity">
+                            <mat-option *ngFor="let city of cities" [value]="city.name">
+                                {{city.value}}
+                            </mat-option>
+                        </mat-select>
                         <mat-error>
                             Please provide City
                         </mat-error>

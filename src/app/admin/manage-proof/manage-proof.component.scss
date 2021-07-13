@@ -20,20 +20,6 @@
     margin-top: 5vh;
 }
 
-.mat-header-cell {
-    font-size: larger;
-}
-  
-// .example-header-image {
-//     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-//     background-size: cover;
-// }
-
-// .mat-card-title {
-//     color: #55c1b8;
-//     margin-top: 15px;
-// }
-
 .mat-card-header {
     background-color: #5e383c;
     height: 50px;
@@ -42,6 +28,7 @@
 
 .mat-header-cell {
     background-color: #c9a6a9;
+    font-size: larger;
 }
 
 .search {

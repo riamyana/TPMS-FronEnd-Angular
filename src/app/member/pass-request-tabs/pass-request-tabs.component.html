@@ -1,4 +1,31 @@
-<div class="container">
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="requested">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="requestId">
+          <th mat-header-cell *matHeaderCellDef> Request Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.requestId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Request Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef> Edit/View </th>
+          <td mat-cell *matCellDef="let element"> {{element.edit}} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+</div>
+<div class="container" *ngIf="!requested">
     <app-wizard [formGroup]="passRequestForm" (submit)="submit()">
         <app-Wizard-Item formGroupName="profile" [label]="'Personal Details'">
             <mat-icon *wizardTabIcon>person</mat-icon>
@@ -15,11 +42,6 @@
             <app-member-proof *wizard-content></app-member-proof>
         </app-Wizard-Item>
     </app-wizard>
-
-    <!-- <div fxLayout fxLayoutAlign="space-between center" class="button">
-        <button mat-raised-button color="accent">Previous</button>
-        <button mat-raised-button color="accent">Next</button>
-    </div> -->
 </div>
 
 <!-- <app-member-profile *cdkPortal>
