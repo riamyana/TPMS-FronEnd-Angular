@@ -34,7 +34,9 @@ export class TransportCostComponent implements OnInit {
     private notifierService: NotifierService,
     public sideNavService: SideNavService,
     public loader: LoaderService
-  ) { }
+  ) { 
+    this.listData = new MatTableDataSource();
+  }
 
   ngOnInit(): void {
     this.getCostDetails();
@@ -45,7 +47,6 @@ export class TransportCostComponent implements OnInit {
   getCostDetails() {
     this.transportCostService.getTransportCost().subscribe(
       data => {
-        this.listData = new MatTableDataSource();
         this.listData.data = data;
         this.listData.paginator = this.paginator;
         this.listData.sort = this.sort;
@@ -95,21 +96,6 @@ export class TransportCostComponent implements OnInit {
     dialogConfig.data = data;
 
     const dialogRef = this.dialog.open(AddUpdateTransportCostComponent, dialogConfig);
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.listData.data = this.listData.data.filter((value,key)=>{
-    //       if(value.stationId == result.id){
-    //         value.stationName = result.name;
-    //       }
-    //       return true;
-    //     });
-
-    //     console.log(this.listData.data);
-    //     this.listData.paginator = this.paginator;
-    //     this.listData.sort = this.sort;
-    //     this.listData._updateChangeSubscription();
-    //   }
-    // });
   }
 
   deleteConfirm(id: number) {

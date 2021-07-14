@@ -131,6 +131,11 @@ export class MemberProofComponent implements OnInit, OnDestroy {
         this.url = event.target.result;
       }
 
+      if (event.target.files[0].size > 2000000) {
+        alert('Image size exceed.');
+        event.target.value = null;
+      }
+
       console.log(this.passRequestService.getFiles());
     }
   }

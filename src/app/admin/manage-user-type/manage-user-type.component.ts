@@ -34,10 +34,11 @@ export class ManageUserTypeComponent implements OnInit {
     public dialog: MatDialog,
     private notifierService: NotifierService,
     public sideNavService: SideNavService
-  ) { }
+  ) { 
+    this.listData = new MatTableDataSource();
+  }
 
   ngOnInit(): void {
-    // this.listData = new MatTableDataSource(this.demo);
     this.getMemberTypes();
     this.sideNavService.navTitle = "Manage Member Type";
   }
@@ -46,7 +47,6 @@ export class ManageUserTypeComponent implements OnInit {
     this.memberService.getMemberType().subscribe(
       data => {
         this.memberType = [];
-        this.listData = new MatTableDataSource();
         this.listData.data = data;
         this.listData.paginator = this.paginator;
         this.listData.sort = this.sort;

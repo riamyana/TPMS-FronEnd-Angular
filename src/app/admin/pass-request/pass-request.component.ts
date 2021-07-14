@@ -28,9 +28,11 @@ export class PassRequestComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   dispCol: string[] = ['srNo', 'firstName', 'lastName', 'status', 'description', 'statusAction', 'action'];
   memberTypeName: string;
-  public descriptionForm: FormGroup;
+  descriptionForm: FormGroup;
+  passForm: FormGroup;
   disapproved: boolean = false;
-  memberId: number;
+  approved: boolean = false;
+  memberProfileData: MemberProfile;
 
   constructor(
     private fb: FormBuilder,
@@ -41,10 +43,11 @@ export class PassRequestComponent implements OnInit {
     public dialog: MatDialog,
     public loader: LoaderService,
     private memberService: MemberService
-  ) { }
+  ) {
+    this.listData = new MatTableDataSource();
+  }
 
   ngOnInit(): void {
-    console.log(this.listData);
 
     this.sideNavService.navTitle = "Manage Pass Request";
 
@@ -57,19 +60,23 @@ export class PassRequestComponent implements OnInit {
     this.descriptionForm = this.fb.group({
       description: ['', Validators.required]
     });
+
+    this.passForm = this.fb.group({
+      serialNo: ['', Validators.required],
+      expiry: ['', [Validators.required, Validators.maxLength(6)]]
+    });
   }
-  
+
   getPassRequest() {
     this.passRequestService.getMemberPassRequest().subscribe(
       data => {
-        this.listData = new MatTableDataSource();
         this.listData.data = data;
       },
       err => {
         if (err.status == 401 || err.stats == 403) {
           this.router.navigateByUrl('admin/login');
-        } else if (err.status == 401 || err.stats == 403) {
-          this.notifierService.showNotification(NotifierMsg.noPassReq, 'OK', 'error');
+        } else if (err.status == 404) {
+          // this.notifierService.showNotification(NotifierMsg.noPassReq, 'OK', 'error');
         } else {
           this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
         }
@@ -77,25 +84,19 @@ export class PassRequestComponent implements OnInit {
   }
 
   onApprove(data: MemberProfile) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = "Do you want to Approve?";
-
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.onApproveConfirmed(data.memberId);
-      }
-    });
+    this.memberProfileData = data;
+    this.approved = true;
+    this.disapproved = false;
   }
 
-  onApproveConfirmed(memberId: number) {
-    this.passRequestService.changePassRequestStatus(memberId, StatusCategory.APPROVED, '').subscribe(
+  onApproveConfirmed() {
+    this.approved = false;
+    this.memberProfileData.status = StatusCategory.APPROVED;
+    this.memberProfileData.description = null;
+
+    this.passRequestService.changePassRequestStatus(this.memberProfileData).subscribe(
       data => {
-        console.log(data);
-        this.getPassRequest();
+        // this.getPassRequest();
         this.notifierService.showNotification(NotifierMsg.passRequest('approve'), 'OK', 'success');
       },
       err => {
@@ -105,32 +106,39 @@ export class PassRequestComponent implements OnInit {
           this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
         }
       });
+
+    this.passRequestService.addPass(this.memberProfileData, this.passForm).subscribe(
+      data => {
+        // this.getPassRequest();
+        // this.notifierService.showNotification(NotifierMsg.passMsg('success'), 'OK', 'success');
+        const index = this.listData.data.indexOf(this.memberProfileData);
+        this.listData.data.splice(index, 1);
+        this.listData._updateChangeSubscription();
+      },
+      err => {
+        if (err.status == 401 || err.stats == 403) {
+          this.router.navigateByUrl('admin/login');
+        } else {
+          this.notifierService.showNotification(NotifierMsg.passMsg('error'), 'OK', 'error');
+        }
+      });
   }
 
   onDisapprove(data: MemberProfile) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = "Do you want to Disapprove?";
-
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.disapproved = true;
-        this.memberId = data.memberId;
-        // this.onDisapproveConfirmed(data.memberId);
-      }
-    });
+    this.disapproved = true;
+    this.approved = false;
+    this.memberProfileData = data;
   }
 
   onDisapproveConfirmed() {
     this.disapproved = false;
 
-    this.passRequestService.changePassRequestStatus(this.memberId, StatusCategory.DISAPPROVED, this.descriptionForm.get('description').value).subscribe(
+    this.memberProfileData.description = this.descriptionForm.get('description').value;
+    this.memberProfileData.status = StatusCategory.DISAPPROVED;
+
+    this.passRequestService.changePassRequestStatus(this.memberProfileData).subscribe(
       data => {
-        console.log(data);
-        this.getPassRequest();
+        // this.getPassRequest();
         this.notifierService.showNotification(NotifierMsg.passRequest('disapprove'), 'OK', 'success');
       },
       err => {
@@ -145,9 +153,6 @@ export class PassRequestComponent implements OnInit {
   onViewDetails(data: MemberProfile) {
 
     data.memberTypeName = this.memberTypeName;
-
-    console.log(data.memberTypeName);
-
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.data = data;
@@ -182,6 +187,15 @@ export class PassRequestComponent implements OnInit {
 
   onCancel() {
     this.disapproved = false;
+  }
+
+  onCancelApprove() {
+    this.approved = false;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.listData.filter = filterValue.trim().toLowerCase();
   }
 
 }

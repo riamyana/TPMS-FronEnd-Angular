@@ -32,7 +32,9 @@ export class StationComponent implements OnInit {
     private notifierService: NotifierService,
     public sideNavService: SideNavService,
     private stationService: StationService
-  ) { }
+  ) { 
+    this.listData = new MatTableDataSource();
+  }
 
   ngOnInit(): void {
     this.getStations();
@@ -42,7 +44,6 @@ export class StationComponent implements OnInit {
   getStations() {
     this.stationService.getStation().subscribe(
       data => {
-        this.listData = new MatTableDataSource();
         this.listData.data = data;
         this.listData.paginator = this.paginator;
         this.listData.sort = this.sort;

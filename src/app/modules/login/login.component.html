@@ -2,13 +2,15 @@
     <div *ngIf="loader.isLoading | async" class="loader">
         <mat-spinner style="top:40%; left:50%" color="primary"></mat-spinner>
     </div>
-    <div fxLayout="row" fxLayoutAlign="space-evenly center" fxFlex>
+    <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
         <div fxLayout="100%">
-            <div fxFlex="60" class="left" fxHide.lt-md fxHide.lt-xs fxLayoutAlign="space-evenly center" fxLayout="column">
-                <img src="../../../assets/man-1718099_1920.jpg" alt="">
+            <div fxFlex="40" class="left" fxHide.lt-md fxHide.lt-xs fxLayoutAlign="center center" fxLayout="column">
+                <!-- <img src="../../../assets/man-1718099_1920.jpg" alt=""> -->
+                <div class="welcome">Welcome Back to <br/>Transport Management System<br/><br><br/></div>
+                <div class="info">Sign in to continue to your account.</div>
             </div>
 
-            <div fxFlex="40" fxLayoutAlign="center" class="login" fxFlex.xs="100" fxFlex.sm="100">
+            <div fxFlex="50" fxLayoutAlign="center" class="login" fxFlex.xs="100" fxFlex.sm="100">
                 <form fxLayout="column" [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()" fxFlex="85" fxFlex.xs="100" fxFlex.md="100">
                     <div fxLayout="column" fxLayoutAlign="space-evenly center" class="role">
                         <mat-icon color="accent" style="position: relative; top:-8vw; left: -4vw; font-size: 10vw;">person</mat-icon>

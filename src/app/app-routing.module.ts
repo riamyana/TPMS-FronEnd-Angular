@@ -1,3 +1,4 @@
+import { ManageProfileComponent } from './member/manage-profile/manage-profile.component';
 import { ChangePasswordComponent } from './modules/forgot-password/change-password/change-password.component';
 import { OtpComponent } from './modules/forgot-password/otp/otp.component';
 import { ForgotPasswordComponent } from './modules/forgot-password/forgot-password.component';
@@ -34,10 +35,7 @@ import { TransportCostComponent } from './admin/transport-cost/transport-cost.co
 
 
 const routes: Routes = [
-  // { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent },
-  // { path: 'admin/login', component: AdminLoginComponent },
-  // { path: 'admin/home', component: AdminHomeComponent },
   {
     path: 'admin', component: DefaultComponent, children: [{
       path: 'manage', component: ManagePackageComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage' }
@@ -58,7 +56,7 @@ const routes: Routes = [
     }, {
       path: 'manage-transport-cost', component: TransportCostComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Routes' }
     }, {
-      path: 'my-profile', component: MyProfileComponent
+      path: 'my-profile', component: MyProfileComponent, canActivate: [AuthGuard]
     }, {
       path: 'reset-password', component: ResetPasswordComponent
     }, {
@@ -87,9 +85,9 @@ const routes: Routes = [
     }, {
       path: 'user/register', component: RegistrationComponent
     }, {
-      path: 'user/profile', component: MemberProfileComponent, canActivate: [AuthGuard], data: { role: Roles.USER }
-    }, {
       path: 'user/pass-request', component: PassRequestTabsComponent, canActivate: [AuthGuard], data: { role: Roles.USER }
+    }, {
+      path: 'user/my-profile', component: ManageProfileComponent, canActivate: [AuthGuard]
     }]
   },
   { path: '**', component: PageNotFoundComponent }

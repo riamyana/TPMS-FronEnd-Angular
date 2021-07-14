@@ -32,7 +32,9 @@ export class TransportModeComponent implements OnInit {
     private notifierService: NotifierService,
     public sideNavService: SideNavService,
     private transportModeService: TransportModeService
-  ) { }
+  ) { 
+    this.listData = new MatTableDataSource();
+  }
 
   ngOnInit(): void {
     this.getTranportModes();
@@ -42,11 +44,9 @@ export class TransportModeComponent implements OnInit {
   getTranportModes() {
     this.transportModeService.getTransportModes().subscribe(
       data => {
-        this.listData = new MatTableDataSource();
         this.listData.data = data;
         this.listData.paginator = this.paginator;
         this.listData.sort = this.sort;
-        console.log(data);
       },
       err => {
         if (err.status == 401 || err.stats == 403) {
@@ -88,7 +88,6 @@ export class TransportModeComponent implements OnInit {
     const dialogRef = this.dialog.open(AddTransportModeComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log(`Dialog result: ${result}`);
       if (result) {
         this.listData.data.push(result);
         this.listData._updateChangeSubscription();
@@ -109,12 +108,16 @@ export class TransportModeComponent implements OnInit {
 
     const dialogRef = this.dialog.open(EditTransportModeComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         this.listData._updateChangeSubscription();
         this.listData.paginator = this.paginator;
         this.listData.sort = this.sort;
       }
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.listData.filter = filterValue.trim().toLowerCase();
   }
 }

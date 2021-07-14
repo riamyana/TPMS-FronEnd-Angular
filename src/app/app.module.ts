@@ -1,3 +1,4 @@
+import { SharedModule } from './shared/shared.module';
 import { ForgotPasswordComponent } from './modules/forgot-password/forgot-password.component';
 import { MemberModule } from './member/member.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -24,6 +25,7 @@ import { ResetPasswordComponent } from './modules/profile/reset-password/reset-p
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
 import { OtpComponent } from './modules/forgot-password/otp/otp.component';
 import { ChangePasswordComponent } from './modules/forgot-password/change-password/change-password.component';
+import { UpdateProfileComponent } from './modules/profile/update-profile/update-profile.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { ChangePasswordComponent } from './modules/forgot-password/change-passwo
     ErrorDialogComponent,
     ForgotPasswordComponent,
     OtpComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    UpdateProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import { ChangePasswordComponent } from './modules/forgot-password/change-passwo
     DefaultModule,
     FullwidthModule,
     FlexLayoutModule,
-    MemberModule
+    MemberModule,
+    SharedModule
   ],
   providers: [AuthenticationService, AuthGuard,
   {

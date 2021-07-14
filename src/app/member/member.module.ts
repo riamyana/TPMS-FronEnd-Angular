@@ -16,7 +16,9 @@ import { PassRequestTabsComponent } from './pass-request-tabs/pass-request-tabs.
 import { PortalModule } from '@angular/cdk/portal';
 import { MemberAddressComponent } from './member-address/member-address.component';
 import { MemberProofComponent } from './member-proof/member-proof.component';
-
+import { ViewPassComponent } from './view-pass/view-pass.component';
+import { QRCodeModule } from 'angularx-qrcode';
+import { ManageProfileComponent } from './manage-profile/manage-profile.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { MemberProofComponent } from './member-proof/member-proof.component';
     WizardContentDirective,
     WizardTabIconDirective,
     MemberAddressComponent,
-    MemberProofComponent
+    MemberProofComponent,
+    ViewPassComponent,
+    ManageProfileComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +46,8 @@ import { MemberProofComponent } from './member-proof/member-proof.component';
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
-    PortalModule
+    PortalModule,
+    QRCodeModule
   ], 
   exports: [
     MemberLoginComponent,

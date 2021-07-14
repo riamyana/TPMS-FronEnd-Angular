@@ -2,15 +2,67 @@
     <mat-spinner style="top:30%; left:55%" color="primary"></mat-spinner>
 </div>
 <div fxLayout="column" fxLayoutGap="50px" fxLayoutAlign="space-around center">
-    <mat-card class="card" fxFlex="60" fxFlex.xs="100%" fxFlex.md="100%">
+    <mat-card *ngIf="disapproved" fxLayout="row" fxFlex="70">
+        <form fxLayout="column" fxFlex="100" [formGroup]="descriptionForm" (ngSubmit)="onDisapproveConfirmed()"
+            fxLayoutAlign="space-around center">
+            <span style="margin-bottom: 5px;">Request Id: {{memberProfileData.memberId}}</span>
+            <mat-form-field appearance="fill" style="width: 35vw;">
+                <mat-label>Reason for disapprove</mat-label>
+                <textarea matInput formControlName="description"></textarea>
+                <mat-error>
+                    Please provide valid Description
+                </mat-error>
+            </mat-form-field>
+
+            <div fxLayout="row" fxLayoutGap="30px">
+                <button mat-flat-button color="accent" style="width: 10vw;">OK</button>
+                <button mat-flat-button color="accent" type="button" style="width: 10vw;"
+                    (click)="onCancel()">CANCEL</button>
+            </div>
+        </form>
+    </mat-card>
+
+    <mat-card *ngIf="approved" fxLayout="column" fxFlex="70" fxLayoutAlign="center center">
+        <span style="margin-bottom: 5px;">Request Id: {{memberProfileData.memberId}}</span>
+        <form [formGroup]="passForm" fxLayoutAlign="space-around center" *ngIf="approved" fxLayoutGap="50px">
+            <div fxLayoutGap="10px">
+                <mat-form-field appearance="fill" style="width: 25vw;">
+                    <mat-label>Pass Serial No.</mat-label>
+                    <span matPrefix>412400 - &nbsp;</span>
+                    <input matInput formControlName="serialNo" pattern="\d*">
+                    <mat-error>
+                        Please provide valid Pass Serial No.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="fill" style="width: 25vw;">
+                <mat-label>Expiry Date</mat-label>
+                <input matInput [matDatepicker]="end" formControlName="expiry" placeholder="End Date">
+                <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+                <mat-datepicker #end></mat-datepicker>
+                <mat-error>
+                    Please provide valid Expiry Date
+                </mat-error>
+            </mat-form-field>
+        </form>
+
+        <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center center">
+            <button mat-flat-button color="accent" style="width: 10vw;" (click)="onApproveConfirmed()">OK</button>
+            <button mat-flat-button color="accent" type="button" style="width: 10vw;"
+                (click)="onCancelApprove()">CANCEL</button>
+        </div>
+    </mat-card>
+
+    <mat-card fxFlex="60" fxFlex.xs="100%" fxFlex.md="100%">
         <div class="mat-elevation-z8" fxLayout="column">
-            <div fxLayout="row" fxLayoutAlign="space-between center">
-                <!-- <mat-form-field>
+            <div fxLayout="row" fxLayoutAlign="end center">
+                <mat-form-field>
                     <mat-label>
                         <mat-icon color="accent" [class]="'input-icon'" class="search">search</mat-icon>Search
                     </mat-label>
                     <input type="text" (keyup)="applyFilter($event)" matInput placeholder="Search">
-                </mat-form-field> -->
+                </mat-form-field>
             </div>
             <table mat-table [dataSource]="listData" matSort>
 
@@ -36,7 +88,8 @@
 
                 <ng-container matColumnDef="description">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-                    <td mat-cell *matCellDef="let element" class="description"> {{element.status == 2 ? element.description:''}} </td>
+                    <td mat-cell *matCellDef="let element" class="description"> {{element.status == 2 ?
+                        element.description:''}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="statusAction">
@@ -70,24 +123,8 @@
                 <tr mat-header-row *matHeaderRowDef="dispCol"></tr>
                 <tr mat-row *matRowDef="let row; columns: dispCol;"></tr>
             </table>
+            <div *ngIf="listData.data.length === 0" class="noData">No request found</div>
             <mat-paginator pageSize="30" [pageSizeOptions]="[5,10,20,30]"></mat-paginator>
         </div>
     </mat-card>
-
-
-    <form fxLayout="column" fxFlex="100" [formGroup]="descriptionForm" (ngSubmit)="onDisapproveConfirmed()"
-        fxLayoutAlign="space-around center" *ngIf="disapproved">
-        <mat-form-field appearance="fill" style="width: 35vw;">
-            <mat-label>Reason for disapprove</mat-label>
-            <textarea matInput formControlName="description"></textarea>
-            <mat-error>
-                Please provide Street
-            </mat-error>
-        </mat-form-field>
-
-        <div fxLayout="row" fxLayoutGap="30px">
-            <button mat-flat-button color="accent" style="width: 10vw;">OK</button>
-            <button mat-flat-button color="accent" type="button" style="width: 10vw;" (click)="onCancel()">CANCEL</button>
-        </div>
-    </form>
 </div>

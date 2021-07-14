@@ -49,6 +49,7 @@ export class ManagePackageComponent implements OnInit {
     private memberService: MemberService
   ) {
     this.sideNavService.navTitle = "Manage Package";
+    this.listData = new MatTableDataSource();
     this.memberTypePackageSubject = new BehaviorSubject<MemberTypePackageData>(this.memberTypePackageData);
     this.memberTypePackage = this.memberTypePackageSubject.asObservable();
   }
@@ -75,7 +76,6 @@ export class ManagePackageComponent implements OnInit {
   getPackages() {
     this.packageService.getPackages().subscribe(
       data => {
-        this.listData = new MatTableDataSource();
         this.listData.data = data;
         this.listData.paginator = this.paginator;
         this.listData.sort = this.sort;
@@ -104,6 +104,7 @@ export class ManagePackageComponent implements OnInit {
             const index = this.listData.data.indexOf(pck);
             this.listData.data.splice(index, 1);
             this.listData._updateChangeSubscription();
+            this.getPackages()
           }, err => {
             if (err.status == 401 || err.stats == 403) {
               this.router.navigateByUrl('admin/login');
@@ -138,11 +139,7 @@ export class ManagePackageComponent implements OnInit {
   onUpdate(pck: Package) {
     this.getMemberTypePackages(pck.id);
     this.data.dialogType = "Update";
-    // this.data.memberTypePackageData = this.memberTypePackageSubject.value;
-    // console.log("member");
-    // console.log(this.data.memberTypePackageData.memberTypePackages);
-    // console.log(this.packageService.memberTypePackage);
-    // this.data.memberTypePackageData = this.memberTypePackage.subscribe(val => { return val;});
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -159,8 +156,6 @@ export class ManagePackageComponent implements OnInit {
     this.packageService.getMemberTypePackages(packageId).subscribe(
       data => {
         this.packageService.memberTypePackage = data[0];
-        // this.memberTypePackageSubject.next(<MemberTypePackageData>data[0]);
-        // console.log(<MemberTypePackageData>data[0]);
       },
       err => {
         if (err.status == 401 || err.stats == 403) {

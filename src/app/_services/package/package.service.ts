@@ -58,9 +58,6 @@ export class PackageService {
       .pipe(switchMap((res: Package) => {
         const len = member.length;
 
-        console.log(res);
-
-        debugger;
         for (let i = 0; i < len; i++) {
           this.updateMemberPackage(i, member, res.id);
 
@@ -102,9 +99,4 @@ export class PackageService {
   set memberTypePackage(data: MemberTypePackageData) {
     this.memberTypePackageSubject.next(data);
   }
-
-  // get memberTypePackage() {
-  //   return this.memberTypePackageSubject.value;
-  // }
-
 }

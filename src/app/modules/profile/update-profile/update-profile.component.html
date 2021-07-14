@@ -1,0 +1,67 @@
+<!-- <div *ngIf="loader.isLoading | async" class="loader">
+    <mat-spinner style="top:20%; left:55%" color="primary"></mat-spinner>
+</div> -->
+<div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="space-around center">
+    <mat-card class="card" fxFlex="100" fxFlex.xs="100%" fxFlex.md="100%" fxLayout="column">
+        <form class="form" fxLayout="column" [formGroup]="profileForm" (ngSubmit)="onUpdate()">
+
+            <mat-form-field appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input matInput placeholder="First Name" formControlName="firstName">
+                <mat-error>
+                    Please provide Street
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input matInput placeholder="Last Name" formControlName="lastName">
+                <mat-error>
+                    Please provide City
+                </mat-error>
+            </mat-form-field>
+
+            <div fxLayout="row" fxLayoutGap="20px" class="gender">
+                <mat-label>Gender</mat-label>
+                <mat-radio-group aria-label="Select an option" fxLayout="row"
+                    fxLayoutGap="10px" formControlName="gender">
+                    <mat-radio-button value="Female">Female</mat-radio-button>
+                    <mat-radio-button value="Male">Male</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <mat-form-field color="accent" appearance="fill">
+                <mat-label>DOB</mat-label>
+                <input matInput [matDatepicker]="start"  placeholder="MM/DD/YYYY" formControlName="DOB">
+                <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+                <mat-datepicker #start></mat-datepicker>
+                <mat-error>
+                    Please provide valid DOB
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Mobile No.</mat-label>
+                <input matInput pattern="\d*" placeholder="Mobile No." formControlName="mobileNo">
+                <mat-error>
+                    Please provide valid Mobile No.
+                </mat-error>
+            </mat-form-field>
+
+
+
+            <mat-form-field appearance="fill">
+                <mat-label>Email ID</mat-label>
+                <input matInput placeholder="Email Id" formControlName="email">
+                <mat-error>
+                    Please provide valid Email
+                </mat-error>
+            </mat-form-field>
+
+            <div fxLayout="row" fxLayoutGap="10px">
+                <button mat-raised-button type="submit" color="accent">Update</button>
+                <button mat-raised-button type="button" color="warn" [mat-dialog-close]="true">Close</button>
+            </div>
+        </form>
+    </mat-card>
+</div>
