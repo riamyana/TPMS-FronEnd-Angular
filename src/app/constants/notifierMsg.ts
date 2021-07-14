@@ -15,6 +15,10 @@ export class NotifierMsg {
         return data == "success" ? "Password Changed Successfully" : "Old Password is incorrect..!";
     }
 
+    static passMsg(data: string) {
+        return data == "success" ? "Pass added Successfully" : "Problem in adding Pass..!";
+    }
+
     static registerMsg(data: string) {
         return data == "success" ? "Registered Successfully..!" : "User Name alreday taken..! Please try other User Name.";
     }

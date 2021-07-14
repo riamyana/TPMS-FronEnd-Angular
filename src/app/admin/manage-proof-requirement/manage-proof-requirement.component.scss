@@ -24,15 +24,11 @@
     font-size: larger;
 }
   
-// .example-header-image {
-//     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-//     background-size: cover;
-// }
-
-// .mat-card-title {
-//     color: #55c1b8;
-//     margin-top: 15px;
-// }
+.noData {
+    font-family: 'Palatino', 'URW Palladio L', sans-serif;
+    font-style: italic;
+    padding: 5px;
+}
 
 .mat-card-header {
     background-color: #5e383c;

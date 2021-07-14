@@ -61,8 +61,6 @@ export class AuthenticationService {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-
-    console.log(data);
     return this.http.post<any>(`${environment.serverUrl}user/changePassword`, data, { headers: httpHeaders });
   }
 

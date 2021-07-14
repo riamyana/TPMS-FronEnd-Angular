@@ -1,0 +1,44 @@
+<mat-card class="card">
+    <div fxLayout="column" fxLayoutGap="30px">
+        <div>
+            <!-- <qrcode #qr id="qrcode" [qrdata]="qrData"  [elementType]="elementType" [width]="256" [errorCorrectionLevel]="'M'"></qrcode> -->
+            <span class="heading">TPMS CARD</span>
+        </div>
+        <div fxLayout="column" fxLayoutGap="5px">
+            <span class="number">CARD NUMBER</span>
+            <div fxLayout="row" fxLayoutGap="10px">
+                <div *ngFor="let number of serialNo" class="serial">
+                    {{number}}
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between start">
+            <div fxLayout="column" fxLayoutGap="10px">
+                <div fxLayout="column" fxLayoutGap="5px">
+                    <div class="colorwhite">HOLDER NAME</div>
+                    <span class="name">{{this.data.firstName | uppercase}} {{this.data.lastName | uppercase}}</span>
+                </div>
+
+                <div fxLayout="column" fxLayoutGap="5px" class="colorwhite">
+                    <div fxLayout="row" fxLayoutGap="50px">
+                        <div></div>
+                        <div>MONTH</div>
+                        <div>YEAR</div>
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="5px">
+                        <div>VALID <br />THRU</div>
+                        <div fxLayout="row" fxLayoutGap="50px">
+                            <div class="serial">{{month}}</div>
+                            <div class="serial">{{year}}</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div>
+                <qrcode #qr id="qrcode" [qrdata]="qrData"  [elementType]="elementType" [width]="106" [errorCorrectionLevel]="'M'"></qrcode>
+            </div>
+        </div>
+    </div>
+</mat-card>
+<button mat-flat-button color="accent" [mat-dialog-close]="false" style="margin-top: 2px;">OK</button>

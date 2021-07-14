@@ -113,12 +113,6 @@ export class AddPackageComponent implements OnInit {
           }
 
           this.applyDisable();
-          // if (this.member.controls[i].get('discount').value == null || this.member.controls[i].get('discount').value == '0') {
-          //   this.member.controls[i].get('discount').disable();
-          //   this.member.controls[i].get('description').disable();
-          //   this.member.controls[i].get('startDate').disable();
-          //   this.member.controls[i].get('endDate').disable();
-          // }
         }
       });
     }

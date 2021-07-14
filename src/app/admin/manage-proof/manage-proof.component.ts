@@ -33,10 +33,11 @@ export class ManageProofComponent implements OnInit {
     public dialog: MatDialog,
     private notifierService: NotifierService,
     public sideNavService: SideNavService
-  ) { }
+  ) {
+    this.listData = new MatTableDataSource();
+  }
 
   ngOnInit(): void {
-    // this.listData = new MatTableDataSource(this.demo);
     this.getProof();
     this.sideNavService.navTitle = "Manage Proof";
   }
@@ -45,7 +46,6 @@ export class ManageProofComponent implements OnInit {
     this.proofService.getProof().subscribe(
       data => {
         this.memberType = [];
-        this.listData = new MatTableDataSource();
         this.listData.data = data;
         this.listData.paginator = this.paginator;
         this.listData.sort = this.sort;

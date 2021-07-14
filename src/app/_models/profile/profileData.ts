@@ -1,9 +1,11 @@
 export interface ProfileData {
     memberId?: number;
     memberTypeId: number;
-    memberTypeName: string;
+    userId?: number;
     firstName: string;
     lastName: string;
+    gender: string;
     mobileNo: string;
     dob: string;
+    email: string;
 }

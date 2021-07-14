@@ -1,26 +1,29 @@
 .container {
     height: 80vh;
-    width: 80vw;
+    width:70vw;
     border-radius: 5px 5px 5px 5px;
+    background-image: url(../../../assets/metro-light-rail_0003_IMG_0351.png);
+    background-size: cover;
+    background-position: center;
 }
 
 .left {
-    background: rgba(2, 118, 116);
+    background: rgb(16, 62, 84);
     border-radius: 5px 5px 5px 5px;
     height: 70vh;
-    width: 50vw;
+    width: 10vw;
+    margin-left: 40px;
 }
 
 .left img {
-    // background-size: cover;
-    // background-position: center;
     height: 100%;
     width: 100%;
     border-radius: 5px 5px 5px 5px;
 }
 
 .form {
-    margin-top: 40%;
+    margin-top: 30%;
+    width: 50vw;
 }
 
 .login {
@@ -62,4 +65,16 @@ img {
 a {
     text-decoration: none;
     padding: 2px;
+}
+
+.welcome {
+    font-family: 'OCR A Std', 'monospace';
+    font-size: 3vh;
+    font-weight: bold;
+    color: white;
+}
+
+.info {
+    color: white;  
+    font-size: 20px; 
 }

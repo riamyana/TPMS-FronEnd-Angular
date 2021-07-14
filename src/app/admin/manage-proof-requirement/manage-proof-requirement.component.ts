@@ -49,7 +49,9 @@ export class ManageProofRequirementComponent implements OnInit {
     public sideNavService: SideNavService,
     private proofService: ProofService,
     private memberService: MemberService
-  ) { }
+  ) {
+    this.listData = new MatTableDataSource();
+  }
 
   ngOnInit(): void {
     this.getProofRequirement();
@@ -93,8 +95,6 @@ export class ManageProofRequirementComponent implements OnInit {
 
     this.proofService.getProofRequirement().subscribe(
       data => {
-        this.listData = new MatTableDataSource();
-
         this.listData.data = data;
         this.listData.paginator = this.paginator;
         this.listData.sort = this.sort;
@@ -126,6 +126,7 @@ export class ManageProofRequirementComponent implements OnInit {
         this.listData.data.splice(index, 1);
         this.listData.paginator = this.paginator;
         this.listData.sort = this.sort;
+        this.getProof();
       },
       err => {
         if (err.status == 401 || err.stats == 403) {
@@ -151,6 +152,7 @@ export class ManageProofRequirementComponent implements OnInit {
         this.listData._updateChangeSubscription();
         this.listData.paginator = this.paginator;
         this.listData.sort = this.sort;
+        this.getProof();
       }
     });
   }
@@ -170,13 +172,14 @@ export class ManageProofRequirementComponent implements OnInit {
     const dialogRef = this.dialog.open(SaveProofRequirementComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result);
         this.listData.data
           .filter(value => value.id == result.id)
           .map( value => value.proofName = result.proofName);
         this.listData._updateChangeSubscription();
         this.listData.paginator = this.paginator;
         this.listData.sort = this.sort;
+
+        this.getProof();
       }
     });
 

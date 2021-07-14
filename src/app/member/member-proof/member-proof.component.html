@@ -5,6 +5,7 @@
     <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
         <div fxLayout="row" fxLayoutAlign="space-evenly center" fxFlex="90" class="form">
             <form fxLayout="column" fxFlex="95" [formGroup]="proofForm">
+                <div style="color:red; padding-bottom: 20px;">*Image size should not greater than 2MB</div>
                 <mat-form-field appearance="fill">
                     <mat-label>Pass Requesting As</mat-label>
                     <mat-select formControlName="requestAs">
@@ -19,15 +20,8 @@
 
                 <ng-container *ngIf="proofData" formArrayName="proofs">
                     <ng-container *ngFor="let proof of proofData; let i=index" [formGroupName]="i">
-
-                        <div fxLayout="row" fxLayoutGap="20px">
-                            <mat-form-field color="accent" appearance="fill" fxFlex="30">
-                                <mat-label>{{proof.proofName}} Number</mat-label>
-                                <input matInput formControlName="proofNo">
-                                <mat-error>
-                                    Please provide a valid password
-                                </mat-error>
-                            </mat-form-field>
+                        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between start" style="margin-bottom: 20px;">
+                            <mat-label>{{proof.proofName}} Number</mat-label>
 
                             <input type="file" #input (change)="onSelectFile($event, i)" accept="image/*" fxFlex="40" formControlName="proofName" multiple>
 

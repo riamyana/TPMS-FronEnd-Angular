@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule} from '@angular/flex-layout';
 import { MaterialModule } from '../material/material.module';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -15,7 +16,8 @@ import { MaterialModule } from '../material/material.module';
   declarations: [
     HeaderComponent,
     NavComponent,
-    LoginComponent
+    LoginComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { MaterialModule } from '../material/material.module';
   exports: [
     HeaderComponent,
     NavComponent,
-    LoginComponent
+    LoginComponent,
+    FooterComponent
   ]
 })
 export class SharedModule { }

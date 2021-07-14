@@ -1,3 +1,4 @@
+import { ViewPassComponent } from './../view-pass/view-pass.component';
 import { StatusCategory } from './../../_models/statusCategoryEnum';
 import { MemberProfileService } from './../../_services/member-profile/member-profile.service';
 import { ConfirmDialogComponent } from './../../dialog/confirm-dialog/confirm-dialog.component';
@@ -15,17 +16,8 @@ import { CdkPortal } from '@angular/cdk/portal';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import * as moment from 'moment';
+import { PassByMember } from 'src/app/_models/passByMemberId';
 
-export interface PeriodicElement {
-  requestId: number;
-  date: string;
-  status: string;
-  edit: string;
-}
-
-let ELEMENT_DATA: PeriodicElement[] = [
-  {requestId: 1, date: '1/1/2021', status: "Request Pending To Approve", edit: ''}
-];
 @Component({
   selector: 'app-pass-request-tabs',
   templateUrl: './pass-request-tabs.component.html',
@@ -33,13 +25,15 @@ let ELEMENT_DATA: PeriodicElement[] = [
 })
 export class PassRequestTabsComponent implements OnInit {
   displayedColumns: string[] = ['requestId', 'date', 'status', 'edit'];
-  dataSource = ELEMENT_DATA;
+  dataSource: MemberProfile[];
   requested: boolean = false;
+  status: string;
 
   public passRequestForm: FormGroup;
   private profileData: MemberProfile;
   private addressData: Address;
   private userData: UserModel;
+  private passData: PassByMember;
 
   constructor(
     private fb: FormBuilder,
@@ -63,15 +57,17 @@ export class PassRequestTabsComponent implements OnInit {
       data => {
         console.log(data);
         this.requested = true;
-        
-        ELEMENT_DATA[0].date = data[0].requestDate;
-        ELEMENT_DATA[0].requestId = data[0].memberId;
+
+        this.dataSource = data;
+
+        this.getPass();
+
         if (data[0].status == StatusCategory.DEFAULT) {
-          ELEMENT_DATA[0].status = 'Request Pending To Approve';
+          this.status = 'Request Pending To Approve';
         } else if (data[0].status == StatusCategory.APPROVED) {
-          ELEMENT_DATA[0].status = 'Request Approved';
+          this.status = 'Request Approved';
         } else if (data[0].status == StatusCategory.DISAPPROVED) {
-          ELEMENT_DATA[0].status = 'Request Not Approved';
+          this.status = 'Request Not Approved';
         }
       },
       err => {
@@ -86,6 +82,20 @@ export class PassRequestTabsComponent implements OnInit {
         }
       }
     )
+  }
+
+  getPass() {
+    if (this.dataSource[0].status == StatusCategory.APPROVED) {
+      this.passRequestService.getPassByMemberId(this.dataSource[0].memberId).subscribe(
+        data => {
+          this.passData = data[0];
+          console.log(data);
+        },
+        err => {
+  
+        }
+      )
+    }
   }
 
   intiForm() {
@@ -112,6 +122,7 @@ export class PassRequestTabsComponent implements OnInit {
       proofGroup: this.fb.group({
         requestAs: ['', Validators.required],
         proofs: this.fb.array([])
+
       })
     });
   }
@@ -149,7 +160,6 @@ export class PassRequestTabsComponent implements OnInit {
   }
 
   sendRequest() {
-    debugger;
     this.profileData = {
       memberId: this.proofForm.get('requestAs').value,
       userId: this.userData.id,
@@ -165,44 +175,90 @@ export class PassRequestTabsComponent implements OnInit {
     };
 
     this.addressData = {
-      memberId: 1,
       addLine1: this.addressForm.get('permanentAddress1').value,
       addLine2: this.addressForm.get('permanentAddress2').value,
       city: this.addressForm.get('permanentCity').value,
       zipCode: this.addressForm.get('permanentZip').value,
       postalAddLine1: this.addressForm.get('postalAddress1').value,
-      postalAddLine2: this.addressForm.get('postalAddress1').value,
+      postalAddLine2: this.addressForm.get('postalAddress2').value,
       postalCity: this.addressForm.get('postalCity').value,
       postalZipCode: this.addressForm.get('postalZip').value
     };
 
-    this.passRequestService.passRequest(this.profileData, this.addressData, this.proofs).subscribe(
+    if (this.dataSource[0].status == 2) {
+      this.passRequestService.updatePassRequest(this.dataSource[0].memberId, this.profileData, this.addressData, this.proofs).subscribe(
+        data => {
+          this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Pass Request'), 'OK', 'success');
+          this.requested = true;
+        },
+        err => {
+          if (err.status == 401 || err.stats == 403) {
+            this.router.navigateByUrl('user/login');
+          }
+          else {
+            this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+            console.log(err);
+          }
+        });
+    } else {
+      this.passRequestService.passRequest(this.profileData, this.addressData, this.proofs).subscribe(
+        data => {
+          this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Pass Request'), 'OK', 'success');
+          this.requested = true;
+        },
+        err => {
+          if (err.status == 401 || err.stats == 403) {
+            this.router.navigateByUrl('user/login');
+          }
+          else {
+            this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+            console.log(err);
+          }
+        });
+    }
+  }
+
+  onView(data: MemberProfile) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = this.passData;
+    this.dialog.open(ViewPassComponent, dialogConfig);
+  }
+
+  onEdit(data: MemberProfile) {
+    this.requested = false;
+
+    this.passRequestService.getMemberProfile(data.memberId).subscribe(
       data => {
-        this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Pass Request'), 'OK', 'success');
-        this.requested = true;
+        this.profileForm.get('firstName').setValue(data[0].firstName);
+        this.profileForm.get('lastName').setValue(data[0].lastName);
+        this.profileForm.get('gender').setValue(data[0].gender);
+        this.profileForm.get('DOB').setValue(data[0].dob);
+        this.profileForm.get('mobileNo').setValue(data[0].mobileNo);
       },
       err => {
-        if (err.status == 401 || err.stats == 403) {
-          this.router.navigateByUrl('user/login');
-        }
-        else {
-          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
-          console.log(err);
-        }
-      });
+        console.log(err);
+      }
+    );
 
-    // this.passRequestService.demoProof().subscribe(
-    //     data => {
-    //       this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Pass Request'), 'OK', 'success');
-    //     },
-    //     err => {
-    //       if (err.status == 401 || err.stats == 403) {
-    //         this.router.navigateByUrl('user/login');
-    //       }
-    //       else {
-    //         this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
-    //         console.log(err);
-    //       }
-    //     });
+
+    this.passRequestService.getAddress(data.memberId).subscribe(
+      data => {
+
+        console.log(data);
+        this.addressForm.get('permanentAddress1').setValue(data[0].addLine1),
+        this.addressForm.get('permanentAddress2').setValue(data[0].addLine2),
+        this.addressForm.get('permanentCity').setValue(data[0].city),
+        this.addressForm.get('permanentZip').setValue(data[0].zipCode),
+        this.addressForm.get('postalAddress1').setValue(data[0].postalAddLine1),
+        this.addressForm.get('postalAddress1').setValue(data[0].postalAddLine2),
+        this.addressForm.get('postalCity').setValue(data[0].postalCity),
+        this.addressForm.get('postalZip').setValue(data[0].postalZipCode)
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 }

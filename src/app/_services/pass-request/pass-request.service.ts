@@ -1,6 +1,7 @@
+import { PassByMember } from './../../_models/passByMemberId';
 import { StatusCategory } from './../../_models/statusCategoryEnum';
 import { MemberProof } from './../../_models/memberProof';
-import { FormArray } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { concatMap, switchMap } from 'rxjs/operators';
 import { Address } from './../../_models/address';
 import { MemberProfile } from './../../_models/memberProfile';
@@ -8,6 +9,7 @@ import { environment } from './../../../environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +27,10 @@ export class PassRequestService {
     return this.http.post<MemberProfile>(`${environment.serverUrl}members`, memberProfile, { headers: httpHeaders });
   }
 
+  getMemberProfile(memberId: number): Observable<MemberProfile> {
+    return this.http.get<MemberProfile>(`${environment.serverUrl}members/${memberId}`);
+  }
+
   addAddress(memberAddress: Address): Observable<MemberProfile> {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
@@ -32,12 +38,31 @@ export class PassRequestService {
     return this.http.post<MemberProfile>(`${environment.serverUrl}member/member-address`, memberAddress, { headers: httpHeaders });
   }
 
+  getAddress(memberId: number): Observable<Address> {
+    return this.http.get<Address>(`${environment.serverUrl}member/member-address/${memberId}`);
+  }
+
+  // getProof(memberId: number) {
+  //   return this.http.get<Address>(`${environment.serverUrl}member/member-address/${memberId}"`); 
+  // }
+
+  addPass(memberProfile: MemberProfile, passForm: FormGroup): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    const data = {
+      memberId: memberProfile.memberId,
+      serialNo: 412400000000 + +passForm.get('serialNo').value,
+      expiry: passForm.get('expiry').value
+    }
+    return this.http.post<MemberProfile>(`${environment.serverUrl}passes`, data, { headers: httpHeaders });
+  }
+
   passRequest(memberProfile: MemberProfile, memberAddress: Address, proof: FormArray): Observable<MemberProof> {
     let httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-
-    memberProfile.status = StatusCategory.DEFAULT;
 
     return this.http.post<MemberProfile>(`${environment.serverUrl}members`, memberProfile, { headers: httpHeaders })
       .pipe(
@@ -54,7 +79,6 @@ export class PassRequestService {
             formData.append("proofImage", this.getFile(i));
             formData.append("proofId", this.memberProof.proofId.toString());
             formData.append("memberId", this.memberProof.memberId.toString());
-            formData.append("uidNo", this.memberProof.uidNo.toString());
 
             if (i == len - 1) {
               return this.http.post<MemberProof>(`${environment.serverUrl}member-proofs`, formData);
@@ -78,6 +102,50 @@ export class PassRequestService {
       );
   }
 
+  updatePassRequest(memberId: number, memberProfile: MemberProfile, memberAddress: Address, proof: FormArray): Observable<MemberProof> {
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post<MemberProfile>(`${environment.serverUrl}members`, memberProfile, { headers: httpHeaders })
+      .pipe(
+        concatMap((res: MemberProfile) => {
+          memberAddress.memberId = res.memberId;
+          return this.http.post<Address>(`${environment.serverUrl}member/member-address`, memberAddress, { headers: httpHeaders })
+        }),
+        concatMap((res: Address) => {
+          const len = proof.length;
+
+          for (let i = 0; i < len; i++) {
+            this.updateProof(i, proof, res.memberId);
+            const formData = new FormData();
+            formData.append("proofImage", this.getFile(i));
+            formData.append("proofId", this.memberProof.proofId.toString());
+            formData.append("memberId", this.memberProof.memberId.toString());
+
+            if (i == len - 1) {
+              return this.http.post<MemberProof>(`${environment.serverUrl}member-proofs`, formData);
+            }
+            else {
+              this.http.post<MemberProof>(`${environment.serverUrl}member-proofs`, formData).subscribe(
+                data => {
+                  console.log(data);
+                },
+                err => {
+                  console.log(err);
+                }
+              );
+            }
+          }
+          return null;
+        }),
+        concatMap((res: any) => {
+          return this.http.post<any>(`${environment.serverUrl}pass-request-email`, memberProfile.userName, { headers: httpHeaders })
+        })
+      );
+  }
+  
+
   updateProof(i: number, proof: FormArray, memberId: number) {
     this.memberProof = {
       proofId: proof.controls[i].get('proofId').value,
@@ -94,11 +162,22 @@ export class PassRequestService {
     return this.http.get<MemberProfile[]>(`${environment.serverUrl}members/pass-request`, { headers: httpHeaders });
   }
 
-  changePassRequestStatus(memberId: number, status: StatusCategory, description: string): Observable<number> {
+  changePassRequestStatus(memberProfile: MemberProfile): Observable<any> {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.put<number>(`${environment.serverUrl}members/pass-request/status/${memberId}/${status}`, description, { headers: httpHeaders });
+    return this.http.put<number>(`${environment.serverUrl}members/pass-request/status/${memberProfile.memberId}/${memberProfile.status}`, memberProfile, { headers: httpHeaders })
+      .pipe(
+        switchMap(() => {
+          const data = {
+            userName: memberProfile.userName,
+            status: memberProfile.status,
+            description: memberProfile.description
+          }
+
+          return this.http.post<any>(`${environment.serverUrl}pass-status-email`, data, { headers: httpHeaders });
+        })
+      );
   }
 
   addFiles(file: File, i: number, length: number) {
@@ -117,17 +196,15 @@ export class PassRequestService {
     this.file.length = 0;
   }
 
-  // demoProof(): Observable<string> {
-  //   const formData = new FormData();
-  //   formData.append("proofImage", this.getFile(0));
-  //   formData.append("proofId", "2");
-  //   formData.append("memberId", "11");
-  //   formData.append("uidNo", "1");
-
-  //   return this.http.post<string>(`${environment.serverUrl}member-proofs/demo`, formData);
-  // }
-
   getProofs(memberId: number): Observable<MemberProof[]> {
     return this.http.get<MemberProof[]>(`${environment.serverUrl}member/${memberId}/member-proofs`);
+  }
+
+  sendStatusEmail(memberProfile: MemberProfile): Observable<any> {
+    return this.http.get<any>(`${environment.serverUrl}pass-status-email`);
+  }
+
+  getPassByMemberId(memberId: number): Observable<PassByMember> {
+    return this.http.get<PassByMember>(`${environment.serverUrl}passes/member/${memberId}`);
   }
 }

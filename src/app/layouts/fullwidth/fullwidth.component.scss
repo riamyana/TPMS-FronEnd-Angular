@@ -1,7 +1,8 @@
 :host {
-    background-image: url(../../../assets/metro-light-rail_0003_IMG_0351.png);
+    // background-image: url(../../../assets/metro-light-rail_0003_IMG_0351.png);
     background-size: cover;
     background-position: center;
     height: 100%;
     display: block;
+    background-image: linear-gradient(to bottom right, white, rgb(233, 230, 230));
 }

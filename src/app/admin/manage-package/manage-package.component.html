@@ -4,8 +4,16 @@
             <div *ngIf="loader.isLoading | async" class="loader">
                 <mat-spinner style="top:100%; left:50%" color="primary"></mat-spinner>
             </div>
-            <div>
-                <button mat-raised-button color="accent" (click)="onAddMember()">Add Package <mat-icon color="primary">add</mat-icon></button>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <button mat-raised-button color="accent" (click)="onAddMember()">Add Package<mat-icon color="primary">add</mat-icon></button>
+                </div>
+                <mat-form-field>
+                    <mat-label>
+                        <mat-icon color="accent" [class]="'input-icon'" class="search">search</mat-icon>Search
+                    </mat-label>
+                    <input type="text" (keyup)="applyFilter($event)" matInput placeholder="Search">
+                </mat-form-field>
             </div>
             <table mat-table [dataSource]="listData" matSort>
     
@@ -65,6 +73,7 @@
                 <tr mat-header-row *matHeaderRowDef="dispCol"></tr>
                 <tr mat-row *matRowDef="let row; columns: dispCol;"></tr>
             </table>
+            <div *ngIf="listData.data.length === 0" class="noData">No request found</div>
             <mat-paginator pageSize="30" [pageSizeOptions]="[5,10,20,30]"></mat-paginator>
         </div>
     </mat-card>
