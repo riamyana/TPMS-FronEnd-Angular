@@ -81,7 +81,6 @@ export class MemberProofComponent implements OnInit, OnDestroy {
         for (let i = 0; i < data.length; i++) {
           const newProof = this.fb.group({
             proofId: [data[i].proofId, Validators.required],
-            proofNo: ['', Validators.required],
             proofName: ['', Validators.required]
           });
           this.proofs.push(newProof);

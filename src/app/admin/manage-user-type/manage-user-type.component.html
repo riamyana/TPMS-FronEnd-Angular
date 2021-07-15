@@ -53,7 +53,7 @@
                 <tr mat-row *matRowDef="let row; columns: dispCol;"></tr>
             </table>
 
-            <div *ngIf="listData.data.length === 0" class="noData">No request found</div>
+            <div *ngIf="listData.data.length === 0" class="noData">No data found</div>
             <mat-paginator pageSize="30" [pageSizeOptions]="[5,10,20,30]"></mat-paginator>
         </div>
     </mat-card>

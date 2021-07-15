@@ -110,7 +110,7 @@ export class StationComponent implements OnInit {
   onDelete(data: Station) {
     this.stationService.deleteStation(data.stationId).subscribe(
       data => {
-        this.notifierService.showNotification(NotifierMsg.SuccessDeleteMsg('Station'), 'OK', 'error');
+        this.notifierService.showNotification(NotifierMsg.SuccessDeleteMsg('Station'), 'OK', 'success');
       },
       err => {
         if (err.status == 401 || err.stats == 403) {

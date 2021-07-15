@@ -1,3 +1,4 @@
+import { LoaderService } from './../../_services/loader/loader.service';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { ControlContainer, FormGroup, FormGroupDirective } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
@@ -13,7 +14,8 @@ export class MemberProfileComponent implements OnInit {
   url;
 
   constructor(
-    public controlContainer: ControlContainer
+    public controlContainer: ControlContainer,
+    public loader: LoaderService
   ) { }
 
   ngOnInit(): void {

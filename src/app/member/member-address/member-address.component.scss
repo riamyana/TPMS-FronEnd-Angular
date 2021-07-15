@@ -13,3 +13,11 @@
     padding-bottom: 5px;
     font-weight: 500;
 }
+
+.loader {
+    position: absolute;
+    height: 100%;
+    width: 85%;
+    opacity: 0.8;
+    z-index: 99;
+}

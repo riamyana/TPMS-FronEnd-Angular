@@ -14,7 +14,6 @@ import { StationComponent } from './admin/station/station.component';
 import { PageNotFoundComponent } from './layouts/fullwidth/page-not-found/page-not-found.component';
 import { TransportModeComponent } from './admin/transport-mode/transport-mode.component';
 import { ManageUserTypeComponent } from './admin/manage-user-type/manage-user-type.component';
-import { ManageSubscriptionTypeComponent } from './admin/manage-subscription-type/manage-subscription-type.component';
 import { ManageProofComponent } from './admin/manage-proof/manage-proof.component';
 import { ManagePackageComponent } from './admin/manage-package/manage-package.component';
 import { FullwidthComponent } from './layouts/fullwidth/fullwidth.component';
@@ -47,8 +46,6 @@ const routes: Routes = [
       path: 'manage-proof', component: ManageProofComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Member' }
     }, {
       path: 'manage-proof-requirement', component: ManageProofRequirementComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Member' }
-    }, {
-      path: 'manage-subscription-type', component: ManageSubscriptionTypeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Subscription Type' }
     }, {
       path: 'manage-transport-modes', component: TransportModeComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN, menuTitle: 'Manage Package' }
     }, {

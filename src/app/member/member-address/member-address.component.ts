@@ -1,3 +1,4 @@
+import { LoaderService } from './../../_services/loader/loader.service';
 import { cities } from './../../constants/city';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { ControlContainer, FormGroup, FormGroupDirective } from '@angular/forms';
@@ -16,7 +17,8 @@ export class MemberAddressComponent implements OnInit, OnDestroy {
   public cities = cities;
 
   constructor(
-    public controlContainer: ControlContainer
+    public controlContainer: ControlContainer,
+    public loader: LoaderService
   ) { }
 
   ngOnInit(): void {
