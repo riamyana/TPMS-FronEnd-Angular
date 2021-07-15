@@ -150,7 +150,6 @@ export class PassRequestService {
     this.memberProof = {
       proofId: proof.controls[i].get('proofId').value,
       memberId: memberId,
-      uidNo: proof.controls[i].get('proofNo').value,
       proofImage: proof.controls[i].get('proofName').value
     }
   }

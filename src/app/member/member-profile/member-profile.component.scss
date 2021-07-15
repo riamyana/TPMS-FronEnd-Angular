@@ -19,3 +19,11 @@ img {
     border: 2px solid #000;
     border-radius: 50%;
 }
+
+.loader {
+    position: absolute;
+    height: 100%;
+    width: 85%;
+    opacity: 0.8;
+    z-index: 99;
+}

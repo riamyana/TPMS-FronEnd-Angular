@@ -1,3 +1,6 @@
+<div *ngIf="loader.isLoading | async" class="loader">
+    <mat-spinner style="top:30%; left:50%" color="primary"></mat-spinner>
+</div>
 <div class="container" fxLayout fxLayoutAlign="start start">
     <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
         <div fxLayout="row" fxLayoutAlign="space-evenly center" fxFlex="90" class="form">

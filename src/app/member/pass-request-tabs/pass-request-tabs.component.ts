@@ -185,11 +185,12 @@ export class PassRequestTabsComponent implements OnInit {
       postalZipCode: this.addressForm.get('postalZip').value
     };
 
-    if (this.dataSource[0].status == 2) {
+    if (this.dataSource && this.dataSource[0].status == 2) {
       this.passRequestService.updatePassRequest(this.dataSource[0].memberId, this.profileData, this.addressData, this.proofs).subscribe(
         data => {
           this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Pass Request'), 'OK', 'success');
           this.requested = true;
+          this.getStatus();
         },
         err => {
           if (err.status == 401 || err.stats == 403) {
@@ -205,6 +206,7 @@ export class PassRequestTabsComponent implements OnInit {
         data => {
           this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Pass Request'), 'OK', 'success');
           this.requested = true;
+          this.getStatus();
         },
         err => {
           if (err.status == 401 || err.stats == 403) {
