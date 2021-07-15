@@ -1,3 +1,5 @@
+import { NotifierMsg } from './../../../constants/notifierMsg';
+import { Router } from '@angular/router';
 import { TransportModeService } from './../../../_services/transport-mode/transport-mode.service';
 import { FormErrorStateMatcher } from './../../../ErrorStateMatcher/FormErrorStateMatcher';
 import { NotifierService } from './../../../_services/notifier/notifier.service';
@@ -18,7 +20,8 @@ export class AddTransportModeComponent implements OnInit {
     public dialogRef: MatDialogRef<AddTransportModeComponent>,
     private formBuilder: FormBuilder,
     private notifierService: NotifierService,
-    private transportModeService: TransportModeService
+    private transportModeService: TransportModeService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +41,13 @@ export class AddTransportModeComponent implements OnInit {
         this.notifierService.showNotification('Transport Mode Type Added Successfully', 'OK', 'success');
       },
       err => {
-        this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
+        if (err.status == 401 || err.stats == 403) {
+          this.router.navigateByUrl('admin/login');
+        } else if ((err.error.message).includes('requires a unique value')) {
+          this.notifierService.showNotification('This mode already exists..!', 'OK', 'error');
+        } else {
+            this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+        }
         console.log(err);
         this.dialogRef.close();
       }

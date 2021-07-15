@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { NotifierMsg } from './../../../constants/notifierMsg';
 import { MemberType } from './../../../_models/member/member-type';
 import { LoaderService } from './../../../_services/loader/loader.service';
 import { NotifierService } from './../../../_services/notifier/notifier.service';
@@ -23,7 +25,8 @@ export class EditMemberTypeComponent implements OnInit {
     private formBuilder: FormBuilder,
     private memberService: MemberService,
     private notifierService: NotifierService,
-    public loader: LoaderService
+    public loader: LoaderService,
+    private router: Router
   ) {
     this.memberTypeData = this.data
   }
@@ -52,8 +55,13 @@ export class EditMemberTypeComponent implements OnInit {
         this.dialogRef.close(true);
       },
       err => {
-        this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
-        console.log(err);
+        if (err.status == 401 || err.stats == 403) {
+          this.router.navigateByUrl('admin/login');
+        } else if ((err.error.message).includes('requires a unique value')) {
+          this.notifierService.showNotification('This member type already exists..!', 'OK', 'error');
+        } else {
+          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+        }
         this.dialogRef.close(false);
       });
   }

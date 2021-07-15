@@ -7,7 +7,7 @@
       <div class="profileName">{{this.authService.currentUserValue.email}}</div>
     </div>
 
-    <mat-nav-list *ngFor="let menu of menu2; index as i;">
+    <mat-nav-list *ngFor="let menu of menu2; index as i;" class="side-nav">
       <ng-container *ngIf="menu.userType == currentUser.role">
         
       </ng-container>
