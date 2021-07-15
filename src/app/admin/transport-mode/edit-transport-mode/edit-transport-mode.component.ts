@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { NotifierMsg } from './../../../constants/notifierMsg';
 import { TransportModeService } from './../../../_services/transport-mode/transport-mode.service';
 import { NotifierService } from './../../../_services/notifier/notifier.service';
 import { AddTransportModeComponent } from './../add-transport-mode/add-transport-mode.component';
@@ -22,7 +24,8 @@ export class EditTransportModeComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: TransportMode,
     private formBuilder: FormBuilder,
     private notifierService: NotifierService,
-    private transportModeService: TransportModeService
+    private transportModeService: TransportModeService,
+    public router: Router
   ) { 
     this.transportData = this.data;
   }
@@ -46,8 +49,11 @@ export class EditTransportModeComponent implements OnInit {
         this.dialogRef.close(true);
       },
       err => {
-        this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
-        console.log(err);
+        if (err.status == 401 || err.stats == 403) {
+          this.router.navigateByUrl('admin/login');
+        } else {
+          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+        }console.log(err);
         this.dialogRef.close(false);
       });
   }

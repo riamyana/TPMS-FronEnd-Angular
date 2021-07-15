@@ -49,7 +49,13 @@ export class AddMemberComponent implements OnInit {
         this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Member Type'), 'OK', 'success');
       },
       err => {
-        this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+        if (err.status == 401 || err.stats == 403) {
+          this.router.navigateByUrl('admin/login');
+        } else if ((err.error.message).includes('requires a unique value')) {
+          this.notifierService.showNotification('This member type already exists..!', 'OK', 'error');
+        } else {
+          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
+        }
         console.log(err);
         this.dialogRef.close(false);
       });

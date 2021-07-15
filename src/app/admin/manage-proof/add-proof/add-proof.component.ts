@@ -69,6 +69,8 @@ export class AddProofComponent implements OnInit {
       err => {
         if (err.status == 401 || err.stats == 403) {
           this.router.navigateByUrl('admin/login');
+        } else if ((err.error.message).includes('requires a unique value')) {
+          this.notifierService.showNotification('This proof already exists..!', 'OK', 'error');
         } else {
           this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
         }
