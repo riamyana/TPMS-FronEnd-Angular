@@ -2,6 +2,7 @@ import { LoaderService } from './../../_services/loader/loader.service';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { ControlContainer, FormGroup, FormGroupDirective } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-member-profile',
@@ -12,6 +13,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class MemberProfileComponent implements OnInit {
   public profileFormGroup: FormGroup;
   url;
+  maxDate = moment().toDate();
 
   constructor(
     public controlContainer: ControlContainer,

@@ -16,6 +16,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import * as moment from 'moment';
 @Component({
   selector: 'app-pass-request',
   templateUrl: './pass-request.component.html',
@@ -33,6 +34,8 @@ export class PassRequestComponent implements OnInit {
   disapproved: boolean = false;
   approved: boolean = false;
   memberProfileData: MemberProfile;
+
+  minDate = moment().toDate();
 
   constructor(
     private fb: FormBuilder,

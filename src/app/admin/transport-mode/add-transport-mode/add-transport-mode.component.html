@@ -9,6 +9,6 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button cdkFocusInitial color="accent" (click)="onAdd()">Add</button>
+  <button mat-button cdkFocusInitial color="accent" (click)="onAdd()" [disabled]="!transportTypeForm.valid">Add</button>
   <button mat-button (click)="onCancel()" color="warn">Cancel</button>
 </div>

@@ -136,6 +136,6 @@
 </div>
 
 <div mat-dialog-actions>
-    <button mat-raised-button type="submit" color="primary" color="accent" (click)="this.data.dialogType=='Add'?onAdd():onUpdate()">{{this.data.dialogType}}</button>
+    <button mat-raised-button type="submit" color="primary" color="accent" (click)="this.data.dialogType=='Add'?onAdd():onUpdate()" [disabled]="!packageForm.valid">{{this.data.dialogType}}</button>
     <button mat-raised-button type="submit" color="primary" color="warn" (click)="onCancel()">Cancel</button>
 </div>
