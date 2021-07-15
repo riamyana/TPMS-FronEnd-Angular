@@ -45,7 +45,6 @@ export class AddMemberComponent implements OnInit {
   onAdd() {
     this.memberService.addMemberType(this.form.memberType.value).subscribe(
       data => {
-        console.log(data);
         this.dialogRef.close(data);
         this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Member Type'), 'OK', 'success');
       },

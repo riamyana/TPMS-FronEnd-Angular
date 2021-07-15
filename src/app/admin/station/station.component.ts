@@ -32,7 +32,7 @@ export class StationComponent implements OnInit {
     private notifierService: NotifierService,
     public sideNavService: SideNavService,
     private stationService: StationService
-  ) { 
+  ) {
     this.listData = new MatTableDataSource();
   }
 
@@ -65,6 +65,7 @@ export class StationComponent implements OnInit {
     dialogConfig.autoFocus = true;
 
     const dialogRef = this.dialog.open(AddUpdateStationComponent, dialogConfig);
+    this.getStations();
   }
 
   applyFilter(event: Event) {
@@ -82,17 +83,11 @@ export class StationComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUpdateStationComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.listData.data = this.listData.data.filter((value,key)=>{
-          if(value.stationId == result.id){
-            value.stationName = result.name;
-          }
-          return true;
-        });
+        // this.listData._updateChangeSubscription();
+        // this.listData.paginator = this.paginator;
+        // this.listData.sort = this.sort;
 
-        console.log(this.listData.data);
-        this.listData.paginator = this.paginator;
-        this.listData.sort = this.sort;
-        this.listData._updateChangeSubscription();
+        this.getStations();
       }
     });
   }
@@ -107,10 +102,13 @@ export class StationComponent implements OnInit {
     });
   }
 
-  onDelete(data: Station) {
-    this.stationService.deleteStation(data.stationId).subscribe(
+  onDelete(Stationdata: Station) {
+    this.stationService.deleteStation(Stationdata.stationId).subscribe(
       data => {
         this.notifierService.showNotification(NotifierMsg.SuccessDeleteMsg('Station'), 'OK', 'success');
+        const index = this.listData.data.indexOf(Stationdata);
+        this.listData.data.splice(index, 1);
+        this.listData._updateChangeSubscription();
       },
       err => {
         if (err.status == 401 || err.stats == 403) {

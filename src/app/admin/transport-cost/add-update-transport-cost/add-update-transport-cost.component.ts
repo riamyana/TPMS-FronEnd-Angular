@@ -83,9 +83,8 @@ export class AddUpdateTransportCostComponent implements OnInit {
 
     this.transportCostService.addTransportCost(this.transportCost).subscribe(
       data => {
-        console.log(data);
-        this.dialogRef.close(data);
         this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Transport Cost'), 'OK', 'success');
+        this.dialogRef.close(data);
       },
       err => {
         if (err.status == 401 || err.stats == 403) {
@@ -93,9 +92,8 @@ export class AddUpdateTransportCostComponent implements OnInit {
         } else {
           this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
         }
+        this.dialogRef.close();
       });
-
-      this.dialogRef.close();
   }
 
   getValue() {

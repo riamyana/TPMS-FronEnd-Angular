@@ -53,6 +53,7 @@ export class TransportModeComponent implements OnInit {
           this.router.navigateByUrl('admin/login');
         } else {
           this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
+          console.log(err);
         }
       });
   }

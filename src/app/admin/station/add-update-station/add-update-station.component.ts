@@ -145,8 +145,7 @@ export class AddUpdateStationComponent implements OnInit {
 
     this.stationService.addStation(this.stationData).subscribe(
       data => {
-        console.log(data);
-        // this.dialogRef.close(data);
+        this.dialogRef.close(data);
         this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Station'), 'OK', 'success');
       },
       err => {
@@ -155,6 +154,7 @@ export class AddUpdateStationComponent implements OnInit {
         } else {
           this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
         }
+        this.dialogRef.close(false);
       });
   }
 
@@ -171,7 +171,6 @@ export class AddUpdateStationComponent implements OnInit {
 
     this.stationService.updateStation(this.stationData).subscribe(
       data => {
-        console.log(data);
         this.dialogRef.close(data);
         this.notifierService.showNotification(NotifierMsg.SuccessUpdateMsg('Station'), 'OK', 'success');
       },
@@ -181,8 +180,7 @@ export class AddUpdateStationComponent implements OnInit {
         } else {
           this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
         }
+        this.dialogRef.close();
       });
-
-      this.dialogRef.close();
   }
 }
