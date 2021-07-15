@@ -17,7 +17,7 @@
       <div fxLayout="row" fxLayoutGap="30px" *ngIf="data.dialogType == 'Add'">
         <mat-form-field color="accent" appearance="fill">
           <mat-label>Add More Proofs</mat-label>
-          <input matInput placeholder="Proof Name" type="number" formControlName="addProof">
+          <input matInput placeholder="Add More Proofs" type="number" formControlName="addProof">
         </mat-form-field>
 
         <button mat-raised-button type="button" color="accent" style="height:60%" (click)="onAddProof()">Add Proofs
@@ -35,7 +35,7 @@
                 </mat-option>
               </mat-select>
               <mat-error>
-                Please provide a valid password
+                Please select Proof Name
               </mat-error>
             </mat-form-field>
             <button mat-raised-button color="warn" (click)="onProofDelete(i)" fxFlex="10"

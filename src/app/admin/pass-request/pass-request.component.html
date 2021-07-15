@@ -33,6 +33,9 @@
                     <mat-error>
                         Please provide valid Pass Serial No.
                     </mat-error>
+                    <mat-error *ngIf="this.form.serialNo.errors?.minlength || this.form.serialNo.errors?.maxlength">
+                        Serial Number should 6 digit long.
+                    </mat-error>
                 </mat-form-field>
             </div>
 

@@ -62,9 +62,13 @@ export class PassRequestComponent implements OnInit {
     });
 
     this.passForm = this.fb.group({
-      serialNo: ['', Validators.required],
+      serialNo: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
       expiry: ['', [Validators.required, Validators.maxLength(6)]]
     });
+  }
+
+  get form() {
+    return this.passForm.controls;
   }
 
   getPassRequest() {
