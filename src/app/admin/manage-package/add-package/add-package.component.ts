@@ -236,6 +236,7 @@ export class AddPackageComponent implements OnInit {
     })).subscribe(
       (res) => {
         this.notifierService.showNotification(NotifierMsg.SuccessUpdateMsg('Package'), 'OK', 'success');
+        this.dialogRef.close();
       },
       (err) => {
         if (err.status == 401 || err.stats == 403) {
@@ -243,6 +244,7 @@ export class AddPackageComponent implements OnInit {
         } else {
           this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
         }
+        this.dialogRef.close();
       }
     );
   }

@@ -32,7 +32,7 @@
 
                 <mat-form-field color="accent" appearance="fill">
                     <mat-label>DOB</mat-label>
-                    <input matInput [matDatepicker]="start" formControlName="DOB" placeholder="MM/DD/YYYY">
+                    <input matInput [matDatepicker]="start" formControlName="DOB" placeholder="MM/DD/YYYY" [max]="maxDate">
                     <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
                     <mat-datepicker #start></mat-datepicker>
                     <mat-error>

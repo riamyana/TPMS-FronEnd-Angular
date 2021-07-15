@@ -39,6 +39,6 @@
 </div>
 
 <div mat-dialog-actions>
-    <button mat-raised-button type="submit" color="primary" color="accent" (click)="msg == 'Add'?onAdd():onUpdate();">{{msg}}</button>
+    <button mat-raised-button type="submit" color="primary" color="accent" (click)="msg == 'Add'?onAdd():onUpdate();" [disabled]="!stationForm.valid">{{msg}}</button>
     <button mat-raised-button type="submit" color="primary" color="warn" (click)="onCancel()">Cancel</button>
 </div>

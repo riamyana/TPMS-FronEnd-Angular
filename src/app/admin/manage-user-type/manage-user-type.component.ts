@@ -34,7 +34,7 @@ export class ManageUserTypeComponent implements OnInit {
     public dialog: MatDialog,
     private notifierService: NotifierService,
     public sideNavService: SideNavService
-  ) { 
+  ) {
     this.listData = new MatTableDataSource();
   }
 
@@ -88,10 +88,12 @@ export class ManageUserTypeComponent implements OnInit {
     const dialogRef = this.dialog.open(AddMemberComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.listData.data.push(result);
-      this.listData._updateChangeSubscription();
-      this.listData.paginator = this.paginator;
-      this.listData.sort = this.sort;
+      if (result) {
+        this.listData.data.push(result);
+        this.listData._updateChangeSubscription();
+        this.listData.paginator = this.paginator;
+        this.listData.sort = this.sort;
+      }
     });
   }
 

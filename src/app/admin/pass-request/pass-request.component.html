@@ -15,7 +15,7 @@
             </mat-form-field>
 
             <div fxLayout="row" fxLayoutGap="30px">
-                <button mat-flat-button color="accent" style="width: 10vw;">OK</button>
+                <button mat-flat-button color="accent" style="width: 10vw;" [disabled]="!descriptionForm.valid">OK</button>
                 <button mat-flat-button color="accent" type="button" style="width: 10vw;"
                     (click)="onCancel()">CANCEL</button>
             </div>
@@ -41,7 +41,7 @@
 
             <mat-form-field appearance="fill" style="width: 25vw;">
                 <mat-label>Expiry Date</mat-label>
-                <input matInput [matDatepicker]="end" formControlName="expiry" placeholder="End Date">
+                <input matInput [matDatepicker]="end" formControlName="expiry" [min]="minDate" placeholder="End Date">
                 <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
                 <mat-datepicker #end></mat-datepicker>
                 <mat-error>
@@ -51,7 +51,7 @@
         </form>
 
         <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center center">
-            <button mat-flat-button color="accent" style="width: 10vw;" (click)="onApproveConfirmed()">OK</button>
+            <button mat-flat-button color="accent" style="width: 10vw;" (click)="onApproveConfirmed()" [disabled]="!passForm.valid">OK</button>
             <button mat-flat-button color="accent" type="button" style="width: 10vw;"
                 (click)="onCancelApprove()">CANCEL</button>
         </div>
