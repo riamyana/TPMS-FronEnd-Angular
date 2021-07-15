@@ -88,7 +88,6 @@ export class ManageUserTypeComponent implements OnInit {
     const dialogRef = this.dialog.open(AddMemberComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
       this.listData.data.push(result);
       this.listData._updateChangeSubscription();
       this.listData.paginator = this.paginator;
@@ -107,9 +106,7 @@ export class ManageUserTypeComponent implements OnInit {
 
     const dialogRef = this.dialog.open(EditMemberTypeComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
-        console.log("in" + result);
         this.listData._updateChangeSubscription();
         this.listData.paginator = this.paginator;
         this.listData.sort = this.sort;

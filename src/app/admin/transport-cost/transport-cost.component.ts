@@ -34,7 +34,7 @@ export class TransportCostComponent implements OnInit {
     private notifierService: NotifierService,
     public sideNavService: SideNavService,
     public loader: LoaderService
-  ) { 
+  ) {
     this.listData = new MatTableDataSource();
   }
 
@@ -67,6 +67,10 @@ export class TransportCostComponent implements OnInit {
     dialogConfig.autoFocus = true;
 
     const dialogRef = this.dialog.open(AddUpdateTransportCostComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getCostDetails()
+    });
   }
 
   getStation() {
@@ -96,25 +100,28 @@ export class TransportCostComponent implements OnInit {
     dialogConfig.data = data;
 
     const dialogRef = this.dialog.open(AddUpdateTransportCostComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getCostDetails()
+    });
   }
 
-  deleteConfirm(id: number) {
+  deleteConfirm(costData: TransportCostDetails) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.onDelete(id);
+        this.onDelete(costData);
       }
     });
   }
 
-  onDelete(id: number) {
-    this.transportCostService.deleteTransportCost(id).subscribe(
+  onDelete(costData: TransportCostDetails) {
+    this.transportCostService.deleteTransportCost(costData.id).subscribe(
       data => {
-        this.listData = new MatTableDataSource();
-        this.listData.data = data;
-        this.listData.paginator = this.paginator;
-        this.listData.sort = this.sort;
+        const index = this.listData.data.indexOf(costData);
+        this.listData.data.splice(index, 1);
+        this.listData._updateChangeSubscription();
         this.notifierService.showNotification(NotifierMsg.SuccessDeleteMsg('Transport Cost'), 'OK', 'success');
       },
       err => {

@@ -148,11 +148,11 @@ export class ManageProofRequirementComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.listData.data.push(result);
-        this.listData._updateChangeSubscription();
-        this.listData.paginator = this.paginator;
-        this.listData.sort = this.sort;
-        this.getProof();
+        // this.listData.data.push(result);
+        // this.listData._updateChangeSubscription();
+        // this.listData.paginator = this.paginator;
+        // this.listData.sort = this.sort;
+        this.getProofRequirement()
       }
     });
   }
@@ -179,7 +179,7 @@ export class ManageProofRequirementComponent implements OnInit {
         this.listData.paginator = this.paginator;
         this.listData.sort = this.sort;
 
-        this.getProof();
+        this.getProofRequirement()
       }
     });
 
