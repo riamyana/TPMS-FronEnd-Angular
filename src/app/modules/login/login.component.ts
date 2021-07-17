@@ -5,8 +5,7 @@ import { Roles } from './../../constants/roles';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -67,7 +66,7 @@ export class LoginComponent implements OnInit {
           if (this.user_type == Roles.ADMIN)
             this.router.navigateByUrl('admin/manage-member');
           else if (this.user_type == Roles.USER)
-            this.router.navigateByUrl('user/home');
+            this.router.navigateByUrl('user/package');
         },
         error => {
           if (error.status == 401 || error.status == 403) {

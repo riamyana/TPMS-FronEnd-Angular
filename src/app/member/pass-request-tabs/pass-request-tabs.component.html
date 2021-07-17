@@ -30,24 +30,29 @@
     </table>
   </div>
 
+  <div fxLayout="column" *ngIf="!requested">
+    <div>
+      <button mat-raised-button class="back" (click)="requested=true"><mat-icon>arrow_back</mat-icon>Back</button>
+    </div>
 
-  <div class="container" *ngIf="!requested">
-    <app-wizard [formGroup]="passRequestForm" (submit)="submit()">
-      <app-Wizard-Item formGroupName="profile" [label]="'Personal Details'">
-        <mat-icon *wizardTabIcon>person</mat-icon>
-        <app-member-profile *wizard-content></app-member-profile>
-      </app-Wizard-Item>
+    <div class="container">
+      <app-wizard [formGroup]="passRequestForm" (submit)="submit()">
+        <app-Wizard-Item formGroupName="profile" [label]="'Personal Details'">
+          <mat-icon *wizardTabIcon>person</mat-icon>
+          <app-member-profile *wizard-content></app-member-profile>
+        </app-Wizard-Item>
 
-      <app-Wizard-Item [label]="'Address'" formGroupName="addressGroup">
-        <mat-icon *wizardTabIcon>home</mat-icon>
-        <app-member-address *wizard-content></app-member-address>
-      </app-Wizard-Item>
+        <app-Wizard-Item [label]="'Address'" formGroupName="addressGroup">
+          <mat-icon *wizardTabIcon>home</mat-icon>
+          <app-member-address *wizard-content></app-member-address>
+        </app-Wizard-Item>
 
-      <app-Wizard-Item [label]="'Proofs'" formGroupName="proofGroup">
-        <mat-icon *wizardTabIcon>task</mat-icon>
-        <app-member-proof *wizard-content></app-member-proof>
-      </app-Wizard-Item>
-    </app-wizard>
+        <app-Wizard-Item [label]="'Proofs'" formGroupName="proofGroup">
+          <mat-icon *wizardTabIcon>task</mat-icon>
+          <app-member-proof *wizard-content></app-member-proof>
+        </app-Wizard-Item>
+      </app-wizard>
+    </div>
   </div>
 </div>
 

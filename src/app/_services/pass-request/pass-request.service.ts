@@ -11,12 +11,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
+export interface ProofsValue {
+  memberTypeId: number,
+  status: number,
+  memberId: number
+}
 @Injectable({
   providedIn: 'root'
 })
 export class PassRequestService {
   memberProof: MemberProof;
   file: File[] = [];
+  childMemberProof: ProofsValue;
 
   constructor(private http: HttpClient) { }
 
@@ -159,6 +165,13 @@ export class PassRequestService {
       'Content-Type': 'application/json'
     });
     return this.http.get<MemberProfile[]>(`${environment.serverUrl}members/pass-request`, { headers: httpHeaders });
+  }
+
+  getMemberProof(): Observable<MemberProof[]> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<MemberProof[]>(`${environment.serverUrl}member/${this.childMemberProof.memberId}/member-proofs`);
   }
 
   changePassRequestStatus(memberProfile: MemberProfile): Observable<any> {

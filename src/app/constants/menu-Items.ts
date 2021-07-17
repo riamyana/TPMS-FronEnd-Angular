@@ -24,7 +24,7 @@ export const userMenu: users[] = [
     {
         userType: Roles.ADMIN,
         menu: [
-            { label: 'Home', routerLink: '/admin/dashboard', active: true },
+            // { label: 'Home', routerLink: '/admin/dashboard', active: true },
             // { label: 'Manage User', routerLink: '/admin', active: true },
             { label: 'Manage', routerLink: '/admin/manage', active: true },
             { label: 'Login', routerLink: '/admin/login', active: false }
@@ -33,7 +33,8 @@ export const userMenu: users[] = [
     {
         userType: Roles.USER,
         menu: [
-            { label: 'Home', routerLink: '/user/home', active: true },
+            { label: 'View Packages', routerLink: '/user/kdj', active: true },
+            { label: 'Buy Package', routerLink: '/user/package', active: true },
             { label: 'Request Pass', routerLink: '/user/pass-request', active: true },
             { label: 'My Profile', routerLink: '/user/my-profile', active: true },
             // { label: 'Manage Package', routerLink: '', active: true },
@@ -84,6 +85,9 @@ export const sideNavMenu2: sideNav2[] = [
                 routerLink: 'manage-transport-modes',
             }, {
                 label: 'Manage Package',
+                routerLink: 'manage-package'
+            }, {
+                label: 'Manage Package for Transport Mode',
                 routerLink: 'manage-package'
             }
         ]

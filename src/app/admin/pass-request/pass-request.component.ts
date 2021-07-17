@@ -8,7 +8,7 @@ import { MemberProfile } from './../../_models/memberProfile';
 import { NotifierMsg } from './../../constants/notifierMsg';
 import { NotifierService } from './../../_services/notifier/notifier.service';
 import { LoaderService } from './../../_services/loader/loader.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PassRequestService } from './../../_services/pass-request/pass-request.service';
 import { SideNavService } from './../../_services/side-nav/side-nav.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -36,6 +36,7 @@ export class PassRequestComponent implements OnInit {
   memberProfileData: MemberProfile;
 
   minDate = moment().toDate();
+  paramStatus: string;
 
   constructor(
     private fb: FormBuilder,
@@ -45,7 +46,8 @@ export class PassRequestComponent implements OnInit {
     private notifierService: NotifierService,
     public dialog: MatDialog,
     public loader: LoaderService,
-    private memberService: MemberService
+    private memberService: MemberService,
+    private route: ActivatedRoute
   ) {
     this.listData = new MatTableDataSource();
   }
@@ -77,7 +79,20 @@ export class PassRequestComponent implements OnInit {
   getPassRequest() {
     this.passRequestService.getMemberPassRequest().subscribe(
       data => {
+        let tempData;
         this.listData.data = data;
+        tempData = this.listData.data;
+
+        this.route.params.subscribe(
+          params => {
+            this.paramStatus = params['status'];
+            if (this.paramStatus) {
+              this.listData.data = this.listData.data.filter(value => value.status == +this.paramStatus);
+            } else {
+              this.listData.data = tempData;
+            }
+          }
+        );
       },
       err => {
         if (err.status == 401 || err.stats == 403) {

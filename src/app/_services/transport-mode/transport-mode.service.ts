@@ -11,8 +11,8 @@ export class TransportModeService {
 
   constructor(private http: HttpClient) { }
 
-  getTransportModes() {
-    return this.http.get<any>(`${environment.serverUrl}transport-modes`);
+  getTransportModes(): Observable<TransportMode[]> {
+    return this.http.get<TransportMode[]>(`${environment.serverUrl}transport-modes`);
   }
 
   addModeType(name: string): Observable<TransportMode> {
