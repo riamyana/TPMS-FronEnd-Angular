@@ -1,3 +1,4 @@
+import { TransportModeService } from './../../_services/transport-mode/transport-mode.service';
 import { NotifierMsg } from './../../constants/notifierMsg';
 import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
@@ -28,7 +29,7 @@ export class ManagePackageComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   listData: MatTableDataSource<Package>;
-  dispCol: string[] = ['srNo', 'name', 'memberType', 'subscriptionType', 'validity', 'price', 'action'];
+  dispCol: string[] = ['srNo', 'name', 'transportModeId', 'memberType', 'subscriptionType', 'validity', 'price', 'action'];
   packageData: Package[];
   memberTypeData: MemberType[];
   data: DialogData = {
@@ -46,7 +47,8 @@ export class ManagePackageComponent implements OnInit {
     public dialog: MatDialog,
     private notifierService: NotifierService,
     private packageService: PackageService,
-    private memberService: MemberService
+    private memberService: MemberService,
+    private transportModeService: TransportModeService
   ) {
     this.sideNavService.navTitle = "Manage Package";
     this.listData = new MatTableDataSource();
@@ -57,12 +59,27 @@ export class ManagePackageComponent implements OnInit {
   ngOnInit(): void {
     this.getPackages();
     this.getMemberType();
+    this.getTransportMode();
   }
 
   getMemberType() {
     this.memberService.getMemberType().subscribe(
       data => {
         this.data.member = data;
+      },
+      err => {
+        if (err.status == 401 || err.stats == 403) {
+          this.router.navigateByUrl('admin/login');
+        } else {
+          this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
+        }
+      });
+  }
+
+  getTransportMode() {
+    this.transportModeService.getTransportModes().subscribe(
+      data => {
+        this.data.modeData = data;
       },
       err => {
         if (err.status == 401 || err.stats == 403) {

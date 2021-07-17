@@ -1,3 +1,4 @@
+import { TransportMode } from 'src/app/_models/transport-mode/transport-mode';
 import { NotifierMsg } from './../../../constants/notifierMsg';
 import { MemberPackage } from './../../../_models/package/member-package';
 import { subscriptionTypeEnum } from './../../../constants/subscription-type';
@@ -26,6 +27,7 @@ export class AddPackageComponent implements OnInit {
   packageForm: FormGroup;
   matcher = new FormErrorStateMatcher();
   memberTypeData: MemberType[];
+  modeData: TransportMode[];
   packageData: Package;
   memberPackageData: MemberPackage;
   subType = subscriptionTypeEnum;
@@ -46,6 +48,7 @@ export class AddPackageComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.memberTypeData = this.data.member;
+    this.modeData = this.data.modeData;
     this.applySubscription();
     this.applyDisable();
     if (this.data.dialogType == "Update") {
@@ -60,14 +63,15 @@ export class AddPackageComponent implements OnInit {
       subscriptionType: ['', Validators.required],
       total: ['', Validators.required],
       validity: [{ value: '', disabled: true }, Validators.required],
-      balance: ['', Validators.required],
+      balance: [''],
+      modeType: ['', Validators.required],
       price: ['', Validators.required],
       addMember: [''],
       memberType: this.formBuilder.array([
         this.formBuilder.group({
           id: [''],
           memberTypeName: ['', Validators.required],
-          discount: ['', Validators.required],
+          discount: [''],
           startDate: [''],
           endDate: [''],
           description: ['']
@@ -80,11 +84,11 @@ export class AddPackageComponent implements OnInit {
 
     if (this.form.packageName.value == '' || this.form.packageName.value == null) {
       this.packageService.memberTypePackageObservable.subscribe(data => {
-        console.log(data);
 
         this.form.packageId.setValue(data.id);
         this.form.packageName.setValue(data.name);
-        this.form.subscriptionType.setValue(this.subType[data.subscriptionType]);
+        this.form.modeType.setValue(data.transportModeId);
+        this.form.subscriptionType.setValue(data.subscriptionType);
         this.form.total.setValue(data.counts);
         this.form.validity.setValue(data.validity);
         this.form.balance.setValue(data.balance);
@@ -137,6 +141,7 @@ export class AddPackageComponent implements OnInit {
     this.packageData = {
       id: this.form.packageId.value,
       name: this.form.packageName.value,
+      transportModeId: this.form.modeType.value,
       subscriptionType: this.form.subscriptionType.value,
       counts: this.form.total.value,
       validity: this.form.validity.value,
@@ -250,7 +255,6 @@ export class AddPackageComponent implements OnInit {
   }
 
   onCancel() {
-    this.packageForm.reset();
     this.dialogRef.close();
   }
 
@@ -274,13 +278,12 @@ export class AddPackageComponent implements OnInit {
   }
 
   onAddMemberType() {
-    debugger;
     const addMemberNo = +this.form.addMember.value;
 
     const newMemberType = this.formBuilder.group({
       id: [''],
       memberTypeName: ['', Validators.required],
-      discount: ['', Validators.required],
+      discount: [''],
       startDate: [''],
       endDate: [''],
       description: ['']

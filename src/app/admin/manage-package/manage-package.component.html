@@ -38,6 +38,11 @@
                     <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                 </ng-container>
 
+                <ng-container matColumnDef="transportModeId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Transport Mode </th>
+                    <td mat-cell *matCellDef="let element"> {{element.transportModeId}} </td>
+                </ng-container>
+
                 <ng-container matColumnDef="subscriptionType">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Subscription Type </th>
                     <td mat-cell *matCellDef="let element"> {{element.subscriptionType}} </td>
