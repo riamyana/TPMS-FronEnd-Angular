@@ -86,9 +86,6 @@ export const sideNavMenu2: sideNav2[] = [
             }, {
                 label: 'Manage Package',
                 routerLink: 'manage-package'
-            }, {
-                label: 'Manage Package for Transport Mode',
-                routerLink: 'manage-package'
             }
         ]
     },

@@ -15,6 +15,18 @@
             </mat-form-field>
 
             <mat-form-field color="accent" appearance="fill">
+                <mat-label>Select Transport Mode</mat-label>
+                <mat-select name="memberTypeData" formControlName="modeType">
+                    <mat-option *ngFor="let data of modeData" [value]="data.id">
+                        {{data.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    Please select a Transport Mode
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field color="accent" appearance="fill">
                 <mat-label>Select Subscription Type</mat-label>
                 <mat-select name="subType" formControlName="subscriptionType">
                     <mat-option *ngFor="let key of keys" [value]="subType[key]">
@@ -39,18 +51,6 @@
                 <input matInput placeholder="Validity" formControlName="validity" type="number">
                 <mat-error>
                     Please provide a valid Validity
-                </mat-error>
-            </mat-form-field>
-
-            <mat-form-field color="accent" appearance="fill">
-                <mat-label>Select Transport Mode</mat-label>
-                <mat-select name="memberTypeData" formControlName="price">
-                    <mat-option>
-                        data.memberTypeName
-                    </mat-option>
-                </mat-select>
-                <mat-error>
-                    Please select a Transport Mode
                 </mat-error>
             </mat-form-field>
 
