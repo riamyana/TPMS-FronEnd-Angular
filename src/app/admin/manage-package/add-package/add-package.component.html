@@ -43,6 +43,18 @@
             </mat-form-field>
 
             <mat-form-field color="accent" appearance="fill">
+                <mat-label>Select Transport Mode</mat-label>
+                <mat-select name="memberTypeData" formControlName="price">
+                    <mat-option>
+                        data.memberTypeName
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    Please select a Transport Mode
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field color="accent" appearance="fill">
                 <mat-label>Price</mat-label>
                 <input matInput placeholder="Price" formControlName="price" type="number">
                 <mat-error>

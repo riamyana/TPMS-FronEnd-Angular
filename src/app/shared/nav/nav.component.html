@@ -7,12 +7,20 @@
       <div class="profileName">{{this.authService.currentUserValue.email}}</div>
     </div>
 
+    <mat-divider class="divider"></mat-divider>
+
+    <mat-nav-list class="side-nav">
+      <a mat-list-item routerLink="/admin/dashboard" class="link mat-list-item" [ngStyle]="{'padding-left': '5px'}">
+        <mat-icon class="routeIcon">dashboard</mat-icon>
+        Dashboard</a>
+    </mat-nav-list>
+
+    <mat-divider class="divider"></mat-divider>
+
     <mat-nav-list *ngFor="let menu of menu2; index as i;" class="side-nav">
-      <ng-container *ngIf="menu.userType == currentUser.role">
-        
-      </ng-container>
-      
-      <a mat-list-item [ngStyle]="{'padding-left': '5px'}" class="link mat-list-item" [routerLink]="menu?.children?[]:[menu.routerLink]" appActiveNav>
+
+      <a mat-list-item [ngStyle]="{'padding-left': '5px'}" class="link mat-list-item"
+        [routerLink]="menu?.children?[]:[menu.routerLink]" appActiveNav>
         <mat-icon class="routeIcon">{{menu.icon}}</mat-icon>
         {{menu.label}}
         <span fxFlex *ngIf="menu.children && menu.children.length">
@@ -23,7 +31,8 @@
         </span>
       </a>
       <div class="childMenu">
-        <a mat-list-item [ngStyle]="{'padding-left': '45px'}" *ngFor="let child of menu.children" [routerLink]="child.routerLink" class="link" appActiveNav>
+        <a mat-list-item [ngStyle]="{'padding-left': '45px'}" *ngFor="let child of menu.children"
+          [routerLink]="child.routerLink" class="link" appActiveNav>
           {{child.label}}
         </a>
       </div>

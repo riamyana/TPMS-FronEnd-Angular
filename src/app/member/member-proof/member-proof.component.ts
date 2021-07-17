@@ -41,6 +41,25 @@ export class MemberProofComponent implements OnInit, OnDestroy {
     this.proofForm = this.controlContainer.control.get('proofGroup') as FormGroup;
     this.getMemberType();
     this.applySubscription();
+
+    this.checkEdit();
+  }
+
+  checkEdit() {
+    if (this.passRequestService.childMemberProof && this.passRequestService.childMemberProof.status == 2) {
+      this.form.requestAs.setValue(this.passRequestService.childMemberProof.memberTypeId);
+
+      this.passRequestService.getMemberProof().subscribe(
+        data => {
+          for (let i = 0; i < data.length; i++) {
+            this.proofs.controls[i].get('proofId').setValue(data[i].memProofId);
+          }
+        }, 
+        err => {
+          console.log(err);
+        }
+      )
+    }
   }
 
   get form() {

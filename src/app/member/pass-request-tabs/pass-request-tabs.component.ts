@@ -262,5 +262,11 @@ export class PassRequestTabsComponent implements OnInit {
         console.log(err);
       }
     );
+
+    this.passRequestService.childMemberProof = {
+      memberTypeId: data.memberTypeId,
+      status: data.status,
+      memberId: data.memberId
+    };
   }
 }

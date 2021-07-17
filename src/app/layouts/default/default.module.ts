@@ -29,6 +29,7 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TransportCostComponent } from 'src/app/admin/transport-cost/transport-cost.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 
 
@@ -65,6 +66,7 @@ import { TransportCostComponent } from 'src/app/admin/transport-cost/transport-c
     MaterialModule,
     ReactiveFormsModule,
     AppDirectiveModule,
+    HighchartsChartModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDTtaFlEBursUoZoX_oyIm3V6H_NXx8KGE'
     })

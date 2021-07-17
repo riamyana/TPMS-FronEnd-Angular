@@ -24,6 +24,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatChipsModule } from '@angular/material/chips';
 
 const MaterialComponents = [
   MatButtonModule,
@@ -59,7 +61,9 @@ const MaterialComponents = [
   MatButtonToggleModule,
   MatStepperModule,
   MatRadioModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatDividerModule,
+  MatChipsModule
 ];
 
 @NgModule({

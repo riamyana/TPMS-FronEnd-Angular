@@ -6,6 +6,10 @@
   background-color: rgb(233, 230, 230);
 }
 
+.container {
+  overflow: hidden !important;
+}
+
 .side-nav {
   overflow-x: hidden !important;
 }
@@ -85,4 +89,22 @@
     transform: rotate(180deg);
     transition: transform 0.5s linear;
   }
+}
+
+*::-webkit-scrollbar {
+  width: 0.1em;
+}
+
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+.divider {
+  margin-top: 10px;
+  background-color: rgb(33, 99, 157);
 }

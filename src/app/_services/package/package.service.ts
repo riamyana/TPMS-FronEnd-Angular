@@ -1,3 +1,4 @@
+import { PackageForMember } from './../../_models/packageForMember';
 import { MemberPackage } from './../../_models/package/member-package';
 import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { Package, MemberTypePackageData } from './../../_models/package/package';
@@ -30,6 +31,14 @@ export class PackageService {
 
   getMemberTypePackages(packageId: number) {
     return this.http.get<MemberTypePackageData[]>(`${environment.serverUrl}member-packages/${packageId}`);
+  }
+
+  getPackagesForMember(memberId: number): Observable<PackageForMember[]> {
+    return this.http.get<PackageForMember[]>(`${environment.serverUrl}member-packages/memberId/${memberId}`);
+  }
+
+  getModePackages(modeId: number): Observable<Package[]> {
+    return this.http.get<Package[]>(`${environment.serverUrl}packages/mode/${modeId}`);
   }
 
   deletePackage(id: number): Observable<any> {

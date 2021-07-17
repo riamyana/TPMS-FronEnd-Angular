@@ -19,3 +19,63 @@
 .dashboard-card-content {
   text-align: center;
 }
+
+.column {
+  background-color: blue;
+  width: 25%;
+}
+
+.container {
+  padding: 20px;
+}
+
+.col1 {
+  background-color: rgb(0, 192, 239);
+}
+
+.col2 {
+  background-color: rgb(0, 166, 90);
+}
+
+.col3 {
+  background-color: rgb(243, 156, 17);
+}
+
+.col4 {
+  background-color: rgb(221, 76, 57);
+}
+
+.material-icons.col1 {
+  font-size: 100px;
+  color: rgb(0, 164, 206);
+}
+
+.material-icons.col2 {
+  font-size: 100px;
+  color: rgb(2, 139, 75);
+}
+
+.material-icons.col3 {
+  font-size: 100px;
+  color: rgb(207, 132, 15)
+}
+
+.material-icons.col4 {
+  font-size: 100px;
+  color: rgb(189, 63, 46);
+}
+
+.mat-button {
+  width: 100%;
+  color: white;
+}
+
+.number {
+  font-size: 70px;
+  color: white;
+  margin-top: 30px;
+}
+
+.info {
+  color:white;
+}

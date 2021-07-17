@@ -31,6 +31,7 @@ import { AuthGuard } from './auth.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TransportCostComponent } from './admin/transport-cost/transport-cost.component';
+import { MemberPackageComponent } from './member/member-package/member-package.component';
 
 
 const routes: Routes = [
@@ -58,6 +59,8 @@ const routes: Routes = [
       path: 'reset-password', component: ResetPasswordComponent
     }, {
       path: 'pass-request', component: PassRequestComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN }
+    }, {
+      path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN }
     }
     ]
   },
@@ -76,8 +79,6 @@ const routes: Routes = [
     }, {
       path: 'admin/login', component: AdminLoginComponent
     }, {
-      path: 'admin/dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: { role: Roles.ADMIN }
-    }, {
       path: 'user/login', component: MemberLoginComponent
     }, {
       path: 'user/register', component: RegistrationComponent
@@ -85,6 +86,8 @@ const routes: Routes = [
       path: 'user/pass-request', component: PassRequestTabsComponent, canActivate: [AuthGuard], data: { role: Roles.USER }
     }, {
       path: 'user/my-profile', component: ManageProfileComponent, canActivate: [AuthGuard]
+    }, {
+      path: 'user/package', component: MemberPackageComponent, canActivate: [AuthGuard]
     }]
   },
   { path: '**', component: PageNotFoundComponent }
