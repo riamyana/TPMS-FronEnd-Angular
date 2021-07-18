@@ -2,7 +2,7 @@
     <div fxLayout="row" fxLayoutAlign="center center">
         <div fxLayout="column" fxLayoutGap="10px" class="outer-box" *ngIf="noPass">
             <div style="color:red;">
-                <span class="info">Sorry! You Don't have a Pass. </span>
+                <span class="info">Sorry! Seems You Don't have a Pass. </span>
                 <a routerLink="/user/pass-request" class="link">Request for New Pass.</a>
             </div>
         </div>
@@ -67,25 +67,31 @@
 
         <mat-divider></mat-divider>
 
-        <div class="packages" fxLayout="row wrap" fxLayoutGap="45px grid">
-            <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let package of packages" class="card">
+        <div class="packages" fxLayout="row wrap" fxLayoutGap="40px grid">
+            <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let package of packages" class="card" fxLayoutAlign="center stretch">
                 <mat-card>
                     <mat-card-header fxLayout="row" fxLayoutAlign="center center">
                         <mat-card-title>{{package.name}}</mat-card-title>
                     </mat-card-header>
                     <mat-divider></mat-divider>
-                    <div class="mode">{{mode}}</div>
+                    <div class="mode">{{package.transportMode}}</div>
                     <div fxLayout="column">
                         <mat-card-content fxLayout="row" fxLayoutAlign="space-between start">
-                            <div class="price">₹ {{package.price}}</div>
+                            <div class="price" *ngIf="!package.discountPercentage">₹ {{package.price}}</div>
+                            <div fxLayout="column" *ngIf="package.discountPercentage">
+                                <div class="price">₹ {{package.actualPrice}}</div>
+                                <div class="price" style="text-decoration: line-through; font-size: 15px; padding-top: 5px; padding-left: 25px;">{{package.price}}</div>
+                                <div style="font-size: 15px; padding-top: 3px; padding-left: 25px;">{{package.discountPercentage}} % off</div>
+                                <div style="font-size: 15px; padding-top: 3px; padding-left: 25px;">{{package.discountDescription}}</div>
+                            </div>
                             <div>
                                 <div class="validity">{{package.validity}} Days</div>
                                 <div>Validity</div>
                             </div>
                         </mat-card-content>
                         <div class="availability">
-                            <div>For</div>
-                            <div>Kids, Adult, Senior Cititzen</div>
+                            <div style="font-size: 18px; font-weight: 500;">Subscription</div>
+                            <div>{{package.subscriptionType}}</div>
                         </div>
 
                         <!-- <div class="availability">

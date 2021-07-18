@@ -17,7 +17,7 @@
             <mat-form-field color="accent" appearance="fill">
                 <mat-label>Select Transport Mode</mat-label>
                 <mat-select name="memberTypeData" formControlName="modeType">
-                    <mat-option *ngFor="let data of modeData" [value]="data.id">
+                    <mat-option *ngFor="let data of modeData" [value]="data.name">
                         {{data.name}}
                     </mat-option>
                 </mat-select>

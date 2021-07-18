@@ -29,7 +29,7 @@ export class ManagePackageComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   listData: MatTableDataSource<Package>;
-  dispCol: string[] = ['srNo', 'name', 'transportModeId', 'memberType', 'subscriptionType', 'validity', 'price', 'action'];
+  dispCol: string[] = ['srNo', 'name', 'transportMode', 'memberType', 'subscriptionType', 'validity', 'price', 'action'];
   packageData: Package[];
   memberTypeData: MemberType[];
   data: DialogData = {

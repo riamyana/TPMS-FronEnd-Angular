@@ -87,7 +87,7 @@ export class AddPackageComponent implements OnInit {
 
         this.form.packageId.setValue(data.id);
         this.form.packageName.setValue(data.name);
-        this.form.modeType.setValue(data.transportModeId);
+        this.form.modeType.setValue(data.transportMode);
         this.form.subscriptionType.setValue(data.subscriptionType);
         this.form.total.setValue(data.counts);
         this.form.validity.setValue(data.validity);
@@ -141,7 +141,7 @@ export class AddPackageComponent implements OnInit {
     this.packageData = {
       id: this.form.packageId.value,
       name: this.form.packageName.value,
-      transportModeId: this.form.modeType.value,
+      transportMode: this.form.modeType.value,
       subscriptionType: this.form.subscriptionType.value,
       counts: this.form.total.value,
       validity: this.form.validity.value,

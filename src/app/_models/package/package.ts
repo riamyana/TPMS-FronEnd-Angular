@@ -2,7 +2,7 @@ import { MemberPackage } from './member-package';
 export interface Package {
     id?: number;
     name: string;
-    transportModeId: number;
+    transportMode: string;
     subscriptionType: number;
     counts: number;
     validity: number;
@@ -14,7 +14,7 @@ export interface Package {
 export interface MemberTypePackageData{
     id?: number;
     name?: string;
-    transportModeId?: number,
+    transportMode?: string,
     subscriptionType?: number;
     counts?: number;
     validity?: number;
