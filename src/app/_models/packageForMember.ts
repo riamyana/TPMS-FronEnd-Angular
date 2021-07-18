@@ -1,6 +1,7 @@
 export interface PackageForMember {
     id: number;
     name: string;
+    transportMode: string;
     subscriptionType: string;
     counts: number;
     validity: number;
@@ -11,4 +12,6 @@ export interface PackageForMember {
     discountEndDate: string;
     discountPercentage: number;
     discountDescription: string;
+    discount?: boolean;
+    actualPrice?: number;
 }

@@ -1,3 +1,4 @@
+import { NotifierMsg } from './../../constants/notifierMsg';
 import { PackageForMember } from './../../_models/packageForMember';
 import { Router } from '@angular/router';
 import { NotifierService } from './../../_services/notifier/notifier.service';
@@ -14,8 +15,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TransportMode } from 'src/app/_models/transport-mode/transport-mode';
 import { Package } from 'src/app/_models/package/package';
 import { Subscription, merge } from 'rxjs';
-import { NotifierMsg } from 'src/app/constants/notifierMsg';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-member-package',
@@ -28,6 +29,7 @@ export class MemberPackageComponent implements OnInit, OnDestroy {
   subType = subscriptionTypeEnum;
   keys;
   noPass: boolean = false;
+  discount: boolean = false;
 
   modes: TransportMode[] = [
     { id: 0, name: "All" }
@@ -96,7 +98,7 @@ export class MemberPackageComponent implements OnInit, OnDestroy {
         } else if (err.status == 404) {
 
         } else {
-
+          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
         }
       }
     )
@@ -108,8 +110,17 @@ export class MemberPackageComponent implements OnInit, OnDestroy {
       data => {
         this.packages = this.packages.concat(data);
         this.packageTemp = this.packages;
-        console.log(data);
-        console.log(this.packages);
+
+        this.packages.forEach(value => {
+          const today = moment().toDate();
+          if (value.discountPercentage && today >= moment(value.discountStartDate,'YYYY-MM-DD').toDate() && today <= moment(value.discountEndDate,'YYYY-MM-DD').toDate()) {
+            value.discount = true;
+            value.actualPrice = Math.round(value.price - ((value.discountPercentage * value.price)/100));
+            // alert(value.actualPrice);
+          } else {
+            value.discount = false;
+          }
+        });
       },
       err => {
         if (err.status == 401 || err.status == 403) {
@@ -117,7 +128,7 @@ export class MemberPackageComponent implements OnInit, OnDestroy {
         } else if (err.status == 404) {
           
         } else {
-
+          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
         }
       }
     );
@@ -146,7 +157,7 @@ export class MemberPackageComponent implements OnInit, OnDestroy {
   }
 
   filterPackage() {
-    debugger;
+    this.mode = "";
     this.packages = this.packageTemp;
     const subscription = this.form.subscription.value;
     const price: string = this.form.price.value;
@@ -179,40 +190,10 @@ export class MemberPackageComponent implements OnInit, OnDestroy {
     this.packages = this.packageTemp;
 
     if (mode.toUpperCase() == "ALL") {
-      this.getAllPackages();
       return;
     }
 
-    this.packageService.getModePackages(this.modes[i].id).subscribe(
-      data => {
-        this.transportPackage = this.transportPackage.concat(data);
-        let modePackageid: number[] = [];
-        let packageid: number[] = [];
-
-        // modePackageid = this.transportPackage.map(value => value.id);
-        // packageid = this.packages.map(value => value.id);
-
-        // packageid = _.intersection(modePackageid, packageid);
-
-      },
-      err => {
-        if (err.status == 401 || err.status == 403) {
-          this.router.navigateByUrl('user/login');
-        } else if (err.status == 404) {
-          this.transportPackage = [];
-        } else {
-
-        }
-      }
-    );
-
-    console.log(this.transportPackage);
-    this.packages = [];
-    for (let i = 0; i < this.packageTemp.length; i++) {
-      if (this.packageTemp[i].id == this.transportPackage[i].id) {
-        this.packages.push(this.packageTemp[i]);
-      }
-    }
+    this.packages = this.packages.filter(value => value.transportMode.toLowerCase() == mode.toLowerCase());
   }
 
   ngOnDestroy() {
