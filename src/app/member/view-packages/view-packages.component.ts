@@ -1,4 +1,5 @@
-import { PaymentService } from './../../_services/paymentService/payment.service';
+import { MemberService } from './../../_services/member/member.service';
+import { MemberType } from './../../_models/member/member-type';
 import { NotifierMsg } from './../../constants/notifierMsg';
 import { PackageForMember } from './../../_models/packageForMember';
 import { Router } from '@angular/router';
@@ -10,7 +11,7 @@ import { MemberProfile } from './../../_models/memberProfile';
 import { subscriptionTypeEnum } from './../../constants/subscription-type';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PackageService } from './../../_services/package/package.service';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { filter, distinctUntilChanged } from 'rxjs/operators';
 import { TransportModeService } from './../../_services/transport-mode/transport-mode.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TransportMode } from 'src/app/_models/transport-mode/transport-mode';
@@ -20,22 +21,21 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-member-package',
-  templateUrl: './member-package.component.html',
-  styleUrls: ['./member-package.component.scss']
+  selector: 'app-view-packages',
+  templateUrl: './view-packages.component.html',
+  styleUrls: ['./view-packages.component.scss']
 })
-export class MemberPackageComponent implements OnInit, OnDestroy {
-
+export class ViewPackagesComponent implements OnInit {
   private subscriptions: Subscription[] = [];
   subType = subscriptionTypeEnum;
   keys;
-  noPass: boolean = false;
   discount: boolean = false;
 
   modes: TransportMode[] = [
     { id: 0, name: "All" }
   ];
 
+  memberType: MemberType[] = [];
   filterForm: FormGroup;
   packages: PackageForMember[] = [];
   mode: string = 'ALL';
@@ -48,45 +48,21 @@ export class MemberPackageComponent implements OnInit, OnDestroy {
     private modeService: TransportModeService,
     private packageService: PackageService,
     private fb: FormBuilder,
-    private memberService: MemberProfileService,
+    private memberTypeService: MemberService,
     private authService: AuthenticationService,
     private notifierService: NotifierService,
-    private router: Router,
-    private paymentService: PaymentService
+    private router: Router
   ) {
     this.keys = Object.keys(this.subType);
     this.user = this.authService.currentUserValue;
   }
 
   ngOnInit(): void {
-    this.checkForPass();
-    // this.getModes();
+    this.getAllPackages();
+    this.getModes();
+    this.getMemberType();
     this.initForm();
     this.applySubscription();
-  }
-
-  checkForPass() {
-    this.memberService.getMemberByUserId(this.user.id).subscribe(
-      data => {
-        this.memberProfile = data;
-        if (data[0].status == 1) {
-          this.noPass = false;
-          this.getAllPackages();
-          this.getModes();
-        } else {
-          this.noPass = true;
-        }
-      },
-      err => {
-        if (err.status == 401 || err.status == 403) {
-          this.router.navigateByUrl('/user/login');
-        } else if (err.status == 404) {
-          this.noPass = true;
-        } else {
-          this.notifierService.showNotification(NotifierMsg.errorMsg, 'OK', 'error');
-        }
-      }
-    );
   }
 
   getModes() {
@@ -106,12 +82,27 @@ export class MemberPackageComponent implements OnInit, OnDestroy {
     )
   }
 
+  getMemberType() {
+    this.memberTypeService.getMemberType().subscribe(
+      data => {
+        this.memberType = data;
+      },
+      err => {
+        if (err.status == 401 || err.stats == 403) {
+          this.router.navigateByUrl('admin/login');
+        } else {
+          this.notifierService.showNotification('Something went wrong..! Please try again.', 'OK', 'error');
+        }
+      });
+  }
+
   getAllPackages() {
     this.packages = [];
-    this.packageService.getPackagesForMemberType(this.memberProfile[0].memberTypeId).subscribe(
+    this.packageService.getPackagesForMember().subscribe(
       data => {
         this.packages = this.packages.concat(data);
         this.packageTemp = this.packages;
+        // const adultId = this.memberType.filter(value => value.memberTypeName == "Adult").map(value => value.memberTypeId);
 
         this.packages.forEach(value => {
           const today = moment().toDate();
@@ -121,11 +112,13 @@ export class MemberPackageComponent implements OnInit, OnDestroy {
             // alert(value.actualPrice);
           } else {
             value.discount = false;
-            value.actualPrice = value.price;
           }
         });
+
+        // this.packages = this.packages.filter(value => value.memberTypeId == adultId[0]);
       },
       err => {
+        console.log(err);
         if (err.status == 401 || err.status == 403) {
           this.router.navigateByUrl('user/login');
         } else if (err.status == 404) {
@@ -140,7 +133,8 @@ export class MemberPackageComponent implements OnInit, OnDestroy {
   initForm() {
     this.filterForm = this.fb.group({
       subscription: [''],
-      price: ['']
+      price: [''],
+      memberTypeId: ['']
     });
   }
 
@@ -152,7 +146,8 @@ export class MemberPackageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       merge(
         this.form.subscription.valueChanges.pipe(distinctUntilChanged()),
-        this.form.price.valueChanges.pipe(distinctUntilChanged())
+        this.form.price.valueChanges.pipe(distinctUntilChanged()),
+        this.form.memberTypeId.valueChanges.pipe(distinctUntilChanged())
       ).subscribe(() => {
         this.filterPackage();
       })
@@ -164,14 +159,12 @@ export class MemberPackageComponent implements OnInit, OnDestroy {
     this.packages = this.packageTemp;
     const subscription = this.form.subscription.value;
     const price: string = this.form.price.value;
+    const memberTypeId = this.form.memberTypeId.value;
     if (subscription) {
-      console.log(this.packages);
       this.packages = this.packages.filter(value => value.subscriptionType == subscription);
-      console.log(this.packages);
     }
     if (price) {
       const split = price.split("-");
-      debugger;
       this.packages = this.packages.filter(value => {
         if (split[1]) {
           return value.price <= +split[1] && value.price >= +split[0];
@@ -179,6 +172,10 @@ export class MemberPackageComponent implements OnInit, OnDestroy {
           return value.price > +split[0];
         }
       });
+    }
+
+    if (memberTypeId) {
+      this.packages = this.packages.filter(value => value.memberTypeId == +memberTypeId);
     }
   }
 
@@ -188,6 +185,8 @@ export class MemberPackageComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.form.memberTypeId.setValue('');
+
     this.mode = mode.toUpperCase();
     this.transportPackage = [];
     this.packages = this.packageTemp;
@@ -195,19 +194,17 @@ export class MemberPackageComponent implements OnInit, OnDestroy {
     if (mode.toUpperCase() == "ALL") {
       return;
     }
-
+    
+    console.log(this.packages);
     this.packages = this.packages.filter(value => value.transportMode.toLowerCase() == mode.toLowerCase());
+
+    console.log(this.packages);
   }
 
   ngOnDestroy() {
     if (this.subscriptions && this.subscriptions.length > 0) {
       this.subscriptions.forEach(s => s.unsubscribe());
     }
-  }
-
-  onClick(pck: PackageForMember) {
-    this.paymentService.package = pck;
-    this.router.navigateByUrl('/user/buy-package');
   }
 
 }

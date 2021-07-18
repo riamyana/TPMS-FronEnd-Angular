@@ -1,0 +1,115 @@
+<div class="container">
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div fxLayout="column" fxLayoutGap="10px" class="outer-box">
+            <div style="color:red;">
+                <span class="info">*Dont' have a Pass? </span>
+                <a routerLink="/user/pass-request" class="link">Request for New Pass.</a> OR
+                <a routerLink="/user/package" class="link">Buy Package</a>
+            </div>
+        </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <mat-chip-list>
+        <div class="mat-chip-list-wrapper" fxLayout="row" fxLayoutGap="20px">
+            <ng-container *ngFor="let mode of modes; let i = index;">
+                <mat-chip (click)="getModePackage(mode.name, i)">
+                    {{mode.name | uppercase}}
+                </mat-chip>
+            </ng-container>
+
+        </div>
+    </mat-chip-list>
+    <mat-divider></mat-divider>
+
+    <!-- <div fxLayout="row" style="padding: 10px;">
+        <mat-icon color="accent">filter_alt</mat-icon>
+        <div style="padding: 2px;">Subscription</div>
+        <mat-form-field style="height: 10px;">
+            <mat-label>Choose an option</mat-label>
+            <mat-select>
+              <mat-option value="option1">Option 1</mat-option>
+              <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
+              <mat-option value="option3">Option 3</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div> -->
+
+    <div fxLayout="row" fxLayoutGap="10px" style="padding-bottom: 10px;">
+        <div fxLayout="row" style="font-size: 16px; padding-top: 10px;">
+            <mat-icon color="accent">filter_alt</mat-icon>
+            Filter
+        </div>
+
+        <form [formGroup]="filterForm" fxLayout="row wrap" fxLayoutGap="10px grid" style="padding-bottom: 10px;"
+            fxFlex="100">
+            <mat-form-field style="height: 10px;" fxFlex="20" fxFlex.xs="80" fxFlex.sm="50">
+                <mat-label>Choose subscription</mat-label>
+                <mat-select name="subType" formControlName="subscription">
+                    <mat-option *ngFor="let key of keys" [value]="subType[key]">
+                        {{ subType[key] }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field style="height: 10px;" fxFlex="20" fxFlex.xs="80" fxFlex.sm="50">
+                <mat-label>Price Range</mat-label>
+                <mat-select formControlName="price">
+                    <mat-option value="50-100">50 - 100</mat-option>
+                    <mat-option value="100-300">100 - 300</mat-option>
+                    <mat-option value="300-600">300 - 600</mat-option>
+                    <mat-option value="600">600 or more</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field style="height: 10px;" fxFlex="20" fxFlex.xs="80" fxFlex.sm="50">
+                <mat-label>Member Type</mat-label>
+                <mat-select formControlName="memberTypeId" selected="'ad'">
+                    <mat-option *ngFor="let type of memberType" [value]="type.memberTypeId">
+                        {{type.memberTypeName}}
+                        <!-- {{ subType[key] }} -->
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="packages" fxLayout="row wrap" fxLayoutGap="40px grid">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let package of packages" class="card"
+            fxLayoutAlign="center stretch">
+            <mat-card>
+                <mat-card-header fxLayout="row" fxLayoutAlign="center center">
+                    <mat-card-title>{{package.name}}</mat-card-title>
+                </mat-card-header>
+                <mat-divider></mat-divider>
+                <div class="mode">{{package.transportMode}}</div>
+                <div fxLayout="column">
+                    <mat-card-content fxLayout="row" fxLayoutAlign="space-between start">
+                        <div class="price" *ngIf="!package.discountPercentage">₹ {{package.price}}</div>
+                        <div fxLayout="column" *ngIf="package.discountPercentage">
+                            <div class="price">₹ {{package.actualPrice}}</div>
+                            <div class="price"
+                                style="text-decoration: line-through; font-size: 15px; padding-top: 5px; padding-left: 25px;">
+                                {{package.price}}</div>
+                            <div style="font-size: 15px; padding-top: 3px; padding-left: 25px;">
+                                {{package.discountPercentage}} % off</div>
+                            <div style="font-size: 15px; padding-top: 3px; padding-left: 25px;">
+                                {{package.discountDescription}}</div>
+                        </div>
+                        <div>
+                            <div class="validity">{{package.validity}} Days</div>
+                            <div>Validity</div>
+                        </div>
+                    </mat-card-content>
+                    <div class="availability">
+                        <div style="font-size: 18px; font-weight: 500;">Subscription</div>
+                        <div>{{package.subscriptionType}}</div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+    </div>
+</div>

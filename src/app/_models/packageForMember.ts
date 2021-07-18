@@ -1,5 +1,6 @@
 export interface PackageForMember {
     id: number;
+    memberTypeId: number;
     name: string;
     transportMode: string;
     subscriptionType: string;

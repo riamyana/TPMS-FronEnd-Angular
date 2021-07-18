@@ -20,6 +20,8 @@ import { ViewPassComponent } from './view-pass/view-pass.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { ManageProfileComponent } from './manage-profile/manage-profile.component';
 import { MemberPackageComponent } from './member-package/member-package.component';
+import { ViewPackagesComponent } from './view-packages/view-packages.component';
+import { BuyPackageComponent } from './buy-package/buy-package.component';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { MemberPackageComponent } from './member-package/member-package.componen
     MemberProofComponent,
     ViewPassComponent,
     ManageProfileComponent,
-    MemberPackageComponent
+    MemberPackageComponent,
+    ViewPackagesComponent,
+    BuyPackageComponent
   ],
   imports: [
     CommonModule,
