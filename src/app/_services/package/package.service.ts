@@ -33,8 +33,12 @@ export class PackageService {
     return this.http.get<MemberTypePackageData[]>(`${environment.serverUrl}member-packages/${packageId}`);
   }
 
-  getPackagesForMember(memberId: number): Observable<PackageForMember[]> {
-    return this.http.get<PackageForMember[]>(`${environment.serverUrl}member-packages/memberId/${memberId}`);
+  getPackagesForMemberType(memberTypeId: number): Observable<PackageForMember[]> {
+    return this.http.get<PackageForMember[]>(`${environment.serverUrl}member-packages/memberId/${memberTypeId}`);
+  }
+
+  getPackagesForMember(): Observable<PackageForMember[]> {
+    return this.http.get<PackageForMember[]>(`${environment.serverUrl}member-packages`);
   }
 
   getModePackages(modeId: number): Observable<Package[]> {

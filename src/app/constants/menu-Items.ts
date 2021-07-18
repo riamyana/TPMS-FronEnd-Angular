@@ -33,7 +33,7 @@ export const userMenu: users[] = [
     {
         userType: Roles.USER,
         menu: [
-            { label: 'View Packages', routerLink: '/user/kdj', active: true },
+            { label: 'View Packages', routerLink: '/user/view-package', active: true },
             { label: 'Buy Package', routerLink: '/user/package', active: true },
             { label: 'Request Pass', routerLink: '/user/pass-request', active: true },
             { label: 'My Profile', routerLink: '/user/my-profile', active: true },

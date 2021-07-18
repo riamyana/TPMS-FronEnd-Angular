@@ -1,3 +1,5 @@
+import { BuyPackageComponent } from './member/buy-package/buy-package.component';
+import { ViewPackagesComponent } from './member/view-packages/view-packages.component';
 import { ManageProfileComponent } from './member/manage-profile/manage-profile.component';
 import { ChangePasswordComponent } from './modules/forgot-password/change-password/change-password.component';
 import { OtpComponent } from './modules/forgot-password/otp/otp.component';
@@ -87,7 +89,11 @@ const routes: Routes = [
     }, {
       path: 'user/my-profile', component: ManageProfileComponent, canActivate: [AuthGuard]
     }, {
-      path: 'user/package', component: MemberPackageComponent, canActivate: [AuthGuard]
+      path: 'user/package', component: MemberPackageComponent, canActivate: [AuthGuard], data: { role: Roles.USER }
+    }, {
+      path: 'user/view-package', component: ViewPackagesComponent, canActivate: [AuthGuard], data: { role: Roles.USER }
+    }, {
+      path: 'user/buy-package', component: BuyPackageComponent, canActivate: [AuthGuard], data: { role: Roles.USER }
     }]
   },
   { path: '**', component: PageNotFoundComponent }

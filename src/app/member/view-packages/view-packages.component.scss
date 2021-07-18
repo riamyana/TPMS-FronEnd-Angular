@@ -36,16 +36,9 @@
 
 .outer-box {
     border: solid 0.05em lightgrey; 
-    padding: 10px;
+    padding: 20px;
+    width: 100%;
     background-color: rgba(0,192,239, 0.1);
-
-
-    // border: solid 0.05em lightgrey; 
-    // padding: 50px;
-    // width: 50%;
-    // margin-top: 30vh;
-    // margin-left: 25vw;
-    // background-color: rgba(0,192,239, 0.1);
 }
 
 .info {
@@ -63,7 +56,6 @@
 }
 
 .mat-card {
-    cursor: pointer;
     min-width: 300px;
     max-width: 400px;
     padding: 0px;

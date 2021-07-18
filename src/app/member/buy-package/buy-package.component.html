@@ -1,0 +1,20 @@
+<div fxLayout="row" fxLayoutAlign="center center" class="card" fxLayoutGap="10px">
+    <mat-card fxFlex.xs="100" fxFlex.sm="50">
+        <mat-card-header fxLayout="row" fxLayoutAlign="center center">
+            <mat-card-title class="name">{{package.name}}</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content fxLayout="column" fxLayoutGap="40px" style="padding-top: 10px;">
+            <!-- <div class="price">{{package.actualPrice}}</div> -->
+            <div fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="20px">
+                <div class="price">₹ {{package.actualPrice}}</div>
+                <div class="validity">{{package.validity}} Days</div>
+                <div class="mode">Transport Mode: {{package.transportMode}}</div>
+                <div class="pass">Pass Id: <span style="font-weight: 500;">{{pass[0].serialNo}}</span></div>
+            </div>
+        </mat-card-content>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <button color="warn" mat-raised-button style="width: 100%;" (click)="onBuy()">BUY</button>
+        </div>
+    </mat-card>
+</div>

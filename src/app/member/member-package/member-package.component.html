@@ -69,7 +69,7 @@
 
         <div class="packages" fxLayout="row wrap" fxLayoutGap="40px grid">
             <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let package of packages" class="card" fxLayoutAlign="center stretch">
-                <mat-card>
+                <mat-card (click)="onClick(package)">
                     <mat-card-header fxLayout="row" fxLayoutAlign="center center">
                         <mat-card-title>{{package.name}}</mat-card-title>
                     </mat-card-header>
