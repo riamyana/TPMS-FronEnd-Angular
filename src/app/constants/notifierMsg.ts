@@ -36,4 +36,7 @@ export class NotifierMsg {
     static readonly otpErrorMsg = `Problem in sending OTP..! Please try again later`;
     static readonly invalidOTP = `Incorrect OTP..!`;
     static readonly noPassReq = `There is not pass request..!`;
+    static readonly packageEnrolled = `Sorry..! Seems you already Enrolled Package.`;
+    static readonly successEnrolledPackage = `Package Enrolled Successfully..!`;
+    static readonly paymentFailed = `Oops..! Payment Failed.`;
 }
