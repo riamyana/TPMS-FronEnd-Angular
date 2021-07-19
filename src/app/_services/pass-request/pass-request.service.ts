@@ -108,16 +108,17 @@ export class PassRequestService {
       );
   }
 
-  updatePassRequest(memberId: number, memberProfile: MemberProfile, memberAddress: Address, proof: FormArray): Observable<MemberProof> {
+  updatePassRequest(memberProfile: MemberProfile, memberAddress: Address, proof: FormArray): Observable<MemberProof> {
     let httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
 
-    return this.http.post<MemberProfile>(`${environment.serverUrl}members`, memberProfile, { headers: httpHeaders })
+    return this.http.put<MemberProfile>(`${environment.serverUrl}members`, memberProfile, { headers: httpHeaders })
       .pipe(
         concatMap((res: MemberProfile) => {
-          memberAddress.memberId = res.memberId;
-          return this.http.post<Address>(`${environment.serverUrl}member/member-address`, memberAddress, { headers: httpHeaders })
+          const memberId = res.memberId;
+          const addressId = memberAddress.addressId;
+          return this.http.put<Address>(`${environment.serverUrl}member/${memberId}/member-address/${addressId}`, memberAddress, { headers: httpHeaders })
         }),
         concatMap((res: Address) => {
           const len = proof.length;
@@ -126,14 +127,15 @@ export class PassRequestService {
             this.updateProof(i, proof, res.memberId);
             const formData = new FormData();
             formData.append("proofImage", this.getFile(i));
+            formData.append("memProofId", this.memberProof.memProofId.toString());
             formData.append("proofId", this.memberProof.proofId.toString());
             formData.append("memberId", this.memberProof.memberId.toString());
 
             if (i == len - 1) {
-              return this.http.post<MemberProof>(`${environment.serverUrl}member-proofs`, formData);
+              return this.http.put<MemberProof>(`${environment.serverUrl}member-proofs`, formData);
             }
             else {
-              this.http.post<MemberProof>(`${environment.serverUrl}member-proofs`, formData).subscribe(
+              this.http.put<MemberProof>(`${environment.serverUrl}member-proofs`, formData).subscribe(
                 data => {
                   console.log(data);
                 },
@@ -144,9 +146,6 @@ export class PassRequestService {
             }
           }
           return null;
-        }),
-        concatMap((res: any) => {
-          return this.http.post<any>(`${environment.serverUrl}pass-request-email`, memberProfile.userName, { headers: httpHeaders })
         })
       );
   }
@@ -154,6 +153,7 @@ export class PassRequestService {
 
   updateProof(i: number, proof: FormArray, memberId: number) {
     this.memberProof = {
+      memProofId: proof.controls[i].get('memProofId').value,
       proofId: proof.controls[i].get('proofId').value,
       memberId: memberId,
       proofImage: proof.controls[i].get('proofName').value

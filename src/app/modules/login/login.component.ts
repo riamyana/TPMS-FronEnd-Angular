@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           if (this.user_type == Roles.ADMIN)
-            this.router.navigateByUrl('admin/manage-member');
+            this.router.navigateByUrl('admin/dashboard');
           else if (this.user_type == Roles.USER)
             this.router.navigateByUrl('user/package');
         },
