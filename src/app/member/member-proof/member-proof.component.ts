@@ -52,7 +52,8 @@ export class MemberProofComponent implements OnInit, OnDestroy {
       this.passRequestService.getMemberProof().subscribe(
         data => {
           for (let i = 0; i < data.length; i++) {
-            this.proofs.controls[i].get('proofId').setValue(data[i].memProofId);
+            this.proofs.controls[i].get('memProofId').setValue(data[i].memProofId);
+            this.proofs.controls[i].get('proofId').setValue(data[i].proofId);
           }
         }, 
         err => {
@@ -99,6 +100,7 @@ export class MemberProofComponent implements OnInit, OnDestroy {
         this.proofs.clear();
         for (let i = 0; i < data.length; i++) {
           const newProof = this.fb.group({
+            memProofId: [data[i].memProofId],
             proofId: [data[i].proofId, Validators.required],
             proofName: ['', Validators.required]
           });

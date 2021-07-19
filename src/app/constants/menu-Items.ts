@@ -26,7 +26,7 @@ export const userMenu: users[] = [
         menu: [
             // { label: 'Home', routerLink: '/admin/dashboard', active: true },
             // { label: 'Manage User', routerLink: '/admin', active: true },
-            { label: 'Manage', routerLink: '/admin/manage', active: true },
+            { label: 'Manage', routerLink: '/admin/manage-member', active: true },
             { label: 'Login', routerLink: '/admin/login', active: false }
         ]
     },

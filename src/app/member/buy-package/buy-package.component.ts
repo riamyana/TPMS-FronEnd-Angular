@@ -68,7 +68,7 @@ export class BuyPackageComponent implements OnInit {
             this.updateEnrolledPackage();
             alert("in");
           } else {
-            this.notifierService.showNotification(NotifierMsg.packageEnrolled, 'OK', 'info');
+            this.notifierService.showNotification(NotifierMsg.packageEnrolled, 'OK', 'dialogInfo');
           }
         }
       },

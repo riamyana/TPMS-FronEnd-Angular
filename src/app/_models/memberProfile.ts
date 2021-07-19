@@ -12,5 +12,6 @@ export interface MemberProfile {
     profileImage?: string,
     requestDate: string,
     status?: number,
+    statusDescription?: string,
     description?: string
 }

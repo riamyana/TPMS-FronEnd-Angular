@@ -89,9 +89,14 @@
                     <td mat-cell *matCellDef="let element"> {{element.status == 0 ? 'New Request':'Not Approved'}} </td>
                 </ng-container>
 
+                <ng-container matColumnDef="statusDescription">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.statusDescription}} </td>
+                </ng-container>
+
                 <ng-container matColumnDef="description">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-                    <td mat-cell *matCellDef="let element" class="description"> {{element.status == 2 ?
+                    <td mat-cell *matCellDef="let element" class="description"> {{(element.status == 2 || element.status == 3) ?
                         element.description:''}} </td>
                 </ng-container>
 
@@ -127,7 +132,7 @@
                 <tr mat-row *matRowDef="let row; columns: dispCol;"></tr>
             </table>
             <div *ngIf="listData.data.length === 0" class="noData">No request found</div>
-            <mat-paginator pageSize="30" [pageSizeOptions]="[5,10,20,30]"></mat-paginator>
+            <mat-paginator pageSize="10" [pageSizeOptions]="[5,10,20,30]"></mat-paginator>
         </div>
     </mat-card>
 </div>

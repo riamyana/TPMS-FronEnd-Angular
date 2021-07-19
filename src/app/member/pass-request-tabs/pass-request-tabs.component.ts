@@ -68,6 +68,8 @@ export class PassRequestTabsComponent implements OnInit {
           this.status = 'Request Approved';
         } else if (data[0].status == StatusCategory.DISAPPROVED) {
           this.status = 'Request Not Approved';
+        } else if (data[0].status == StatusCategory.UPDATED) {
+          this.status = 'Request Updated But Not Approved';
         }
       },
       err => {
@@ -109,6 +111,7 @@ export class PassRequestTabsComponent implements OnInit {
         profileImage: ['']
       }),
       addressGroup: this.fb.group({
+        addressId: [''],
         permanentAddress1: ['', Validators.required],
         permanentAddress2: [''],
         permanentCity: ['', Validators.required],
@@ -161,7 +164,6 @@ export class PassRequestTabsComponent implements OnInit {
 
   sendRequest() {
     this.profileData = {
-      memberId: this.proofForm.get('requestAs').value,
       userId: this.userData.id,
       userName: this.userData.userName,
       memberTypeId: this.proofForm.get('requestAs').value,
@@ -186,7 +188,11 @@ export class PassRequestTabsComponent implements OnInit {
     };
 
     if (this.dataSource && this.dataSource[0].status == 2) {
-      this.passRequestService.updatePassRequest(this.dataSource[0].memberId, this.profileData, this.addressData, this.proofs).subscribe(
+      this.profileData.memberId = this.dataSource[0].memberId;
+      this.profileData.status = StatusCategory.UPDATED;
+
+      this.addressData.addressId = this.addressForm.get('addressId').value;
+      this.passRequestService.updatePassRequest(this.profileData, this.addressData, this.proofs).subscribe(
         data => {
           this.notifierService.showNotification(NotifierMsg.SuccessAddMsg('Pass Request'), 'OK', 'success');
           this.requested = true;
@@ -249,14 +255,15 @@ export class PassRequestTabsComponent implements OnInit {
       data => {
 
         console.log(data);
-        this.addressForm.get('permanentAddress1').setValue(data[0].addLine1),
-        this.addressForm.get('permanentAddress2').setValue(data[0].addLine2),
-        this.addressForm.get('permanentCity').setValue(data[0].city),
-        this.addressForm.get('permanentZip').setValue(data[0].zipCode),
-        this.addressForm.get('postalAddress1').setValue(data[0].postalAddLine1),
-        this.addressForm.get('postalAddress1').setValue(data[0].postalAddLine2),
-        this.addressForm.get('postalCity').setValue(data[0].postalCity),
-        this.addressForm.get('postalZip').setValue(data[0].postalZipCode)
+        this.addressForm.get('addressId').setValue(data[0].addressId);
+        this.addressForm.get('permanentAddress1').setValue(data[0].addLine1);
+        this.addressForm.get('permanentAddress2').setValue(data[0].addLine2);
+        this.addressForm.get('permanentCity').setValue(data[0].city);
+        this.addressForm.get('permanentZip').setValue(data[0].zipCode);
+        this.addressForm.get('postalAddress1').setValue(data[0].postalAddLine1);
+        this.addressForm.get('postalAddress1').setValue(data[0].postalAddLine2);
+        this.addressForm.get('postalCity').setValue(data[0].postalCity);
+        this.addressForm.get('postalZip').setValue(data[0].postalZipCode);
       },
       err => {
         console.log(err);

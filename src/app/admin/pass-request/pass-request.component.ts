@@ -27,7 +27,7 @@ export class PassRequestComponent implements OnInit {
   listData: MatTableDataSource<MemberProfile>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  dispCol: string[] = ['srNo', 'firstName', 'lastName', 'status', 'description', 'statusAction', 'action'];
+  dispCol: string[] = ['srNo', 'firstName', 'lastName', 'statusDescription', 'description', 'statusAction', 'action'];
   memberTypeName: string;
   descriptionForm: FormGroup;
   passForm: FormGroup;
@@ -82,6 +82,15 @@ export class PassRequestComponent implements OnInit {
         let tempData;
         this.listData.data = data;
         tempData = this.listData.data;
+        this.listData.data.forEach(value => {
+          if (value.status == StatusCategory.DEFAULT) {
+            value.statusDescription = "New Request";
+          } else if (value.status == StatusCategory.DISAPPROVED) {
+            value.statusDescription = "Not Approved";
+          } else if (value.status == StatusCategory.UPDATED) {
+            value.statusDescription = "Request Updated";
+          }
+        });
 
         this.route.params.subscribe(
           params => {
