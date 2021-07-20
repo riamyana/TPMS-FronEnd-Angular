@@ -4,6 +4,7 @@ export class UserModel {
     userName: string;
     email: string;
     role: Roles;
+    profileImage?: string;
     jwtToken?: string;
 
     set setRole(role: Roles) {

@@ -31,6 +31,10 @@ export class NotifierMsg {
         return status == "approve" ? "Pass Request Approved successfully..!" : "Pass Request Disapproved successfully..!";
     }
 
+    static profileImage(status: string) {
+        return status == "success" ? "Profile Image updated successfull..!" : "Problem in updating Profile Image..!";
+    }
+
     static readonly errorMsg = `Something went wrong..! Please try again later.`;
     static readonly changePassword = `Password Updated Successfully..!`;
     static readonly otpErrorMsg = `Problem in sending OTP..! Please try again later`;

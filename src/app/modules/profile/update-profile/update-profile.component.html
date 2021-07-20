@@ -5,7 +5,7 @@
     <mat-card class="card" fxFlex="100" fxFlex.xs="100%" fxFlex.md="100%" fxLayout="column">
         <form class="form" fxLayout="column" [formGroup]="profileForm" (ngSubmit)="onUpdate()">
 
-            <mat-form-field appearance="fill">
+            <!-- <mat-form-field appearance="fill">
                 <mat-label>First Name</mat-label>
                 <input matInput placeholder="First Name" formControlName="firstName">
                 <mat-error>
@@ -46,7 +46,7 @@
                 <mat-error>
                     Please provide valid Mobile No.
                 </mat-error>
-            </mat-form-field>
+            </mat-form-field> -->
 
 
 
@@ -58,9 +58,15 @@
                 </mat-error>
             </mat-form-field>
 
+            <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="start end" style="padding-bottom: 40px;">
+                <img [src]="imageUrl" alt="">
+                <input hidden type='file' #csvInput (change)="handleFileInput($event)" accept="image/*">
+                <button mat-raised-button (click)="csvInput.click()" style="height: 50%" color="accent" type="button">Choose Image</button>
+            </div>
+
             <div fxLayout="row" fxLayoutGap="10px">
                 <button mat-raised-button type="submit" color="accent">Update</button>
-                <button mat-raised-button type="button" color="warn" [mat-dialog-close]="true">Close</button>
+                <button mat-raised-button type="button" color="warn" [mat-dialog-close]="false">Close</button>
             </div>
         </form>
     </mat-card>

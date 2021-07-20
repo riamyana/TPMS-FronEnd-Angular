@@ -87,7 +87,7 @@ const routes: Routes = [
     }, {
       path: 'user/pass-request', component: PassRequestTabsComponent, canActivate: [AuthGuard], data: { role: Roles.USER }
     }, {
-      path: 'user/my-profile', component: ManageProfileComponent, canActivate: [AuthGuard]
+      path: 'user/my-profile', component: MyProfileComponent, canActivate: [AuthGuard]
     }, {
       path: 'user/package', component: MemberPackageComponent, canActivate: [AuthGuard], data: { role: Roles.USER }
     }, {

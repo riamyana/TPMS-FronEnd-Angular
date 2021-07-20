@@ -19,4 +19,8 @@ export class MemberProfileService {
   getCountStatus(status: number): Observable<number> {
     return this.http.get<number>(`${environment.serverUrl}members/pass-request/count/status/${status}`);
   }
+  
+  demoChart(): Observable<any> {
+    return this.http.get<any>(`${environment.serverUrl}highchart`);
+  }
 }

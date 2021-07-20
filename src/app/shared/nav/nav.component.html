@@ -2,7 +2,7 @@
   <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <div fxLayout="column" fxLayoutAlign="space-between center">
-      <img src="..\assets\undraw_profile_pic_ic5t.svg" alt="" class="profile">
+      <img [src]="imageUrl" alt="" class="profile">
       <div class="profileName">{{this.authService.currentUserValue.userName}}</div>
       <div class="profileName">{{this.authService.currentUserValue.email}}</div>
     </div>

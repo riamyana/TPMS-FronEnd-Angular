@@ -7,6 +7,14 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import * as Highcharts from 'highcharts';
+import  More from 'highcharts/highcharts-more';
+More(Highcharts);
+import Drilldown from 'highcharts/modules/drilldown';
+Drilldown(Highcharts);
+// Load the exporting module.
+import Exporting from 'highcharts/modules/exporting';
+// Initialize exporting module.
+Exporting(Highcharts);
 import { NotifierMsg } from 'src/app/constants/notifierMsg';
 
 @Component({
@@ -24,6 +32,7 @@ export class DashboardComponent implements OnInit {
   updatedPassRequests: number;
   disapprovePassRequests: number;
   statusCategory = StatusCategory;
+  chartData;
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -58,12 +67,24 @@ export class DashboardComponent implements OnInit {
 
     this.pieChartOption();
 
-    this.barChartOption();
+    // this.barChartOption();
 
     this.totalMember();
     this.newPassRequest();
     this.updatedPassRequest();
     this.disapprovePassRequest();
+
+    this.chartData = 1;
+
+    this.memberProfileService.demoChart().subscribe(
+      data => {
+        console.log(data);
+        this.barChartOption(data);
+      },
+      err => {
+        console.log(err);
+      }
+    )
   }
 
   totalMember() {
@@ -431,7 +452,45 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  barChartOption() {
+  barChartOption(data) {
+    this.chartData = data;
+    // this.chartData = [
+    //   {
+    //     name: "Chrome",
+    //     y: 62.74,
+    //     drilldown: "Chrome"
+    //   },
+    //   {
+    //     name: "Firefox",
+    //     y: 10.57,
+    //     drilldown: "Firefox"
+    //   },
+    //   {
+    //     name: "Internet Explorer",
+    //     y: 7.23,
+    //     drilldown: "Internet Explorer"
+    //   },
+    //   {
+    //     name: "Safari",
+    //     y: 5.58,
+    //     drilldown: "Safari"
+    //   },
+    //   {
+    //     name: "Edge",
+    //     y: 4.02,
+    //     drilldown: "Edge"
+    //   },
+    //   {
+    //     name: "Opera",
+    //     y: 1.92,
+    //     drilldown: "Opera"
+    //   },
+    //   {
+    //     name: "Other",
+    //     y: 7.62,
+    //     drilldown: null
+    //   }
+    // ];
     this.barChartOptions = {
       chart: {
         type: 'column'
@@ -478,43 +537,7 @@ export class DashboardComponent implements OnInit {
         {
           name: "Browsers",
           colorByPoint: true,
-          data: [
-            {
-              name: "Chrome",
-              y: 62.74,
-              drilldown: "Chrome"
-            },
-            {
-              name: "Firefox",
-              y: 10.57,
-              drilldown: "Firefox"
-            },
-            {
-              name: "Internet Explorer",
-              y: 7.23,
-              drilldown: "Internet Explorer"
-            },
-            {
-              name: "Safari",
-              y: 5.58,
-              drilldown: "Safari"
-            },
-            {
-              name: "Edge",
-              y: 4.02,
-              drilldown: "Edge"
-            },
-            {
-              name: "Opera",
-              y: 1.92,
-              drilldown: "Opera"
-            },
-            {
-              name: "Other",
-              y: 7.62,
-              drilldown: null
-            }
-          ]
+          data: this.chartData,
         }
       ],
       drilldown: {
