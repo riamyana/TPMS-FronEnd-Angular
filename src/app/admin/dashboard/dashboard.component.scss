@@ -83,3 +83,11 @@
 .mat-card {
   min-height: 20vh;
 }
+
+.loader {
+  position: absolute;
+  height: 100%;
+  width: 85%;
+  opacity: 0.8;
+  z-index: 99;
+}

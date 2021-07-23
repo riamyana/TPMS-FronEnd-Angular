@@ -43,4 +43,5 @@ export class NotifierMsg {
     static readonly packageEnrolled = `Sorry..! Seems you already Enrolled Package.`;
     static readonly successEnrolledPackage = `Package Enrolled Successfully..!`;
     static readonly paymentFailed = `Oops..! Payment Failed.`;
+    static readonly invalidUserName = `Entered User Name is not exists..!`;
 }

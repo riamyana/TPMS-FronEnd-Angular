@@ -175,7 +175,8 @@ export class BuyPackageComponent implements OnInit {
     this.enrolledPackage = {
       passId: this.pass[0].passId,
       packageId: this.package.id,
-      isActive: 1
+      isActive: 1,
+      amount: this.package.actualPrice
     }
     this.paymentService.saveEnrolledPackage(this.enrolledPackage).subscribe(
       data => {

@@ -20,7 +20,11 @@ export class MemberProfileService {
     return this.http.get<number>(`${environment.serverUrl}members/pass-request/count/status/${status}`);
   }
   
-  demoChart(): Observable<any> {
-    return this.http.get<any>(`${environment.serverUrl}highchart`);
+  packageData(): Observable<any> {
+    return this.http.get<any>(`${environment.serverUrl}last-year-package`);
+  }
+
+  modePackageData(): Observable<any> {
+    return this.http.get<any>(`${environment.serverUrl}last-year-transport-package`);
   }
 }

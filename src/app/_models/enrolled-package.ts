@@ -5,4 +5,5 @@ export interface EnrolledPackage {
     start?: string;
     end?: string;
     isActive: number;
+    amount?: number;
 }

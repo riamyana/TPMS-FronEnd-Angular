@@ -69,13 +69,11 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'admin/login' },
   {
     path: '', component: FullwidthComponent, children: [{
-      path: 'login', component: LoginComponent
+      path: ':user_type/forgot-password', component: ForgotPasswordComponent
     }, {
-      path: 'forgot-password', component: ForgotPasswordComponent
+      path: ':user_type/forgot-password/:userName', component: OtpComponent
     }, {
-      path: 'forgot-password/:userName', component: OtpComponent
-    }, {
-      path: 'forgot-password/:userName/:otp', component: ChangePasswordComponent
+      path: ':user_type/forgot-password/:userName/:otp', component: ChangePasswordComponent
     }, {
       path: 'home', component: HomeComponent
     }, {

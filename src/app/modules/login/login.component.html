@@ -45,7 +45,7 @@
                     <button mat-raised-button type="submit" color="primary">Login</button>
                     <div fxLayout="row" fxLayoutAlign="space-between">
                         <a routerLink="/user/register" *ngIf="user_type == role.USER">Register</a>
-                        <a routerLink="/forgot-password">Forgot Password</a>
+                        <a [routerLink]="'/'+user_type.toLowerCase()+'/forgot-password'">Forgot Password</a>
                     </div>
                 </form>
             </div>
