@@ -12,9 +12,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  // public isAuthenticated = new BehaviorSubject<boolean>(false);
-  // public isMenuOpen = new BehaviorSubject<boolean>(false);
-  private currentUserSubject: BehaviorSubject<UserModel>;
+  public currentUserSubject: BehaviorSubject<UserModel>;
   public currentUser: Observable<UserModel>;
 
   constructor(private http: HttpClient) {
@@ -48,7 +46,7 @@ export class AuthenticationService {
     this.currentUserSubject.next(null);
   }
 
-  isLoggedIn():boolean {
+  isLoggedIn(): boolean {
     return !!(localStorage.getItem('currentUser'));
   }
 
@@ -64,11 +62,19 @@ export class AuthenticationService {
     return this.http.post<any>(`${environment.serverUrl}user/changePassword`, data, { headers: httpHeaders });
   }
 
-  register(data: { userName, email, password}): Observable<any> {
+  register(data: { userName, email, password }): Observable<any> {
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
 
     return this.http.post<any>(`${environment.serverUrl}register`, data, { headers: httpHeaders });
+  }
+
+  updateProfile(image: File, userName: string): Observable<UserModel> {
+    const formData = new FormData();
+    formData.append("profileImage", image);
+    formData.append("userName", userName);
+
+    return this.http.put<UserModel>(`${environment.serverUrl}user/profile`, formData);
   }
 }

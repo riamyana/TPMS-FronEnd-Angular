@@ -76,14 +76,20 @@ export class ChangePasswordComponent implements OnInit {
 
   changePassword() {
 
+    if (!this.service.otp || !this.service.userName) {
+      this.msg = "An error occured during authorization. Please try again later..!";
+      return;
+    }
+
     if (this.changePasswordForm.valid) {
       const data: ForgtoPassword = {
-        userName: this.userName,
-        otp: this.otp,
+        userName: this.service.userName,
+        otp: this.service.otp,
         newPassword: this.changePasswordForm.get('password').value
       };
 
-      this.service.changePassword(data).subscribe(
+      const newPassword = this.changePasswordForm.get('password').value
+      this.service.changePassword(newPassword).subscribe(
         data => {
           if (data.message == "Success") {
             this.notifierService.showNotification(NotifierMsg.ChangePasswordMsg('success'), 'OK', 'success');
@@ -102,6 +108,9 @@ export class ChangePasswordComponent implements OnInit {
             console.log(err);
           }
         });
+
+      this.service.userName = null;
+      this.service.otp = null;
     }
   }
 

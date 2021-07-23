@@ -11,13 +11,20 @@ table{
     border-radius: 0px;
 }
 
+.mat-card-content {
+    font-size: larger;
+    font-weight: bold;
+}
+
 .name {
     font-size: large;
     font-weight: bold;
 }
 
 img {
-    width: 80%;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
 }
 
 .image {

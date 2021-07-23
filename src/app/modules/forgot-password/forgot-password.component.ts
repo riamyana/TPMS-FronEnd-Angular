@@ -41,17 +41,21 @@ export class ForgotPasswordComponent implements OnInit {
 
     if (this.forgotPasswordForm.valid) {
       const userName = this.forgotPasswordForm.get('userName').value;
+      this.service.userName = userName;
 
       this.service.sendOTP(userName).subscribe(
         data => {
           this.msg = "OTP sent successfully to your registered email address..!";
           const encryptedUserName = this.encrDecrService.set('123456$#@$^@1ERF', userName);
-          this.router.navigateByUrl(`forgot-password/${encryptedUserName}`);
+          // this.router.navigateByUrl(`forgot-password/${encryptedUserName}`);
+          this.router.navigateByUrl(`forgot-password/otp`);
           // console.log(encrypted);
         },
         err => {
           if (err.error.text == "Success") {
             this.msg = "OTP sent successfully to your registered email address..!";
+          } else if ((err.error.message).includes(`user with name ${userName} not found`)) {
+            this.notifierService.showNotification(NotifierMsg.invalidUserName, 'OK', 'error');
           } else if (err.status == 401 || err.stats == 403) {
             this.router.navigateByUrl('user/login');
           }

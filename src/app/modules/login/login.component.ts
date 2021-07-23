@@ -15,7 +15,7 @@ import { first } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
 
-  @Input() user_type;
+  @Input() user_type: string;
   role = Roles;
   loginForm: FormGroup;
   returnUrl: string;

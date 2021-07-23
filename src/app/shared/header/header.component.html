@@ -8,19 +8,23 @@
                 <ng-container *ngFor="let link of menu.menu">
                     <span *ngIf="menu.userType == user_role && !isLoggedIn && !link.active;">
                         <li> <a mat-button [routerLink]="link.routerLink"
-                            routerLinkActive="activeLink">{{link.label}}</a> 
+                            routerLinkActive="activeLink">{{link.label}}</a>
                         </li>
                     </span>
                     <span *ngIf="menu.userType == user_role && isLoggedIn && link.active;">
                         <li> <a mat-button [routerLink]="link.routerLink"
-                            routerLinkActive="activeLink">{{link.label}}</a> 
+                            routerLinkActive="activeLink">{{link.label}}</a>
                         </li>
                     </span>
                 </ng-container>
             </ng-container>
             <li> <a mat-button *ngIf="isLoggedIn" (click)="logout()" routerLinkActive="activeLink">Logout</a> </li>
-            <span *ngIf="isLoggedIn" class="material-icons logged">account_circle</span>
-            <span *ngIf="isLoggedIn" class="profile">{{this.authService.currentUserValue.userName}}</span>
+            <a (click)="myProfile()" style="cursor: pointer;">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <span *ngIf="isLoggedIn" class="material-icons logged">account_circle</span>
+                    <span *ngIf="isLoggedIn" class="profile">{{this.authService.currentUserValue.userName}}</span>
+                </div>
+            </a>
         </ul>
     </div>
 

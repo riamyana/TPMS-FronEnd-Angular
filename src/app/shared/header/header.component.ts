@@ -57,6 +57,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigate([`${this.user_role.toLowerCase()}/login`]);
   }
 
+  myProfile() {
+    this.router.navigate([`${this.user_role.toLowerCase()}/my-profile`]);
+  }
+
   get isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }

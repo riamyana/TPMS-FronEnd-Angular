@@ -36,7 +36,6 @@ export const userMenu: users[] = [
             { label: 'View Packages', routerLink: '/user/view-package', active: true },
             { label: 'Buy Package', routerLink: '/user/package', active: true },
             { label: 'Request Pass', routerLink: '/user/pass-request', active: true },
-            { label: 'My Profile', routerLink: '/user/my-profile', active: true },
             // { label: 'Manage Package', routerLink: '', active: true },
             // { label: 'View History', routerLink: '', active: true },
             { label: 'Login', routerLink: '/user/login', active: false },
@@ -109,12 +108,6 @@ export const sideNavMenu2: sideNav2[] = [
         label: 'Manage Pass Request',
         icon: 'thumbs_up_down',
         routerLink: 'pass-request'
-    },
-    {
-        userType: Roles.ADMIN,
-        label: 'Profile',
-        icon: 'person',
-        routerLink: 'my-profile'
     }
 ];
 export interface sideNav {

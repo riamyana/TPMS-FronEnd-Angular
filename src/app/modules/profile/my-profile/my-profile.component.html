@@ -1,39 +1,35 @@
-<!-- <div *ngIf="loader.isLoading | async" class="loader">
-    <mat-spinner style="top:20%; left:55%" color="primary"></mat-spinner>
-</div> -->
+<div *ngIf="loader.isLoading | async" class="loader">
+    <mat-spinner style="top:30%; left:55%" color="primary"></mat-spinner>
+</div>
 <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="space-around center" style="margin-top: 30px;" class="container">
-    <mat-card class="card" fxFlex="45" fxFlex.xs="100%" fxFlex.md="100%" fxLayout="row" >
-        <mat-card fxFlex="40" fxLayoutAlign="space-around center" class="image">
-            <img mat-card-image src="../../../../assets/undraw_profile_pic_ic5t.svg" alt="">
-            <input hidden type='file' #csvInput>
+    <mat-card class="card" fxFlex="45" fxFlex.xs="100%" fxFlex.md="100%" fxLayout="row">
+        <mat-card fxFlex="40" fxLayoutAlign="space-around center" class="image" fxLayout="column">
+            <img [src]="imageUrl" alt="">
+            <form [formGroup]="profileImageForm" (ngSubmit)="onUpdate()">
+                <input hidden type='file' #csvInput formControlName="profileImage" (change)="handleFileInput($event)">
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <button mat-stroked-button type="button" (click)="csvInput.click()" color="accent"
+                        style="color:black;" accept="image/*">Choose Image</button>
+                    <button type="submit" mat-stroked-button color="accent" style="color:black;">Change</button>
+                </div>
+            </form>
         </mat-card>
         <mat-card fxFlex="60" fxLayout="column">
             <mat-card-content>
-                <ng-container *ngFor="let profile of profileData | async">
-                    <table>
-                        <tr>
-                            <td class="name">{{profile.firstName | uppercase}} {{profile.lastName | uppercase}}</td>
-                        </tr>
-                        <tr fxLayout="row" fxLayoutGap="30px">
-                            <td><span class="material-icons" color="accent">person</span></td>
-                            <td>{{currentUser.userName}}</td>
-                        </tr>
-                        <tr fxLayout="row" fxLayoutGap="30px">
-                            <td><span class="material-icons">call</span></td>
-                            <td>{{profile.mobileNo}}</td>
-                        </tr>
-                        <tr fxLayout="row" fxLayoutGap="30px">
-                            <td><span class="material-icons">email</span></td>
-                            <td>{{currentUser.email}}</td>
-                        </tr>
-                    </table>
-                </ng-container>
+                <table>
+                    <tr fxLayout="row" fxLayoutGap="30px">
+                        <td><span class="material-icons" color="accent">person</span></td>
+                        <td>{{currentUser.userName}}</td>
+                    </tr><br />
+                    <tr fxLayout="row" fxLayoutGap="30px">
+                        <td><span class="material-icons">email</span></td>
+                        <td>{{currentUser.email}}</td>
+                    </tr>
+                </table>
             </mat-card-content>
             <mat-card-actions fxLayout="row" fxLayoutGap="20px">
-                <button mat-mini-fab color="accent" #tooltip="matTooltip" matTooltip="Update Profile" (click)="manageProfile()">
-                    <mat-icon>manage_accounts</mat-icon>
-                </button>
-                <button mat-mini-fab color="accent" #tooltip="matTooltip" matTooltip="Change Password" (click)="passwordChange()">
+                <button mat-mini-fab color="accent" #tooltip="matTooltip" matTooltip="Change Password"
+                    (click)="passwordChange()">
                     <mat-icon>password</mat-icon>
                 </button>
             </mat-card-actions>

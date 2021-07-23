@@ -8,6 +8,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ForgotPasswordService {
+  otp;
+  userName;
+  role;
 
   constructor(private http: HttpClient) { }
 
@@ -16,18 +19,30 @@ export class ForgotPasswordService {
       'Content-Type': 'application/json'
     });
 
-    return this.http.post<string>(`${environment.serverUrl}forgot-password/send-email`, userName, { headers: httpHeaders });
+    return this.http.post<string>(`${environment.serverUrl}forgot-password/send-email`, this.userName, { headers: httpHeaders });
   }
 
-  validateOTP(data: ForgtoPassword): Observable<any> {
+  validateOTP(): Observable<any> {
+    const data: ForgtoPassword = {
+      userName: this.userName,
+      otp: this.otp
+    }
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
 
-    return this.http.post<any>(`${environment.serverUrl}forgot-password/validate-otp/${data.userName}`, data, { headers: httpHeaders });
+    return this.http.post<any>(`${environment.serverUrl}forgot-password/validate-otp`, data, { headers: httpHeaders });
   }
 
-  changePassword(data: ForgtoPassword): Observable<any> {
+  changePassword(password: string): Observable<any> {
+    const data: ForgtoPassword = {
+      userName: this.userName,
+      otp: this.otp,
+      newPassword: password
+    };
+
+    console.log("const data");
+    console.log(data);
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });

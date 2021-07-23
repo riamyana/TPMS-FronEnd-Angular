@@ -18,3 +18,11 @@
     padding-bottom: 10px;
     color: red;
 }
+
+.loader {
+    position: absolute;
+    height: 100%;
+    width: 85%;
+    opacity: 0.8;
+    z-index: 99;
+}
