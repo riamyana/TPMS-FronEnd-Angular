@@ -22,6 +22,7 @@ import { ManageProfileComponent } from './manage-profile/manage-profile.componen
 import { MemberPackageComponent } from './member-package/member-package.component';
 import { ViewPackagesComponent } from './view-packages/view-packages.component';
 import { BuyPackageComponent } from './buy-package/buy-package.component';
+import { EnrolledPackageComponent } from './enrolled-package/enrolled-package.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { BuyPackageComponent } from './buy-package/buy-package.component';
     ManageProfileComponent,
     MemberPackageComponent,
     ViewPackagesComponent,
-    BuyPackageComponent
+    BuyPackageComponent,
+    EnrolledPackageComponent
   ],
   imports: [
     CommonModule,

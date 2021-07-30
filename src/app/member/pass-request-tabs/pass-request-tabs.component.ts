@@ -27,6 +27,7 @@ export class PassRequestTabsComponent implements OnInit {
   displayedColumns: string[] = ['requestId', 'date', 'status', 'edit'];
   dataSource: MemberProfile[];
   requested: boolean = false;
+  edit: boolean = false;
   status: string;
 
   public passRequestForm: FormGroup;
@@ -235,6 +236,7 @@ export class PassRequestTabsComponent implements OnInit {
   }
 
   onEdit(data: MemberProfile) {
+    this.edit = true;
     this.requested = false;
 
     this.passRequestService.getMemberProfile(data.memberId).subscribe(
@@ -269,6 +271,15 @@ export class PassRequestTabsComponent implements OnInit {
         console.log(err);
       }
     );
+
+    this.passRequestService.getMemberProofByMemberId(data.memberId).subscribe(
+      data => {
+        this.passRequestService.proofData = data;
+      },
+      err => {
+        console.log(err);
+      }
+    )
 
     this.passRequestService.childMemberProof = {
       memberTypeId: data.memberTypeId,

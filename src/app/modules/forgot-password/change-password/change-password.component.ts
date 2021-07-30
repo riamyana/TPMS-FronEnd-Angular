@@ -111,6 +111,7 @@ export class ChangePasswordComponent implements OnInit {
 
       this.service.userName = null;
       this.service.otp = null;
+      this.service.role = null;
     }
   }
 

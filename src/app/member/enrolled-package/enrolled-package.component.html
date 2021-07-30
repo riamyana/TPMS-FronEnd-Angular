@@ -1,0 +1,39 @@
+<div *ngIf="loader.isLoading | async" class="loader">
+    <mat-spinner style="top:7%; left:13%" color="primary"></mat-spinner>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center" class="card" fxLayoutGap="10px">
+    <mat-card fxFlex.xs="100" fxFlex.sm="50">
+        <mat-card-content fxLayout="column" fxLayoutGap="40px" style="padding-top: 10px;">
+            <div *ngIf="!enrolledPackageValue" fxLayout="row" fxLayoutAlign="center center" style="font-size: larger; font-weight: 550;">
+                No Enrolled Package yet..!
+            </div>
+            <ng-container *ngFor="let pck of enrolledPackage | async">
+                <table cell-spacing="0">
+                    <tr>
+                        <td class="heading">Pacakge Name</td>
+                        <td class="value">{{pck.name}}</td>
+                    </tr>
+                    <tr>
+                        <td class="heading">Transport Mode</td>
+                        <td class="value">{{pck.transportMode}}</td>
+                    </tr>
+                    <tr>
+                        <td class="heading">Available Balance</td>
+                        <td class="value">₹ {{pck.amount}}</td>
+                    </tr>
+                    <tr>
+                        <td class="heading">Start Date</td>
+                        <td class="value">{{pck.start}}</td>
+                    </tr>
+                    <tr>
+                        <td class="heading">End Date</td>
+                        <td class="value">{{pck.end}}</td>
+                    </tr>
+                </table>
+            </ng-container>
+        </mat-card-content>
+    </mat-card>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button type="submit" color="accent" [mat-dialog-close]="true">OK</button>
+</div>

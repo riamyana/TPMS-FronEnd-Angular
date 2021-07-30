@@ -68,7 +68,7 @@ export class BuyPackageComponent implements OnInit {
             this.updateEnrolledPackage();
             alert("in");
           } else {
-            this.notifierService.showNotification(NotifierMsg.packageEnrolled, 'OK', 'dialogInfo');
+            this.notifierService.showNotification(NotifierMsg.packageEnrolled, 'OK', 'information');
           }
         }
       },
@@ -118,7 +118,7 @@ export class BuyPackageComponent implements OnInit {
               currency: "INR",
               name: `Package Buy`,
               description: `Pass Id ${this.pass[0].serialNo}`,
-              image: "../../assets/TPMS_log2_background.png",
+              image: "../../../assets/TPMS_log2_background.png",
               order_id: data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
               handler: function (response) {
                 console.log(response.razorpay_payment_id);
@@ -182,6 +182,7 @@ export class BuyPackageComponent implements OnInit {
       data => {
         // this.notifierService.showNotification(NotifierMsg.successEnrolledPackage, 'OK', 'success');
         alert(NotifierMsg.successEnrolledPackage);
+        this.router.navigateByUrl('/user/package');
       },
       err => {
         if (err.status == 401 || err.status == 403) {

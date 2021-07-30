@@ -1,3 +1,4 @@
+import { EnrolledPackageComponent } from './member/enrolled-package/enrolled-package.component';
 import { BuyPackageComponent } from './member/buy-package/buy-package.component';
 import { ViewPackagesComponent } from './member/view-packages/view-packages.component';
 import { ManageProfileComponent } from './member/manage-profile/manage-profile.component';

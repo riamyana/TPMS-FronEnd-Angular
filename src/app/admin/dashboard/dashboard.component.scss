@@ -23,6 +23,13 @@
 .column {
   background-color: blue;
   width: 25%;
+  position: relative;
+}
+
+.column .mat-button {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 .container {

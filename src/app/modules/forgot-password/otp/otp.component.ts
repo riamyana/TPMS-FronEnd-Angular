@@ -48,6 +48,8 @@ export class OtpComponent implements OnInit {
         otp: otp
       };
 
+      const user_type = this.service.role;
+
       this.service.validateOTP().subscribe(
         data => {
           console.log(data);
@@ -55,7 +57,7 @@ export class OtpComponent implements OnInit {
             const encryptedUserName = this.routeParams.get('userName');
             const encryptedOTP = this.encrDecrService.set('123456$#@$^@1ERF', otp);
             // this.router.navigateByUrl(`forgot-password/${encryptedUserName}/${encryptedOTP}`);
-            this.router.navigateByUrl(`forgot-password/otp/change-password`);
+            this.router.navigateByUrl(`${user_type}/forgot-password/otp/change-password`);
           } else if (data.message == "Failure") {
             this.msg = "OTP is invalid..!"
           }
