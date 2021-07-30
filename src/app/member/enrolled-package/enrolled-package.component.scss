@@ -1,0 +1,32 @@
+.card {
+    padding:40px;
+}
+
+.heading {
+    font-size: larger;
+    font-weight: 550;
+}
+
+.mat-card-content {
+    background-color: rgb(120, 213, 205);
+}
+
+td {
+    padding: 7px;
+}
+
+.value {
+    font-size: larger;
+}
+
+.mat-card {
+    width: 20vw;
+}
+
+.loader {
+    position: absolute;
+    height: 100%;
+    width: 85%;
+    opacity: 0.8;
+    z-index: 99;
+}

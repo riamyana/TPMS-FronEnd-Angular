@@ -32,7 +32,7 @@
 
   <div fxLayout="column" *ngIf="!requested">
     <div>
-      <button mat-raised-button class="back" (click)="requested=true"><mat-icon>arrow_back</mat-icon>Back</button>
+      <button mat-raised-button class="back" (click)="requested=true" *ngIf="edit"><mat-icon>arrow_back</mat-icon>Back</button>
     </div>
 
     <div class="container">

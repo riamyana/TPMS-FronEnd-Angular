@@ -17,6 +17,7 @@ export class ForgotPasswordComponent implements OnInit {
   forgotPasswordForm: FormGroup;
   msg: string;
   userName: string;
+  user_type: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,6 +32,8 @@ export class ForgotPasswordComponent implements OnInit {
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
     this.userName = routeParams.get('userName');
+    this.user_type = routeParams.get('user_type');
+    this.service.role = this.user_type;
 
     this.forgotPasswordForm = this.formBuilder.group({
       userName: ['', Validators.required]
@@ -48,7 +51,7 @@ export class ForgotPasswordComponent implements OnInit {
           this.msg = "OTP sent successfully to your registered email address..!";
           const encryptedUserName = this.encrDecrService.set('123456$#@$^@1ERF', userName);
           // this.router.navigateByUrl(`forgot-password/${encryptedUserName}`);
-          this.router.navigateByUrl(`forgot-password/otp`);
+          this.router.navigateByUrl(`${this.user_type}/forgot-password/otp`);
           // console.log(encrypted);
         },
         err => {

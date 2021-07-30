@@ -65,7 +65,15 @@ export class StationComponent implements OnInit {
     dialogConfig.autoFocus = true;
 
     const dialogRef = this.dialog.open(AddUpdateStationComponent, dialogConfig);
-    this.getStations();
+    // this.getStations();
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.listData.data.push(result);
+        this.listData._updateChangeSubscription();
+        this.listData.paginator = this.paginator;
+        this.listData.sort = this.sort;
+      }
+    });
   }
 
   applyFilter(event: Event) {
@@ -83,11 +91,11 @@ export class StationComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUpdateStationComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // this.listData._updateChangeSubscription();
-        // this.listData.paginator = this.paginator;
-        // this.listData.sort = this.sort;
+        this.listData._updateChangeSubscription();
+        this.listData.paginator = this.paginator;
+        this.listData.sort = this.sort;
 
-        this.getStations();
+        // this.getStations();
       }
     });
   }

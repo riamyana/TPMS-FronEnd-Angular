@@ -1,3 +1,5 @@
+import { EnrolledPackageComponent } from './../../../member/enrolled-package/enrolled-package.component';
+import { Roles } from './../../../constants/roles';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserModel } from './../../../_models/userModel';
 import { AuthenticationService } from './../../../_services/authentication.service';
@@ -26,6 +28,7 @@ export class MyProfileComponent implements OnInit {
   imageUrl: string | ArrayBuffer = "../../../../assets/undraw_profile_pic_ic5t.svg";
   profileImageForm: FormGroup;
   fileToUpload: File;
+  roles = Roles;
 
   constructor(
     public dialog: MatDialog,
@@ -64,6 +67,10 @@ export class MyProfileComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     this.dialog.open(ResetPasswordComponent, dialogConfig);
+  }
+
+  packageDetails() {
+    this.dialog.open(EnrolledPackageComponent);
   }
 
   getProfile() {

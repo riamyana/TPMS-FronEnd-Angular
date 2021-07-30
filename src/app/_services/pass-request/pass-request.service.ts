@@ -1,3 +1,4 @@
+import { Proof } from './../../_models/Proof/proof';
 import { PassByMember } from './../../_models/passByMemberId';
 import { StatusCategory } from './../../_models/statusCategoryEnum';
 import { MemberProof } from './../../_models/memberProof';
@@ -23,6 +24,7 @@ export class PassRequestService {
   memberProof: MemberProof;
   file: File[] = [];
   childMemberProof: ProofsValue;
+  proofData: Proof[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -153,7 +155,7 @@ export class PassRequestService {
 
   updateProof(i: number, proof: FormArray, memberId: number) {
     this.memberProof = {
-      memProofId: proof.controls[i].get('memProofId').value,
+      memProofId: this.proofData[i] ? this.proofData[i].memProofId : 0,
       proofId: proof.controls[i].get('proofId').value,
       memberId: memberId,
       proofImage: proof.controls[i].get('proofName').value
@@ -218,5 +220,9 @@ export class PassRequestService {
 
   getPassByMemberId(memberId: number): Observable<PassByMember> {
     return this.http.get<PassByMember>(`${environment.serverUrl}passes/member/${memberId}`);
+  }
+
+  getMemberProofByMemberId(id: number): Observable<Proof[]> {
+    return this.http.get<Proof[]>(`${environment.serverUrl}member/${id}/member-proofs`);
   }
 }

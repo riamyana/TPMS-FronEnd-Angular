@@ -32,6 +32,11 @@
                     (click)="passwordChange()">
                     <mat-icon>password</mat-icon>
                 </button>
+
+                <button mat-mini-fab color="accent" #tooltip="matTooltip" matTooltip="View Enrolled Package"
+                    (click)="packageDetails()" *ngIf="currentUser.role == roles.USER">
+                    <mat-icon>inventory</mat-icon>
+                </button>
             </mat-card-actions>
         </mat-card>
     </mat-card>

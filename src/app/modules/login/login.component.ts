@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
           if (this.user_type == Roles.ADMIN)
             this.router.navigateByUrl('admin/dashboard');
           else if (this.user_type == Roles.USER)
-            this.router.navigateByUrl('user/package');
+            this.router.navigateByUrl('user/view-package');
         },
         error => {
           if (error.status == 401 || error.status == 403) {
